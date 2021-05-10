@@ -1,6 +1,13 @@
-{% extends 'layouts/base.html' %}
+{% if session['username'] == "admin" %}
+    {% extends "base2.html" %}
+{% else %}
+    {% extends "base.html" %}
+{% endif %}
 
-{% block PageContent %}
+{% block title %}Library Loan System - Create User{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
 <style>
 
 
@@ -107,7 +114,7 @@ body{
 }
 
 </style>
-<h1 class="display-4">Registration</h1>
+<h1 class="display-4">Create New Account</h1>
 
 <div class="registration-form">
     <form method="POST" action="">
@@ -123,28 +130,29 @@ width: 100px;
         <div>
         </div>
         <div class="form-group">
-			<label for="name">Name</label>
-			<input type="text" class="form-control" name="name" value="{{name}}" required>
-        </div>
-        <div class="form-group">
-			<label for="email">Email</label>
-			<input type="email" name="email" class="form-control" value="{{email}}" required>
+                    {{ render_field(form.username, class="form-control") }}
 
         </div>
         <div class="form-group">
-			<label for="password">Password</label>
-			<input type="password" name="password" class="form-control" value="{{password}}" required>
+            {{ render_field(form.password, class="form-control") }}
+
         </div>
         <div class="form-group">
-			<label for="password2">Confirm Password</label>
-			<input type="password" name="password2" class="form-control" value="{{password2}}" required>
+            {{ render_field(form.email, class="form-control") }}
+
         </div>
-<!-- 		
         <div class="form-group">
-			<button type="submit" class="btn btn-primary">Submit</button>
+            {{ render_field(form.phone_number, class="form-control") }}
 
-        </div> -->
+        </div>
+        <div class="form-group">
+            {{ render_field(form.address, class="form-control") }}
 
+        </div>
+        <div class="form-group">
+            {{ render_field(form.role2, class="form-control") }}
+
+        </div>
         <div class="form-group">
             <button type="submit" value="Submit" class="btn btn-block create-account">Submit</button>
 

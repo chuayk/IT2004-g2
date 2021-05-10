@@ -1,10 +1,5 @@
 {% extends 'layouts/base.html' %}
 
-
-
-<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
-
-{% block PageContent %}
 <style>
 :root {
   --input-padding-x: 1.5rem;
@@ -124,9 +119,15 @@ body {
   color: white;
   background-color: #3b5998;
 }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 
 </style>
 
+
+<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
+{% block PageContent %}
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-xl-9 mx-auto">
@@ -138,15 +139,16 @@ body {
             <h5 class="card-title text-center">Welcome to Breadington!</h5>
             <form class="form-signin" method="post">
               <div class="form-label-group">
-				<input type="email" name="email" class="form-control" value="{{email}}" required>
-                  <label for="inputUserame">Email</label>
+        <input type="text" id="inputUserame" class="form-control" placeholder="Username" name="username" value="{{
+          request.form.username }}" required autofocus>
+                  <label for="inputUserame">Username</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" name="password" class="form-control" value="{{password}}" required>
-                <label for="inputEmail">Password</label>
+         <input type="password" id="inputEmail" class="form-control" placeholder="Password" name="password" value="{{
+          request.form.password }}" required>
+                  <label for="inputEmail">Password</label>
               </div>
-
                 {% if error %}
                 <p style="color:red">Invalid username or password!</p>
                 {% endif %}
@@ -162,9 +164,7 @@ body {
       </div>
     </div>
   </div>
-
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
   {% endblock PageContent %}
