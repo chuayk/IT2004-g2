@@ -1,0 +1,566 @@
+
+{% extends 'layouts/base.html' %}
+
+<!-- {% if role == "Staff" %}
+    {% extends "base2.html" %}
+{% elif name == "admin" %}
+    {% extends "base2.html" %}
+{% else %}
+    {% extends "base.html" %} -->
+{% endif %}{% block title %}Library Loan System - Testing{% endblock %}
+
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<style>
+              body{
+background:#eee;
+padding-bottom: 25px;
+}
+
+/* CONTACTS */
+.contact-box {
+  background-color: #ffffff;
+  border: 1px solid #e7eaec;
+  padding: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.contact-box > a {
+  color: inherit;
+}
+.contact-box.center-version {
+  border: 1px solid #e7eaec;
+  padding: 0;
+}
+.contact-box.center-version > a {
+  display: block;
+  background-color: #ffffff;
+  padding: 20px;
+  text-align: center;
+}
+.contact-box.center-version > a img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+.contact-box.center-version address {
+  margin-bottom: 0;
+}
+.contact-box .contact-box-footer {
+  text-align: center;
+  background-color: #ffffff;
+  border-top: 1px solid #e7eaec;
+  padding: 15px 20px;
+}
+.contact-box .contact-box-footer input {
+width: 185px;
+margin-top: 6px;
+
+}
+
+a{
+    text-decoration:none !important;
+}
+
+COmmen section!
+
+body{ background: #fafafa;}
+.widget-area.blank {
+background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+-ms-box-shadow: none;
+-o-box-shadow: none;
+box-shadow: none;
+}
+body .no-padding {
+padding: 0;
+}
+.widget-area {
+background-color: #fff;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+-moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+-ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+-o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+float: left;
+padding: 20px 30px;
+position: relative;
+width: 204%;
+}
+.status-upload {
+background: none repeat scroll 0 0 #f5f5f5;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+float: left;
+width: 100.5%;
+}
+.status-upload form {
+float: left;
+width: 100%;
+}
+.status-upload form textarea {
+background: none repeat scroll 0 0 #fff;
+border: medium none;
+-webkit-border-radius: 4px 4px 0 0;
+-moz-border-radius: 4px 4px 0 0;
+-ms-border-radius: 4px 4px 0 0;
+-o-border-radius: 4px 4px 0 0;
+border-radius: 4px 4px 0 0;
+color: #777777;
+float: left;
+font-family: Lato;
+font-size: 14px;
+height: 142px;
+letter-spacing: 0.3px;
+padding: 20px;
+width: 100%;
+resize:vertical;
+outline:none;
+border: 1px solid #F2F2F2;
+}
+
+.status-upload ul {
+float: left;
+list-style: none outside none;
+margin: 0;
+padding: 0 0 0 15px;
+width: auto;
+}
+.status-upload ul > li {
+float: left;
+}
+.status-upload ul > li > a {
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+color: #777777;
+float: left;
+font-size: 14px;
+height: 30px;
+line-height: 30px;
+margin: 10px 0 10px 10px;
+text-align: center;
+-webkit-transition: all 0.4s ease 0s;
+-moz-transition: all 0.4s ease 0s;
+-ms-transition: all 0.4s ease 0s;
+-o-transition: all 0.4s ease 0s;
+transition: all 0.4s ease 0s;
+width: 30px;
+cursor: pointer;
+}
+.status-upload ul > li > a:hover {
+background: none repeat scroll 0 0 #606060;
+color: #fff;
+}
+.status-upload form input {
+border: medium none;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+color: #fff;
+float: right;
+font-family: Lato;
+font-size: 14px;
+letter-spacing: 0.3px;
+margin-right: 9px;
+margin-top: 9px;
+padding: 6px 15px;
+}
+.dropdown > a > span.green:before {
+border-left-color: #2dcb73;
+}
+.status-upload form input > i {
+margin-right: 7px;
+}
+
+
+.align-center {
+    text-align: center;
+}
+.hash-list {
+    display: block;
+    padding: 0;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px){
+    .hash-list.cols-3 > li:nth-last-child(-n+3) {
+        border-bottom: none;
+    }
+}
+@media (min-width: 768px){
+    .hash-list.cols-3 > li {
+        width: 33.3333%;
+    }
+}
+.hash-list > li {
+    display: block;
+    float: left;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.pad-30, .pad-30-all > * {
+    padding: 30px;
+}
+img {
+    border: 0;
+}
+.mgb-20, .mgb-20-all > * {
+    margin-bottom: 20px;
+}
+.wpx-100, .wpx-100-after:after {
+    width: 100px;
+}
+.img-round, .img-rel-round {
+    border-radius: 50%;
+}
+.padb-30, .padb-30-all > * {
+    padding-bottom: 30px;
+}
+
+.mgb-40, .mgb-40-all > * {
+    margin-bottom: 40px;
+}
+.align-center {
+    text-align: center;
+}
+[class*="line-b"] {
+    position: relative;
+    padding-bottom: 20px;
+    border-color: #E6AF2A;
+}
+.fg-text-d, .fg-hov-text-d:hover, .fg-active-text-d.active {
+    color: #222;
+}
+.font-cond-b {
+    font-weight: 700 !important;
+}
+
+
+        .navbar {
+        height: 70px;
+        }
+
+
+        .navbar-light .navbar-brand {
+        color: #fff;
+        font-size: 25px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 2px;
+        }
+
+        .navbar {
+        background-color: #000
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+        color: #fff;
+        }
+
+
+#London {
+
+    border-style: groove;
+      border-color: coral;
+      background-color: #ffcccb;
+      width: 75%;
+      margin: auto;
+
+  }
+
+
+#Paris {
+
+    border-style: groove;
+      border-color: #28a745;
+      background-color: #d3f8d3;
+      width: 75%;
+      margin: auto;
+
+  }
+
+
+
+
+
+
+
+
+
+</style>
+{% block PageContent %}
+
+<h1 class="display-4" style="text-align: center; padding-bottom: 25px; padding-top: 30px;font-weight: 500; ">Write us a review!</h1>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<div class="w3-bar w3-black" style="text-align:center">
+    <button class="btn btn-danger" onclick="openCity('London')">Complain</button>
+    <button class="btn btn-success" onclick="openCity('Paris')">Compliment</button>
+</div>
+
+
+
+<div id="London" class="w3-container city" style="text-align:center;">
+    <div class="container justify-content-center">
+        <div class="row">
+            {% set count = namespace(value=0) %}
+            {% for user in users_list %}
+            {% if user.get_comment() != "" and user.get_type() == "complain" %}
+                  {% set count.value = count.value + 1 %}
+
+
+            <div class="col-md-3">
+                <div class="contact-box center-version">
+                    <a href="#" data-toggle="modal" data-target="#bannerformmodal{{ user.get_username() }}">
+                        <div class="modal fade bannerformmodal{{user.get_username()}}" tabindex="-1" role="dialog"
+                             aria-labelledby="bannerformmodal" aria-hidden="true"
+                             id="bannerformmodal{{ user.get_username() }}">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">{{ user.get_username() }}'s
+                                                comment</h4></div>
+
+                                        <div class="modal-body">
+                                            <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                                 alt="">
+                                            <p>Name: {{ user.get_username() }} </p>
+                                            <p>Role: {{ user.get_role() }} </p>
+                                            <p>Comment: {{ user.get_comment() }} </p>
+                                            <p>Comment type: {{user.get_type() }}</p>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <img alt="image" class="img-circle"
+                             src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png">
+                        <!-- {% if user.get_role() == "Guest" %} -->
+                        <!-- <h3 class="m-b-xs"><strong>{{ user.get_username() }}</strong></h3> -->
+                        <!-- {% else %}
+                        <h3 class="m-b-xs"><strong>{{ user.get_username() }} <span
+                                style="color:red">(Staff)</span></strong>
+                        </h3>
+                        {% endif %} -->
+
+
+                        <div class="font-bold">
+                            <!-- {{user.get_comment()}} -->
+
+                        </div>
+                    </a>
+
+                    <form id="package_form" action="" method="post">
+                        <div class="contact-box-footer">
+                            <div class="m-t-xs">
+
+                                <!-- {% if session['username'] == user.get_username() %} -->
+                                <input type="submit" class="btn btn-warning" name="submit_button"
+                                       value="Update Comment">
+                                <!-- {% endif %} -->
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <!-- {% endif %}
+            {% endfor %}
+            {% if count.value == 0 %} -->
+            <h3 style="margin: auto;"><br> <br>  No comments... <br> Leave one? :) <br> <br> <br> </h3>
+            <!-- {% endif %} -->
+
+
+        </div>
+    </div>
+</div>
+
+<div id="Paris" class="w3-container city" style="display:none;text-align:center">
+    <div class="container justify-content-center">
+    <div class="row">
+        {% set count2 = namespace(value=0) %}
+        {% for user in users_list %}
+        {% if user.get_comment() != "" and user.get_type() == "compliment" %}
+                          {% set count2.value = count.value + 1 %}
+
+
+
+        <div class="col-md-3">
+            <div class="contact-box center-version">
+                <a href="#" data-toggle="modal" data-target="#bannerformmodal{{ user.get_username() }}">
+                    <div class="modal fade bannerformmodal{{user.get_username()}}" tabindex="-1" role="dialog"
+                         aria-labelledby="bannerformmodal" aria-hidden="true"
+                         id="bannerformmodal{{ user.get_username() }}">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">{{ user.get_username() }}'s
+                                            comment</h4></div>
+
+                                    <div class="modal-body">
+                                        <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                             alt="">
+                                        <p>Name: {{ user.get_username() }} </p>
+                                        <p>Role: {{ user.get_role() }} </p>
+                                        <p>Comment: {{ user.get_comment() }} </p>
+                                        <p>Comment type: {{user.get_type() }}</p>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <img alt="image" class="img-circle"
+                         src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png">
+                    {% if user.get_role() == "Guest" %}
+                    <h3 class="m-b-xs"><strong>{{ user.get_username() }}</strong></h3>
+                    {% else %}
+                    <h3 class="m-b-xs"><strong>{{ user.get_username() }} <span style="color:red">(Staff)</span></strong>
+                    </h3>
+                    {% endif %}
+
+
+                    <div class="font-bold">
+                        {{user.get_comment()}}
+
+                    </div>
+                </a>
+
+                <form id="package_form" action="" method="post">
+                    <div class="contact-box-footer">
+                        <div class="m-t-xs">
+
+                            {% if session['username'] == user.get_username() %}
+                            <input type="submit" class="btn btn-warning" name="submit_button" value="Update Comment">
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+            {% if count2.value == 0 %}
+            <h3 style="margin: auto;"><br> <br>  No comments... <br> Leave one? :) <br> <br> <br> </h3>
+            {% endif %}
+
+
+    </div>
+    </div>
+</div>
+
+
+<br>
+{% if role == "Staff" %}
+<form action="" method="post">
+    <div class="col-xs-1" align="center" style="margin-top: 30px;">
+        <input type="submit" class="btn btn-danger btn-lg" name="submit_button" value="Remove All Comments">
+
+    </div>
+</form>
+{% endif %}
+<br>
+
+{% for user in users_list %}
+{% if session['username'] == user.get_username() and user.get_comment() == "" %}
+
+<div class="container">
+    <div class="row">
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="widget-area no-padding blank">
+                <div class="status-upload">
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            {{ render_field(form.comment, class="form-control") }}
+                        </div>
+
+                        <ul>
+                            {{ render_field(form.comment_type, class="form-control") }}
+
+                        </ul>
+
+                        <input type="submit" class="btn btn-success green" name="submit_button" value="Share comment">
+
+                    </form>
+                </div><!-- Status Upload  -->
+            </div><!-- Widget Area -->
+        </div>
+
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
+
+<script>
+function openCity(cityName) {
+  var i;
+  var x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  document.getElementById(cityName).style.display = "block";
+}
+
+// {% if testing == "compliment" %}
+// openCity('Paris')
+// {% else %}
+// openCity('London')
+// {% endif %}
+// </script>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+-->
+
+<!-- {% endblock %} -->
+{% endblock PageContent %}
