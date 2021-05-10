@@ -2,9 +2,11 @@
  * This example uses Nunjucks template engine for rendering pages
  */
 
+
 import Express         from 'express';
 import ExpSession      from 'express-session';
 import BodyParser      from 'body-parser';
+import urlencoded	   from 'urlencode';
 import CookieParser    from 'cookie-parser';
 import MethodOverrides from 'method-override';
 import Path            from 'path';
