@@ -13,7 +13,10 @@ export class Code{
     get_type() {
         return this.type;
     } 
-    
+    create_end(duration) {
+        var today = Date()
+        this.end = today.setDate(today.getDate()+duration)
+    }
 }
 export class Rewards{
     constructor(id,amount,type,duration){
