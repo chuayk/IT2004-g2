@@ -1,11 +1,16 @@
+
 export class Code{
     constructor(code, amount, type){
         this.code = code;
         this.amount = amount;
         this.type = type;
     }
-    get_code() {
+    /**@returns {string} */
+    get code() {
         return this.code;
+    }
+    set code(code){
+        this.code = code;
     }
     get_amount() {
         return this.amount;
