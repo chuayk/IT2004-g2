@@ -4,9 +4,9 @@ const { Sequelize, DataTypes, Model } = ORM;
 /**
  * For enumeration use
 **/
-export class CodeType {
-	static get Percent() { return "%"; }
-	static get Dollars()  { return "$";  }
+export class UserRole {
+	static get Admin() { return "admin"; }
+	static get User()  { return "user";  }
 }
 
 /**
@@ -22,12 +22,9 @@ export class ModelCode extends Model {
 	 * @param {Sequelize} database The configured Sequelize handle
 	**/
 	static initialize(database) {
-		ModelUser.init({
+		ModelCode.init({
 			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
-			"code"       : { type: DataTypes.NUMBER(),      allowNull: false },
-			//"enddate": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"type"       : { type: DataTypes.ENUM(CodeType.Dollars,CodeType.Percent), defaultValue: CodeType.Percent, allowNull: false },
-			"amount"   : { type: DataTypes.NUMBER(),     allowNull: false, defaultValue: false }
+			"code"       : { type: DataTypes.NUMBER()}
 		}, {
 			"sequelize": database,
 			"modelName": "Codes",

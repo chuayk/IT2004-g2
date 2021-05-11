@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { CodeType } from '../data/code.mjs';
 
 const router = Router();
 export default router;
@@ -42,20 +41,11 @@ async function create_code_process(req, res) {
 	}
 
 	//	Create new code, now that details are valid
-	try {
 		const code = await ModelCode.create({
 				code:    req.body.code,
-				amount:     req.body.amount
 		});
 		console.log("code saved")
 		return res.redirect("/staff/createcode");
-	}
-	catch (error) {
-		//	Else internal server error
-		console.error(`Failed to create a new code `);
-		console.error(error);
-		return res.status(500).end();
-	}
 }
 
 // end of dumb codes

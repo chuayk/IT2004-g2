@@ -11,7 +11,7 @@ import {initialize_models } from './models.mjs';
 const Config = {
 	database: 'itp211',
 	username: 'itp211',
-	password: 'itp211',
+	password: 'P@ssword123',
 	host    : 'localhost',
 	port    : 3306
 };

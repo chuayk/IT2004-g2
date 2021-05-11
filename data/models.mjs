@@ -2,7 +2,7 @@ import Hash   from 'hash.js'
 import ORM    from 'sequelize';
 const { Sequelize } = ORM;
 
-import { ModelCode } from './user.mjs';
+import { ModelCode } from './code.mjs';
 
 /**
  * @param database {ORM.Sequelize}
@@ -40,11 +40,10 @@ export function initialize_models(database) {
 		console.log("Generating root administrator account");
 		const root_parameters = {	
 			uuid    : "00000000-0000-0000-0000-000000000000",
-			code    : "root",
-			amount   : "root@mail.com"
+			code    : 123
 		};
 		//	Find for existing account with the same id, create or update
-		var account = await ModelUser.findOne({where: { "uuid": root_parameters.uuid }});
+		var account = await ModelCode.findOne({where: { "uuid": root_parameters.uuid }});
 		
 		account = await ((account) ? account.update(root_parameters): ModelCode.create(root_parameters));
 		
