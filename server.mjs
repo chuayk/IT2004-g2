@@ -10,6 +10,7 @@ import urlencoded	   from 'urlencode';
 import CookieParser    from 'cookie-parser';
 import MethodOverrides from 'method-override';
 import Path            from 'path';
+import passport 	   from 'passport';
 
 import Nunjcks         from 'nunjucks';
 
