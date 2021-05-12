@@ -2,6 +2,8 @@ import bodyParser from 'body-parser';
 import { response, Router } from 'express';
 import urlencoded from 'urlencode';
 import alertMessage from 'flash-messenger';
+import user from '../data/models.mjs';
+import bcrypt from 'bcryptjs';
 
 
 
@@ -30,8 +32,11 @@ router.post("/login", async function(req, res) {
 	});
 });
 
+import {test} from '../data/user.mjs';
+
 
 router.post('/register', (req, res) => {
+	let password = req.body.password;
 	if (req.body.password.length < 4){
 		return res.send('Password must be at least 4 characters')
 	}
@@ -39,13 +44,24 @@ router.post('/register', (req, res) => {
 		// alertMessage(res, 'danger',
 		// 'Passwords do not match', 'fas fa-exclamation-circle', false);
 		return res.send('Passwords do not match')
-
 	}
 	else {
 		// alertMessage(res, 'success',
 		//  `${req.body.email} registered successfully`, 'fas fa-sign-in-alt', true);
-		return res.send(`${req.body.email} registered successfully`)
-
+		// return res.send(`${req.body.email} registered successfully`)
+		bcrypt.genSalt(10, function(err, salt) {
+			bcrypt.hash(password, salt, function(err, hash) {
+				console.log(hash);
+				password = hash;	
+				test.create({username: req.body.username , email: req.body.email, password: password})
+				.then(user => {
+				alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
+				res.redirect('/showLogin');
+				})
+				.catch(err => console.log(err));
+			});
+		});
+		return res.redirect('login')
 	}
 
 	res.render('user/register') 
