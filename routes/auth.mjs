@@ -1,11 +1,16 @@
-import bodyParser from 'body-parser';
-import { response, Router } from 'express';
-import urlencoded from 'urlencode';
-import alertMessage from 'flash-messenger';
-import user from '../data/models.mjs';
-import bcrypt from 'bcryptjs';
-import passport from 'passport';
+import bodyParser 				from 'body-parser';
+import urlencoded 				from 'urlencode';
+import alertMessage 			from 'flash-messenger';
+import user 					from '../data/models.mjs';
+import bcrypt 					from 'bcryptjs';
+import passport 				from 'passport';
+import Hash             		from 'hash.js';
+import { response, Router } 	from 'express';
 
+
+
+
+import {test} from '../data/user.mjs';
 
 
 const router = Router();
@@ -21,18 +26,31 @@ router.get("/login",      async function(req, res) {
 	return res.render('auth/login.html');
 });
 
+
 router.get("/register", async function(req, res) {
 	console.log("Register page accessed");
 	return res.render('auth/register.html');
 })
 
+
 router.post("/login", async function(req, res) {
-	console.log("Home page accessed");
-	return res.render('home.html', {
-	});
+
+	console.log("Incoming Request");
+	console.log(req.body);
+
+	test.findOne({ where: {email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")} })
+	.then(user => {
+	if (user) {
+		console.log("Welcome back.")
+		return res.redirect('/')
+
+	}
+	else {
+		return res.redirect('login')
+	}
+})
 });
 
-import {test} from '../data/user.mjs';
 
 
 router.post('/register', (req, res) => {
@@ -63,23 +81,14 @@ router.post('/register', (req, res) => {
 			// 	});
 				}
 		else{
-		bcrypt.genSalt(10, function(err, salt) {
-			bcrypt.hash(password, salt, function(err, hash) {
-				console.log(hash);
-				password = hash;	
-				test.create({username: req.body.username , email: req.body.email, password: password})
+				test.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")})
 				.then(user => {
 				alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
 
 				})
 				.catch(err => console.log(err));
-			});
-		});
 		return res.redirect('login')
-
-		
 	}
 	});
 	}
-
 });
