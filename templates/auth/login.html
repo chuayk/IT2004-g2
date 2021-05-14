@@ -135,7 +135,9 @@ body {
              <!-- Background image for card set in CSS! -->
           </div>
           <div class="card-body">
-            <h5 class="card-title text-center">Welcome to Breadington!</h5>
+            <h5 class="card-title text-center"> Welcome to Breadington! 
+
+            </h5>
             <form class="form-signin" method="post">
               <div class="form-label-group">
 				<input type="email" name="email" class="form-control" value="{{email}}" required>
@@ -162,6 +164,87 @@ body {
       </div>
     </div>
   </div>
+
+    <!-- Modal for successful login -->
+    <div class="modal fade" id="successmodal" tabindex="-1" role="dialog" aria-labelledby="successmodalLabel2" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successmodalLabel" style="color:greenyellow;">Success!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p style="color: greenyellow;">Successfully registered an account. Please login.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Modal for successful login -->
+        <div class="modal fade" id="successful_login" tabindex="-1" role="dialog" aria-labelledby="successful_loginLabel2" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="successful_loginLabel" style="color:greenyellow;">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p style="color: greenyellow;">Registration successful! Please login.
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+                <!-- Modal for unsuccessful login -->
+    <div class="modal fade" id="unsuccessful_login" tabindex="-1" role="dialog" aria-labelledby="unsuccessful_loginLabel2" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="unsuccessful_loginLabel2" style="color: red;">Warning!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p style="color: red;">Login failed! incorrect username or password.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+  {% if successx == true %}
+  <script>
+    $('#successmodal').modal('show');
+  </script>
+  {% endif %}
+
+  {% if param1 == "success" %}
+    <script>
+    $('#successful_login').modal('show');
+  </script>
+{% endif %}
+
+{% if login_failed == true %}
+<script>
+$('#unsuccessful_login').modal('show');
+</script>
+{% endif %}
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

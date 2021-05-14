@@ -12,7 +12,6 @@ import { response, Router } 	from 'express';
 
 import {test} from '../data/user.mjs';
 
-
 const router = Router();
 // const urlencodedParser = bodyParser.urlencoded({ extended: false });
 export default router;
@@ -23,7 +22,11 @@ export default router;
 
 router.get("/login",      async function(req, res) {
 	console.log("Login page accessed");
-	return res.render('auth/login.html');
+	// return res.render('auth/login.html');
+	return res.render('auth/login.html', {
+		author: true,
+		param1: req.query.param1
+	});
 });
 
 
@@ -31,6 +34,9 @@ router.get("/register", async function(req, res) {
 	console.log("Register page accessed");
 	return res.render('auth/register.html');
 })
+
+
+// lack Successful login alert, but need password & cookies (session)
 
 
 router.post("/login", async function(req, res) {
@@ -43,15 +49,28 @@ router.post("/login", async function(req, res) {
 	if (user) {
 		console.log("Welcome back.")
 		return res.redirect('/')
+	}
+	// else if (test.findOne({ where: {email: req.body.email} }))
+	// {
+	// 	console.log("Invalid email!")
+	// 	return res.redirect('login')
 
-	}
+
+	// }
+	// else if (test.findOne({ where: {email: req.body.email} }) )
 	else {
-		return res.redirect('login')
-	}
+		// return res.redirect('login')
+		return res.render('auth/login.html', {
+			login_failed: true,
+		});	}
 })
 });
 
 
+
+// If email already registered
+// if username already registered
+// Successful!
 
 router.post('/register', (req, res) => {
 	let {username, email, password, password2} = req.body;
@@ -70,25 +89,34 @@ router.post('/register', (req, res) => {
 		test.findOne({ where: {email: req.body.email} })
 		.then(user => {
 		if (user) {
-			console.log("already registered.")
-			res.render('auth/register.html')
-			// res.render('/register', {
-			// 	// error: user.email + ' already registered'
-			// 	username,
-			// 	email,
-			// 	password,
-			// 	password2
-			// 	});
+			console.log("email already registered.")
+			return res.render('auth/register.html', {
+				registeredEmail: true,
+			});
 				}
+
+		test.findOne({ where: {username: req.body.username} })
+		.then(user => {
+			if (user) {
+				console.log("username already registered.")
+				return res.render('auth/register.html', {
+					registeredUsername: true,
+				});
+			}
+	
+				
 		else{
 				test.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")})
 				.then(user => {
-				alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
-
+				// alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
+				return res.redirect('login/?param1=success')
 				})
 				.catch(err => console.log(err));
-		return res.redirect('login')
+	
 	}
 	});
+
+	});
 	}
+
 });
