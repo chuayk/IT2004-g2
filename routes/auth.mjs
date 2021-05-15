@@ -3,14 +3,13 @@ import urlencoded 				from 'urlencode';
 import alertMessage 			from 'flash-messenger';
 import user 					from '../data/models.mjs';
 import bcrypt 					from 'bcryptjs';
-import passport 				from 'passport';
+import Passport 				from 'passport';
 import Hash             		from 'hash.js';
 import { response, Router } 	from 'express';
 
 
 
-
-import {test} from '../data/user.mjs';
+import {ModelUser} from '../data/user.mjs';
 
 const router = Router();
 // const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -24,7 +23,6 @@ router.get("/login",      async function(req, res) {
 	console.log("Login page accessed");
 	// return res.render('auth/login.html');
 	return res.render('auth/login.html', {
-		author: true,
 		param1: req.query.param1
 	});
 });
@@ -44,20 +42,21 @@ router.post("/login", async function(req, res) {
 	console.log("Incoming Request");
 	console.log(req.body);
 
-	test.findOne({ where: {email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")} })
+	ModelUser.findOne({ where: {email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")} })
 	.then(user => {
 	if (user) {
 		console.log("Welcome back.")
-		return res.redirect('/')
+		return res.redirect('/?logged_in=true')
+
 	}
-	// else if (test.findOne({ where: {email: req.body.email} }))
+	// else if (ModelUser.findOne({ where: {email: req.body.email} }))
 	// {
 	// 	console.log("Invalid email!")
 	// 	return res.redirect('login')
 
 
 	// }
-	// else if (test.findOne({ where: {email: req.body.email} }) )
+	// else if (ModelUser.findOne({ where: {email: req.body.email} }) )
 	else {
 		// return res.redirect('login')
 		return res.render('auth/login.html', {
@@ -86,7 +85,7 @@ router.post('/register', (req, res) => {
 		// alertMessage(res, 'success',
 		//  `${req.body.email} registered successfully`, 'fas fa-sign-in-alt', true);
 		// return res.send(`${req.body.email} registered successfully`)
-		test.findOne({ where: {email: req.body.email} })
+		ModelUser.findOne({ where: {email: req.body.email} })
 		.then(user => {
 		if (user) {
 			console.log("email already registered.")
@@ -95,7 +94,7 @@ router.post('/register', (req, res) => {
 			});
 				}
 
-		test.findOne({ where: {username: req.body.username} })
+		ModelUser.findOne({ where: {username: req.body.username} })
 		.then(user => {
 			if (user) {
 				console.log("username already registered.")
@@ -106,7 +105,7 @@ router.post('/register', (req, res) => {
 	
 				
 		else{
-				test.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")})
+				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")})
 				.then(user => {
 				// alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
 				return res.redirect('login/?param1=success')

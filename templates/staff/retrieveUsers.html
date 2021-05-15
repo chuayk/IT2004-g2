@@ -185,9 +185,10 @@
 
 </style>
 <h1 class="display-4" style="text-align: center; padding-bottom: 25px; padding-top: 30px;font-style: ">User Account
-    Management</h1>
+    Management </h1>
 <p style="text-align: center; font-weight: bold;">Note for admin: click on <span style="text-decoration: underline">user's picture</span>
     to look at <strong>order list.</strong></p>
+
 <!--<div style="text-align: center; font-size: 20px">-->
 <!--  {% if count == 0 %}-->
 <!--  <p>There are no users.</p>-->
@@ -273,9 +274,10 @@
                 <tr>
                     <th>#</th>
                     <th>Username</th>
+                    <th>Email</th>
                     <th>Date created</th>
                     <th>Role</th>
-                    <th>Status</th>
+                    <!-- <th>Status</th> -->
                     <th>Action</th>
                     <th></th>
                     <th></th>
@@ -283,106 +285,15 @@
 
                 </thead>
                 <tbody>
-<!--                {% for user in users_list %}-->
-
-<!--                <tr>-->
-<!--                    <td>{{user.get_account_id()}}</td>-->
-<!--                    <td>-->
-<!--                        <a href="#" data-toggle="modal" data-target="#bannerformmodal{{ user.get_username() }}"><img-->
-<!--                                src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"-->
-<!--                                class="avatar" alt="Avatar">-->
-<!--                            <div class="modal fade bannerformmodal{{user.get_username()}}" tabindex="-1" role="dialog"-->
-<!--                                 aria-labelledby="bannerformmodal" aria-hidden="true"-->
-<!--                                 id="bannerformmodal{{ user.get_username() }}">-->
-<!--                                <div class="modal-dialog modal-sm">-->
-<!--                                    <div class="modal-content">-->
-<!--                                        <div class="modal-content">-->
-<!--                                            <div class="modal-header">-->
-
-<!--                                                <button type="button" class="close" data-dismiss="modal"-->
-<!--                                                        aria-hidden="true">-->
-<!--                                                    &times;-->
-<!--                                                </button>-->
-<!--                                                <h4 class="modal-title" id="myModalLabel"-->
-<!--                                                    style="position:absolute; left:55px;">{{ user.get_username() }}'s-->
-<!--                                                    profile </h4></div>-->
-
-<!--                                            <div class="modal-body" style="color: black; text-align: center">-->
-<!--                                                <p><span style="color: red">Name: </span><br>{{ user.get_username() }} </p>-->
-<!--                                                {% if user.get_role() == "Guest" %}-->
-<!--                                                <p><span style="color: red">Address: </span><br>{{ user.get_address() }}</p>-->
-<!--&lt;!&ndash;                                                <p><span style="color: red">Order List: </span></p>&ndash;&gt;-->
-<!--                                                <p>-->
-<!--                                                    <a href="/orderedItems/{{user.get_username()}}" class="btn btn-warning">Items info</a>-->
-<!--                                                </p>-->
-<!--                                                {% else %}-->
-<!--                                                <p></p>-->
-<!--                                                {% endif %}-->
-
-
-
-
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </a>-->
-<!--                        {{user.get_username()}}-->
-<!--                    </td>-->
-<!--                    <td>{{user.get_date()}}</td>-->
-<!--                    <td>{{user.get_role()}}</td>-->
-<!--                    {% if user.get_status() == "Active" %}-->
-<!--                    <td><span class="status text-success">&bull;</span>{{user.get_status()}}</td>-->
-<!--                    {% else %}-->
-<!--                    <td><span class="status text-danger">&bull;</span>{{user.get_status()}}</td>-->
-<!--                    {% endif %}-->
-<!--                    <td>-->
-<!--                        <a href="/updateUser/{{user.get_user_id()}}" class="btn btn-warning">Update</a></t>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <form action="{{url_for('delete_user', id=user.get_user_id())}}" method="POST">-->
-<!--                            <button type="button" class="btn btn-danger" data-toggle="modal"-->
-<!--                                    data-target="#myModal_{{user.get_user_id()}}">-->
-<!--                                Delete-->
-<!--                            </button>-->
-
-
-<!--                            &lt;!&ndash; The Modal &ndash;&gt;-->
-<!--                            <div class="modal" id="myModal_{{user.get_user_id()}}">-->
-<!--                                <div class="modal-dialog">-->
-<!--                                    <div class="modal-content">-->
-
-<!--                                        &lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--                                        <div class="modal-header">-->
-<!--                                            <h4 class="modal-title">Delete Confirmation</h4>-->
-<!--                                            <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--                                        </div>-->
-
-<!--                                        &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--                                        <div class="modal-body">-->
-<!--                                            Are you sure you want to delete {{user.get_username()}}?-->
-<!--                                        </div>-->
-
-<!--                                        &lt;!&ndash; Modal footer &ndash;&gt;-->
-<!--                                        <div class="modal-footer">-->
-<!--                                            <input type="submit" value="Delete" class="btn btn-danger">-->
-<!--                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">-->
-<!--                                                Cancel-->
-<!--                                            </button>-->
-<!--                                        </div>-->
-
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                    </td>-->
-
-<!--                </tr>-->
-<!--                <br>-->
-
-
-<!--                {% endfor %}-->
+                    {% for user in users_list %}
+                    <tr>
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.username}}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
 

@@ -1,14 +1,25 @@
 import { Router } from 'express';
 import product from '../data/createP.mjs';
 
+
+
 const router = Router();
 export default router;
 
-//create product codes -xy
+
+import { ModelUser } from '../data/user.mjs';
+
 router.get("/retrieveUsers",   async function(req, res) {
-	console.log("FUCK");
-    res.render('staff/retrieveUsers.html');
+    ModelUser.findAll().then((user) => {
+         // call views/video/editVideo.handlebar to render the edit video page
+         return res.render('staff/retrieveUsers.html', {
+            users_list: user
+        });
+        }).catch(err => console.log(err)); // To catch no video ID
+    // res.render('staff/retrieveUsers.html');
 });
+
+//create product codes -xy
 
 router.get("/createProduct",      async function(req, res) {
 	console.log("create product page accessed");

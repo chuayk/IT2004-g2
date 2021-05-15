@@ -21,7 +21,8 @@ router.use("/staff", RouterStaff)
 router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
 	return res.render('index.html', {
-		title: "Hello  Not Today"
+		title: "Hello  Not Today",
+		user: req.query.logged_in
 	});
 });
 
