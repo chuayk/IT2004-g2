@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import product from '../data/createP.mjs';
-
+import Code from '../data/code.mjs';
 
 
 const router = Router();
@@ -38,8 +38,12 @@ router.post("/createProduct", async function(req,res) {
 
 
 // joels pethetic attempt at code pls ignore
-import {test} from '../data/models.mjs';
-router.get("/test",   async function(req, res) {
-test.create({please:"test"});
-});
+router.get("/test",async function(req,res){
+    Code.findAll().then((code) => {
+        return res.render('staff/staffcodes.html', {
+           code_list: code
+       });
+       })
+} );
+
 // end of dumb codes
