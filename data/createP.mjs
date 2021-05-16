@@ -1,29 +1,29 @@
-import DataTypes from 'sequelize';
+import Sequelize from 'sequelize';
 import  db from './database.mjs';
 
 
 /* Creates a user(s) table in MySQL Database.
 Note that Sequelize automatically pleuralizes the entity name as the table name
 */
-const product = db.define('product', {
+export const product = db.define('product', {
 
     name: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
     category: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
     price: {
-        type: DataTypes.FLOAT
+        type: Sequelize.FLOAT
     },
     stock_count: {
-        type: DataTypes.FLOAT
+        type: Sequelize.FLOAT
     },
     description: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
 });
 
 await product.sync({ force: true });
-console.log("The table for the User model was just (re)created!");
+console.log("The table for the product model was just (re)created!");
 export default(product) 

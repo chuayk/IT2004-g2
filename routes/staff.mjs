@@ -28,7 +28,7 @@ router.get("/createProduct",      async function(req, res) {
 
 router.post("/createProduct", async function(req,res) {
     let {   productName, category,price, stockCount,description} = req.body;
-    product.create({productName,category,price,stockCount,description})
+    product.create({name: req.body.productName,category: req.body.category,price: req.body.price,stock_count: req.body.stockCount,description: req.body.description})
     .then(product => {
         console.log(product.productName+"success db")
         res.redirect('/');
