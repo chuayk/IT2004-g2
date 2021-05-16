@@ -37,13 +37,23 @@ router.post("/createProduct", async function(req,res) {
 	});
 
 
-// joels pethetic attempt at code pls ignore
-router.get("/test",async function(req,res){
+// retrieve codes page for staff
+router.get("/codes",async function(req,res){
     Code.findAll().then((code) => {
         return res.render('staff/staffcodes.html', {
            code_list: code
        });
        })
 } );
-
-// end of dumb codes
+router.get("/createcode",async function(req,res){
+    return res.render('staff/createcode.html')
+});
+router.post("/createcode",async function(req,res){
+    try{
+    
+    await Code.create(code = req.body.code, end = req.body.end, amount = req.body.amount, type = req.body.type)}
+    catch(error){
+        console.error(error)
+    }
+    
+})
