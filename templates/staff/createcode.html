@@ -115,23 +115,23 @@ body{
       <form method="POST" action="">
         <div class="form-group">
           <label for="productName">code</label>
-          <input type="text" class="form-control" id="productName" placeholder="" >
+          <input type="text" class="form-control" id="code" placeholder="" required >
         </div>
         <div class="form-group">
             <label for="">type:</label>
             <br>
-          <input type="radio" id="%" name="type" value="%">
+          <input type="radio" id="%" name="type" value="%"req>
           <label for="%">%</label><br>
-          <input type="radio" id="$" name="type" value="$">
+          <input type="radio" id="$" name="type" value="$"required>
           <label for="$">$</label><br>
         </div>
         <div class="form-group">
           <label for="amount">amount</label>
-          <input type="number" class="form-control" id="amount" placeholder="" min="0">
+          <input type="number" id="amount" placeholder="" min="0.1" required>
         </div>
         <div class="form-group">
           <label for="end">end date</label>
-          <input type="date" class="form-control" id="end" placeholder="" min="0"> 
+          <input type="date" class="form-control" id="end" placeholder="" min="0" required> 
         </div>
 
 

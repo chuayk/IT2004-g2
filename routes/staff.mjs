@@ -50,10 +50,20 @@ router.get("/createcode",async function(req,res){
 });
 router.post("/createcode",async function(req,res){
     try{
-    
-    await Code.create(code = req.body.code, end = req.body.end, amount = req.body.amount, type = req.body.type)}
+    var codes = Code.findAll()
+    if(req.body.code){
+        throw "code has to be 10 digits long";
+    }
+    else if(req.body.code in codes){
+        throw "code exists"
+    };
+    console.log("yay",req.body)
+    await Code.create({code:req.body.code,type:req.body.type,amount:req.body.amount,end:req.body.end});
+    //return res.redirect("/staff/codes")
+}
     catch(error){
         console.error(error)
+        return res.redirect("/staff/createcode")
     }
     
 })
