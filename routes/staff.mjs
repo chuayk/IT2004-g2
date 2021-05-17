@@ -45,6 +45,7 @@ router.get("/createProduct",      async function(req, res) {
 
 router.post("/createProduct", async function(req,res) {
     let {   productName, category,price, stockCount,description} = req.body;
+    console.log(req.body)
     product.create({name: req.body.productName,category: req.body.category,price: req.body.price,stock_count: req.body.stockCount,description: req.body.description})
     .then(product => {
         console.log(product.productName+"success db")
@@ -57,10 +58,6 @@ router.post("/createProduct", async function(req,res) {
 // retrieve codes page for staff
 router.get("/codes",async function(req,res){
     const codes = Code.findAll()
-    for (let index = 0; index < codes.length; index++) {
-        const element = codes[index];
-        console.log(element)
-    }
     return res.render('staff/staffcodes.html', {
          codes_list: codes       });
 //    Code.findAll().then((code) => {
