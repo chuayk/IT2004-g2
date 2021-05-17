@@ -74,3 +74,19 @@ router.post("/createcode",async function(req,res){
     }
     
 })
+
+//create walk in user -yh
+router.get("/createWalkInUser",      async function(req, res) {
+	console.log("create walk in user page accessed");
+	return res.render('staff/createWalkInUser.html');
+});
+
+router.post("/createWalkInUser", async function(req,res) {
+    let {fullName, nric, gender, phoneNumber, temperature} = req.body;
+    product.create({fullName: req.body.fullName, nric: req.body.nricy, gender: req.body.gender, phoneNumber: req.body.phoneNumber, temperature: req.body.temperature})
+    .then(product => {
+        console.log(product.fullName+"success db")
+        res.redirect('/');
+    })
+    .catch(err => console.log(err));
+	});
