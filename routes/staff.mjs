@@ -8,11 +8,14 @@ export default router;
 
 
 router.get("/createUsers", async function(req, res) {
-	console.log("create users page accessed");
 	return res.render('staff/createUsers.html', {
 	});
 });
 
+router.get("/updateUsers", async function(req, res) {
+	return res.render('staff/updateUsers.html', {
+	});
+});
 
 import { ModelUser } from '../data/user.mjs';
 
