@@ -56,7 +56,13 @@ router.post("/createProduct", async function(req,res) {
 
 // retrieve codes page for staff
 router.get("/codes",async function(req,res){
-    console.log(Code.findAll())
+    const codes = Code.findAll()
+    for (let index = 0; index < codes.length; index++) {
+        const element = codes[index];
+        console.log(element)
+    }
+    return res.render('staff/staffcodes.html', {
+         codes_list: codes       });
 //    Code.findAll().then((code) => {
 //        return res.render('staff/staffcodes.html', {
 //           code_list: code
