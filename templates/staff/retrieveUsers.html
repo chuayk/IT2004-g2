@@ -362,10 +362,37 @@
                             <a href="" class="btn btn-warning">Update</a></t>
                         </td>
                         <td>
-                            <form action="" method="POST">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="">
+                            <form action="retrieveUsers/?id={{user.username}}" method="POST">
+                                <button type="button" id="delBtn" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{user.username}}">
                                     Delete
                                 </button>
+                                                            <!-- The Modal -->
+                            <div class="modal" id="myModal_{{user.username}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            Are you sure you want to delete {{user.username}}?
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <input type="submit" value="Delete" class="btn btn-danger">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                             </form>
                         </td>
                     </tr>
@@ -377,5 +404,14 @@
     </div>
 </div>
 <br>
+
+<script>
+window.onload = function() {
+	if(!window.location.hash) {
+		window.location = window.location + '#loaded';
+		window.location.reload();
+	}
+}  
+</script>
 
 {% endblock %}

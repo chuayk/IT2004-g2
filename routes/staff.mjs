@@ -16,11 +16,21 @@ router.get("/createUsers", async function(req, res) {
 
 import { ModelUser } from '../data/user.mjs';
 
+// delete user
+router.post("/retrieveUsers",   async function(req, res) {
+    // Retrieve ID from URL
+	ModelUser.destroy({
+		where: {"username": req.query.id}
+	})
+	.catch(err => console.log(err));
+    return res.redirect('back')
+});
+
 router.get("/retrieveUsers",   async function(req, res) {
     ModelUser.findAll().then((user) => {
          // call views/video/editVideo.handlebar to render the edit video page
          return res.render('staff/retrieveUsers.html', {
-            users_list: user
+            users_list: user,
         });
         }).catch(err => console.log(err)); // To catch no video ID
     // res.render('staff/retrieveUsers.html');
