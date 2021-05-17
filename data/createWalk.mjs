@@ -5,25 +5,25 @@ import  db from './database.mjs';
 /* Creates a user(s) table in MySQL Database.
 Note that Sequelize automatically pleuralizes the entity name as the table name
 */
-export const product = db.define('product', {
+export const walkInUser = db.define('walkInUser', {
 
-    name: {
+    fullName: {
         type: Sequelize.STRING
     },
-    category: {
+    nric: {
         type: Sequelize.STRING
     },
-    price: {
+    gender: {
+        type: Sequelize.STRING
+    },
+    phoneNumber: {
         type: Sequelize.FLOAT
     },
-    stock_count: {
+    temperature: {
         type: Sequelize.FLOAT
-    },
-    description: {
-        type: Sequelize.STRING
     },
 });
 
-await product.sync({ force: true });
-console.log("The table for the product model was just (re)created!");
-export default(product) 
+await walkInUser.sync({ force: true });
+console.log("The table for the walkInUser was just (re)created!");
+export default(walkInUser) 
