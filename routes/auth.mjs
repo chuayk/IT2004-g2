@@ -39,17 +39,17 @@ router.get("/register", async function(req, res) {
 
 
 router.post("/login", async function(req, res) {
-
 	console.log("Incoming Request");
 	console.log(req.body);
 
 	ModelUser.findOne({ where: {email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")} })
 	.then(user => {
 	if (user) {
-		console.log("Welcome back.")
-		return res.redirect('/?logged_in=true')
-
+		console.log("Welcome back,", user.username)
+		// Need to change this. Currently passes the role through routes.
+		return res.redirect('/?logged_in=true&role=' + user.role)
 	}
+	
 	// else if (ModelUser.findOne({ where: {email: req.body.email} }))
 	// {
 	// 	console.log("Invalid email!")
@@ -99,6 +99,7 @@ router.post('/register', (req, res) => {
 		.then(user => {
 			if (user) {
 				console.log("username already registered.")
+
 				return res.render('auth/register.html', {
 					registeredUsername: true,
 				});
