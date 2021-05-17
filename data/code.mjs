@@ -21,6 +21,6 @@ const Code = db.define('codes', {
     },
 });
 
-await Code.sync({ force: true });
+await Code.sync({ force: false });
 console.log("The table for the Code was just (re)created!");
 export default(Code) 

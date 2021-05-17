@@ -8,11 +8,14 @@ export default router;
 
 
 router.get("/createUsers", async function(req, res) {
-	console.log("create users page accessed");
 	return res.render('staff/createUsers.html', {
 	});
 });
 
+router.get("/updateUsers", async function(req, res) {
+	return res.render('staff/updateUsers.html', {
+	});
+});
 
 import { ModelUser } from '../data/user.mjs';
 
@@ -44,7 +47,9 @@ router.get("/createProduct",      async function(req, res) {
 });
 
 router.post("/createProduct", async function(req,res) {
+
     //let {   productName, category,price, stockCount,description} = req.body;
+
     console.log(req.body)
     product.create({name: req.body.productName,category: req.body.category,price: req.body.price,stock_count: req.body.stockCount,description: req.body.description})
     .then(product => {
@@ -57,11 +62,14 @@ router.post("/createProduct", async function(req,res) {
 
 // retrieve codes page for staff
 router.get("/codes",async function(req,res){
-    Code.findAll().then((code) => {
-        return res.render('staff/staffcodes.html', {
-           code_list: code
-       });
-       })
+    const codes = Code.findAll()
+    return res.render('staff/staffcodes.html', {
+         codes_list: codes       });
+//    Code.findAll().then((code) => {
+//        return res.render('staff/staffcodes.html', {
+//           code_list: code
+//       });
+//       })
 } );
 router.get("/createcode",async function(req,res){
     return res.render('staff/createcode.html')
@@ -69,7 +77,7 @@ router.get("/createcode",async function(req,res){
 router.post("/createcode",async function(req,res){
     try{
     var codes = Code.findAll()
-    if(req.body.code){
+    if(req.body.code.length != 10){
         throw "code has to be 10 digits long";
     }
     else if(req.body.code in codes){
@@ -77,7 +85,7 @@ router.post("/createcode",async function(req,res){
     };
     console.log("yay",req.body)
     await Code.create({code:req.body.code,type:req.body.type,amount:req.body.amount,end:req.body.end});
-    //return res.redirect("/staff/codes")
+    return res.redirect("/staff/codes")
 }
     catch(error){
         console.error(error)
