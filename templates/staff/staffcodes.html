@@ -193,7 +193,7 @@
                         <h2>Code <b>Management</b></h2>
                     </div>
                     <div class="col-xs-7">
-                        <a href="/createcode" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
+                        <a href="/staff/createcode" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
                     </div>
                   <div style="margin-left:30%;margin-top:20%">
                     <form method="POST" action="">
@@ -216,8 +216,8 @@
     <tbody>
     {% for code in codes_list %}
       <tr>
-        <td>{{ code.code }}</td>
-        {% if code.check_valid() %}
+        <td>{{ code["code"] }}</td>
+        {% if code.check_valid %}
         <td style="color:green">
         Valid
         </td>
@@ -234,15 +234,15 @@
         <td>{{ code.end }}</td>
         <td>{{ code.amount }}</td>
         </td>
-        <td><a href="/updatecode/{{code.get_code()}}" class="btn btn-warning">edit</a></td>
+        <td><a href="/updatecode/{{code.code}}" class="btn btn-warning">edit</a></td>
         <td>
-          <form action="{{url_for('delete_code', id=code.get_code())}}" method="POST">
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{code.get_code()}}">
+          <form action="" method="POST">
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{code.code}}">
       Delete
     </button>
 
     <!-- The Modal -->
-    <div class="modal" id="myModal_{{code.get_code()}}">
+    <div class="modal" id="myModal_{{code.code}}">
       <div class="modal-dialog">
         <div class="modal-content">
 
@@ -254,7 +254,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            Are you sure you want to delete reward {{code.get_code()}}?
+            Are you sure you want to delete reward {{code.code}}?
           </div>
 
           <!-- Modal footer -->
