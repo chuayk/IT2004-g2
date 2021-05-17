@@ -88,14 +88,15 @@ router.post("/createProduct", async function(req,res) {
 
 // retrieve codes page for staff
 router.get("/codes",async function(req,res){
-    const codes = Code.findAll()
-    return res.render('staff/staffcodes.html', {
-         codes_list: codes       });
-//    Code.findAll().then((code) => {
-//        return res.render('staff/staffcodes.html', {
-//           code_list: code
-//       });
-//       })
+    // var codes = Code.findAll()
+    // console.log(codes["codes"])
+    // return res.render('staff/staffcodes.html', {
+    //      codes_list: codes       });
+   Code.findAll().then((code) => {
+       return res.render('staff/staffcodes.html', {
+          codes_list: code
+      });
+      })
 } );
 router.get("/createcode",async function(req,res){
     return res.render('staff/createcode.html')
@@ -119,7 +120,14 @@ router.post("/createcode",async function(req,res){
     }
     
 })
-
+// router.get("/test",async function(req,res){
+//     Code.findAll().then(function(codes){
+//         console.log(codes);
+//         res.send({data:codes[0]["code"]});
+//       }).catch(function(err){
+//         console.log('Oops! something went wrong, : ', err);
+//      });
+//});
 //create walk in user -yh
 router.get("/createWalkInUser",      async function(req, res) {
 	console.log("create walk in user page accessed");
