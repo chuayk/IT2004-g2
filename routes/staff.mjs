@@ -12,22 +12,48 @@ router.get("/createUsers", async function(req, res) {
 	});
 });
 
-router.get("/updateUsers", async function(req, res) {
-	return res.render('staff/updateUsers.html', {
-	});
-});
 
 import { ModelUser } from '../data/user.mjs';
 
 // delete user
-router.post("/retrieveUsers",   async function(req, res) {
+router.post("/retrieveUsers/deleteUser",   async function(req, res) {
     // Retrieve ID from URL
 	ModelUser.destroy({
 		where: {"username": req.query.id}
 	})
 	.catch(err => console.log(err));
-    return res.redirect('back')
+    return res.redirect('..')
 });
+
+// update user
+// Implement query, then update. Now only has update.
+
+router.get("/retrieveUsers/updateUsers", async function(req, res) {
+	return res.render('staff/updateUsers.html', {
+        username: req.query.id
+	});
+});
+
+
+router.post("/retrieveUsers/updateUsers",   async function(req, res) {
+    // Retrieve ID from URL
+
+    ModelUser.update({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        // number: "999",
+        // mailingAddress: "Bishan",
+        // Role: "Admin"
+    }, {
+            where: {
+                username: req.query.id
+            }
+        })
+	.catch(err => console.log(err));
+	return res.redirect('..')
+});
+
 
 router.get("/retrieveUsers",   async function(req, res) {
     ModelUser.findAll().then((user) => {
@@ -38,6 +64,8 @@ router.get("/retrieveUsers",   async function(req, res) {
         }).catch(err => console.log(err)); // To catch no video ID
     // res.render('staff/retrieveUsers.html');
 });
+
+
 
 //create product codes -xy
 

@@ -73,7 +73,7 @@ router.post("/login", async function(req, res) {
 // Successful!
 
 router.post('/register', (req, res) => {
-	let {username, email, password, password2} = req.body;
+	let {username, email, password, password2, phoneNumber, address} = req.body;
 	if (req.body.password.length < 4){
 		return res.send('Password must be at least 4 characters')
 	}
@@ -106,7 +106,7 @@ router.post('/register', (req, res) => {
 	
 				
 		else{
-				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")})
+				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address})
 				.then(user => {
 				// alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
 				return res.redirect('login/?param1=success')
