@@ -7,6 +7,13 @@ const router = Router();
 export default router;
 
 
+router.get("/createUsers", async function(req, res) {
+	console.log("create users page accessed");
+	return res.render('staff/createUsers.html', {
+	});
+});
+
+
 import { ModelUser } from '../data/user.mjs';
 
 router.get("/retrieveUsers",   async function(req, res) {
