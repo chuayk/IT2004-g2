@@ -1,16 +1,69 @@
 import { Router } from 'express';
 import product from '../data/createP.mjs';
 import Code from '../data/code.mjs';
+import Hash             		from 'hash.js';
+
 
 
 const router = Router();
 export default router;
 
+// Creating users as an admin.
 
 router.get("/createUsers", async function(req, res) {
 	return res.render('staff/createUsers.html', {
 	});
 });
+
+router.post("retrieveUsers/createUsers", async function(req, res) {
+	let {username, email, password, password2, phoneNumber, address} = req.body;
+	if (req.body.password.length < 4){
+		return res.send('Password must be at least 4 characters')
+	}
+	else if(req.body.password != req.body.password2){
+		// alertMessage(res, 'danger',
+		// 'Passwords do not match', 'fas fa-exclamation-circle', false);
+		return res.send('Passwords do not match')
+	}
+	else {
+		// alertMessage(res, 'success',
+		//  `${req.body.email} registered successfully`, 'fas fa-sign-in-alt', true);
+		// return res.send(`${req.body.email} registered successfully`)
+		ModelUser.findOne({ where: {email: req.body.email} })
+		.then(user => {
+		if (user) {
+			console.log("email already registered.")
+			return res.render('auth/register.html', {
+				registeredEmail: true,
+			});
+				}
+
+		ModelUser.findOne({ where: {username: req.body.username} })
+		.then(user => {
+			if (user) {
+				console.log("username already registered.")
+
+				return res.render('auth/register.html', {
+					registeredUsername: true,
+				});
+			}
+	
+				
+		else{
+				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address})
+				.then(user => {
+				// alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
+				return res.redirect('login/?param1=success')
+				})
+				.catch(err => console.log(err));
+	
+	}
+	});
+
+	});
+	}
+});
+
 
 
 import { ModelUser } from '../data/user.mjs';
@@ -71,6 +124,7 @@ router.get("/retrieveUsers",   async function(req, res) {
 
 router.get("/createProduct",      async function(req, res) {
 	console.log("create product page accessed");
+    
 	return res.render('staff/createProduct.html');
 });
 

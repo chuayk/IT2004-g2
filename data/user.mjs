@@ -23,7 +23,7 @@ export const ModelUser = db.define('user', {
 
 });
 
-await ModelUser.sync({ force: true });
+await ModelUser.sync({ force: false });
 console.log("The table for the User model was just (re)created!");
 export default(ModelUser) 
 

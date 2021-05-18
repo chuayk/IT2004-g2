@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import { ModelUser } from './user.mjs';
 
 const sequelize = new Sequelize('itp211', 'breaduser', 'P@ssword123', {
     host: 'localhost',
@@ -11,6 +12,6 @@ try {
 } catch (error) {
     console.error('Unable to connect to the database:', error);
 }
-await sequelize.sync({ force: true });
+await sequelize.sync({ force: false });
 console.log("All models were synchronized successfully.");
 export default(sequelize)

@@ -17,6 +17,7 @@ export default router;
 // const { validationResult } = require('express-validator');
 // const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+router.get("/logout",    logout_process);
 
 
 router.get("/login",      async function(req, res) {
@@ -38,17 +39,24 @@ router.get("/register", async function(req, res) {
 
 
 
-router.post("/login", async function(req, res) {
+router.post("/login", async function(req, res, next) {
 	console.log("Incoming Request");
 	console.log(req.body);
+	
+	return Passport.authenticate('local', {
+		successRedirect: "/",
+		failureRedirect: "/auth/login",
+		failureFlash:    true
+	})(req, res, next);
 
-	ModelUser.findOne({ where: {email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")} })
-	.then(user => {
-	if (user) {
-		console.log("Welcome back,", user.username)
-		// Need to change this. Currently passes the role through routes.
-		return res.redirect('/?logged_in=true&role=' + user.role)
-	}
+
+	// ModelUser.findOne({ where: {email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex")} })
+	// .then(user => {
+	// if (user) {
+	// 	console.log("Welcome back,", user.username)
+	// 	// Need to change this. Currently passes the role through routes.
+	// 	return res.redirect('/?logged_in=true&role=' + user.role)
+	// }
 	
 	// else if (ModelUser.findOne({ where: {email: req.body.email} }))
 	// {
@@ -58,12 +66,12 @@ router.post("/login", async function(req, res) {
 
 	// }
 	// else if (ModelUser.findOne({ where: {email: req.body.email} }) )
-	else {
-		// return res.redirect('login')
-		return res.render('auth/login.html', {
-			login_failed: true,
-		});	}
-})
+// 	else {
+// 		// return res.redirect('login')
+// 		return res.render('auth/login.html', {
+// 			login_failed: true,
+// 		});	}
+// })
 });
 
 
@@ -73,6 +81,7 @@ router.post("/login", async function(req, res) {
 // Successful!
 
 router.post('/register', (req, res) => {
+	
 	let {username, email, password, password2, phoneNumber, address} = req.body;
 	if (req.body.password.length < 4){
 		return res.send('Password must be at least 4 characters')
@@ -121,3 +130,9 @@ router.post('/register', (req, res) => {
 	}
 
 });
+
+
+async function logout_process(req, res) {
+	req.logout();
+	return res.redirect("login");
+}

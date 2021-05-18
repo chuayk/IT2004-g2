@@ -11,6 +11,7 @@ import CookieParser    from 'cookie-parser';
 import MethodOverrides from 'method-override';
 import Path            from 'path';
 import passport 	   from 'passport';
+import { initialize_passport } from './utils/passport.mjs';
 
 import Nunjcks         from 'nunjucks';
 
@@ -49,13 +50,18 @@ Server.use(ExpSession({
 	saveUninitialized: false
 }));
 
+/**
+ * Initialize passport
+ **/
+ initialize_passport(Server);
 
+ 
 //-----------------------------------------
 
 /**
  * TODO: Setup global contexts here. Basically stuff your variables in locals
  */
-Server.use(function (req, res, next) {
+Server.use(async function (req, res, next) {
 	res.locals.user = req.user || null;
 	next();
 });
