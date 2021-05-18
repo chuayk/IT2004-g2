@@ -99,20 +99,19 @@ router.get("/displayProduct",async function(req,res){
 
 // retrieve codes page for staff
 router.get("/codes",async function(req,res){
-    // var codes = Code.findAll()
-    // console.log(codes["codes"])
-    // return res.render('staff/staffcodes.html', {
-    //      codes_list: codes       });
    Code.findAll().then((code) => {
        return res.render('staff/staffcodes.html', {
           codes_list: code
       });
       })
 } );
+// retrieve create code form
 router.get("/createcode",async function(req,res){
     return res.render('staff/createcode.html')
 });
+// create code
 router.post("/createcode",async function(req,res){
+    // validate data
     try{
     var codes = Code.findAll()
     if(req.body.code.length != 10){
@@ -121,8 +120,8 @@ router.post("/createcode",async function(req,res){
     else if(req.body.code in codes){
         throw "code exists"
     };
-    console.log("yay",req.body)
-    await Code.create({code:req.body.code,type:req.body.type,amount:req.body.amount,end:req.body.end});
+    //create code
+    await Code.create({code:req.body.code,type:req.body.type,amount:req.body.amount,end:new Date(req.body.end).toISOString()});
     return res.redirect("/staff/codes")
 }
     catch(error){
@@ -130,15 +129,14 @@ router.post("/createcode",async function(req,res){
         return res.redirect("/staff/createcode")
     }
     
-})
-// router.get("/test",async function(req,res){
-//     Code.findAll().then(function(codes){
-//         console.log(codes);
-//         res.send({data:codes[0]["code"]});
-//       }).catch(function(err){
-//         console.log('Oops! something went wrong, : ', err);
-//      });
-//});
+});
+router.get("/updatecode",async function(req,res){
+    var impcode = req.query.code;
+    const selectcode = await Code.findOne({where:{code:impcode}});
+    res.render("staff/updatecode.html",{
+        code : selectcode
+    })
+});
 //create walk in user -yh
 router.get("/createWalkInUser",      async function(req, res) {
 	console.log("create walk in user page accessed");
