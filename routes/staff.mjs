@@ -142,7 +142,13 @@ router.get("/updatecode",async function(req,res){
 });
 //update code
 router.post("/updatecode",async function(req,res){
-    
+    Code.update({
+        code : req.body.code,
+        type: req.body.type,
+        amount: req.body.amount,
+        end : req.body.end,
+    },{where:{ code : req.query.code}})
+    return res.redirect("codes")
 })
 //create walk in user -yh
 router.get("/createWalkInUser",      async function(req, res) {
