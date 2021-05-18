@@ -4,15 +4,23 @@ import  db from './database.mjs';
 /* Creates a user(s) table in MySQL Database.
 Note that Sequelize automatically pleuralizes the entity name as the table name
 */
+export class UserRole {
+	static get Admin() { return "admin"; }
+	static get User()  { return "user";  }
+}
 
 
 // user is the name of the table.
 
 export const ModelUser = db.define('user', {
 
-    username: {type: Sequelize.STRING},
-    email: {type: Sequelize.STRING},
-    password: {type: Sequelize.STRING}
+    username: {type: Sequelize.STRING, allowNull: false},
+    email: {type: Sequelize.STRING, allowNull: false},
+    password: {type: Sequelize.STRING, allowNull: false},
+    phoneNumber: {type: Sequelize.STRING, allowNull: true},
+    address: {type: Sequelize.TEXT, allowNull: true},
+    role: {type: Sequelize.TEXT, defaultValue: "Guest", allowNull: false},
+
 });
 
 await ModelUser.sync({ force: true });
