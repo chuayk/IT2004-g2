@@ -134,11 +134,11 @@ body{
         </div>
         <div class="form-group">
           <label for="amount">amount</label>
-          <input type="number" id="amount" name="amount" placeholder="" min="0" max = "0.01" value="{{code.amount}}" required>
+          <input type="number" id="amount" name="amount" placeholder=""  value="{{code.amount}}" required>
         </div>
         <div class="form-group">
           <label for="end">end date</label>
-          <input type="text" class="form-control" id="end" name="end" placeholder="" min="0" value="{{code.end.getFullYear+'-'+code.end.getFullMonth+'-'+code.end.getFullDay}}" required> 
+          <input type="date" class="form-control" id="end" name="end" placeholder="" min="0" value="{{code.end.getFullYear()}}-{{('0'+code.end.getMonth()).slice(-2)}}-{{('0'+code.end.getDate()).slice(-2)}}" required> <!-- f this -->
         </div>
 
 

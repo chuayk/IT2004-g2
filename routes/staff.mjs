@@ -130,13 +130,20 @@ router.post("/createcode",async function(req,res){
     }
     
 });
+//render update code page
 router.get("/updatecode",async function(req,res){
+    //retrieve code
     var impcode = req.query.code;
     const selectcode = await Code.findOne({where:{code:impcode}});
+    //render page
     res.render("staff/updatecode.html",{
         code : selectcode
     })
 });
+//update code
+router.post("/updatecode",async function(req,res){
+    
+})
 //create walk in user -yh
 router.get("/createWalkInUser",      async function(req, res) {
 	console.log("create walk in user page accessed");
