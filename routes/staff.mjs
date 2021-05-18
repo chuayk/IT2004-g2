@@ -53,12 +53,21 @@ router.post("/createProduct", async function(req,res) {
     console.log(req.body)
     product.create({name: req.body.productName,category: req.body.category,price: req.body.price,stock_count: req.body.stockCount,description: req.body.description})
     .then(product => {
-        console.log(product.name+"success db")
-        res.redirect('/');
+        console.log(product.name+" added to db")
+        res.redirect('/staff/createProduct');
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err+"what is this"));
 	});
 
+router.get("/displayProduct",async function(req,res){
+    product.findAll().then(product => {
+
+        return res.render('staff/displayProduct.html', {
+           product_list: product,
+       });
+       }).catch(err => console.log(err)); // To catch no video ID
+   // res.render('staff/retrieveUsers.html');
+} );
 
 // retrieve codes page for staff
 router.get("/codes",async function(req,res){
