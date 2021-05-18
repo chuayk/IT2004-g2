@@ -17,13 +17,13 @@ export const walkInUser = db.define('walkInUser', {
         type: Sequelize.STRING
     },
     phoneNumber: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT(8)
     },
     temperature: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT(3,1)
     },
 });
 
-await walkInUser.sync({ force: true });
+await walkInUser.sync({ force: false });
 console.log("The table for the walkInUser was just (re)created!");
 export default(walkInUser) 

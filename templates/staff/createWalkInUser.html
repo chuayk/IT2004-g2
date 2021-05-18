@@ -111,73 +111,32 @@ body{
     <form method="POST" action="">
         <div>
             <img src="/static/img/temperature_coronavirus_heat_scan_check_icon_142124.png" class="avatar"
-                 alt="Avatar" style=" width:100px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 7px;">
-        <!-- </div>
+                 alt="Avatar" style=" width:100px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 7px;">
 
-        <div class="form-group">
-            {{ render_field(form.full_name, class="form-control", placeholder="Full Name") }}
-
-        </div>
-        <div class="form-group">
-            {{ render_field(form.nric, class="form-control", placeholder="T1234567G / S1234567G") }}
-
-        </div>
-        <div class="form-group">
-            {{ render_field(form.gender, class="form-control") }}
-
-        </div>
-        <div class="form-group">
-            {{ render_field(form.phone_number, class="form-control", placeholder="8123 4567") }}
-
-        </div>
-        <div class="form-group">
-            {{ render_field(form.temperature, class="form-control", placeholder="e.g 36.5℃") }}
-
-        </div>
-        
-    </form>
-    <div class="social-media">
-    </div>
-</div>
-{% endblock %} -->
-
-<form method="POST" action="" enctype="multipart/form-data">
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary ">Create Product</button>
-      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
-        <span class="caret"></span>
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="/displayProduct">Update/Delete products</a>
-      </div>
-    </div>
-    <hr>
     <div class="form-group">
-      <label for="productName">Full Name</label>
-      <input type="text" class="form-control" id="fullName" placeholder="" >
+      <label for="fullName">Full Name</label>
+      <input type="text" class="form-control" name="fullName" placeholder="" >
     </div>
     <div class="form-group">
-      <label for="category">NRIC</label>
-      <input type="text" class="form-control" id="nric" placeholder="">
+      <label for="nric">NRIC</label>
+      <input type="text" class="form-control" name="nric" placeholder="">
     </div>
     <div class="form-group">
-      <label for="price">Gender</label>
-      <input type="number" class="form-control" id="gender" placeholder="">
+      <label for="gender">Gender</label>
+      <input type="text" class="form-control" name="gender" placeholder="">
     </div>
     <div class="form-group">
-      <label for="stockCount">Phone Number</label>
-      <input type="number" class="form-control" id="phoneNumber" placeholder="" min="0">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="number" class="form-control" name="phoneNumber" placeholder="" min="0">
     </div>
     <div class="form-group">
-        <label for="stockCount">Temperature</label>
-        <input type="number" class="form-control" id="temperature" placeholder="" min="0">
+        <label for="temperature">Temperature</label>
+        <input type="number" class="form-control" name="temperature" placeholder="" min="0">
     </div>
-
-    <input type="submit" value="Submit" class="btn btn-primary float-right"/>
+    </div>
+    <div class="form-group">
+        <button type="submit" value="Submit" class="btn btn-block create-account">Submit</button>
+    </div>
   </form>
 <div class="social-media">
 </div>
