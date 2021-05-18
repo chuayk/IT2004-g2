@@ -51,7 +51,7 @@ router.post("/accounts/createUsers", async function(req, res) {
 	
 				
 		else{
-				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role})
+				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role, accountStatus: req.body.status})
 				.then(user => {
 				// alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
 				return res.redirect('list/?param1=success')

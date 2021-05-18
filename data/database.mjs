@@ -3,7 +3,10 @@ import { ModelUser } from './user.mjs';
 
 const sequelize = new Sequelize('itp211', 'breaduser', 'P@ssword123', {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    define: {
+        timestamps: false
+    }
 });
 
 try {

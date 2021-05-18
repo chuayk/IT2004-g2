@@ -3,6 +3,17 @@
 {% block PageContent %}
 
 
+{% set active_count = 0 %}
+{% set inactive_count = 0 %}
+
+{% for user in users_list %}
+    {% if user.accountStatus == "Active" %}
+        {% set active_count = active_count + 1 %}
+        {%else%}
+        {% set inactive_count = active_count + 1 %}
+    {% endif %}
+{% endfor %}
+
 
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -248,8 +259,8 @@
                 {% elif active_count == 1 %}
                 <p>There is <span style="color:#33b2ff">1</span> user.</p>
                 {% else %}
-                <p>Snoopy Dogg</p>
-                <!-- <p>There are <span style="color:#33b2ff">{{ active_count }}</span> users.</p> -->
+                <p></p>
+                <p>There are <span style="color:#33b2ff">{{ active_count }}</span> users.</p>
                 {% endif %}
             </div>
             </p>
@@ -268,7 +279,7 @@
             <p>There is <span style="color:#33b2ff">1</span> user.</p>
             {% else %}
             <p>Keith Ape</p>
-            <!-- <p>There are <span style="color:#33b2ff">{{ inactive_count }}</span> users.</p> -->
+            <p>There are <span style="color:#33b2ff">{{ inactive_count }}</span> users.</p>
             {% endif %}
         </div>
         </p>
@@ -291,7 +302,7 @@
                         <h2>User <b>Management</b></h2>
                     </div>
                     <div class="col-xs-7">
-                        <a href="createUsers" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>Add
+                        <a href="/staff/accounts/createUsers" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>Add
                                 New User</span></a>
                     </div>
                 </div>
@@ -304,7 +315,7 @@
                         <th>Email</th>
                         <th>Date created</th>
                         <th>Role</th>
-                        <!-- <th>Status</th> -->
+                        <th>Status</th>
                         <th>Action</th>
                         <th></th>
                         <th></th>
@@ -353,8 +364,10 @@
                             {{user.username}}
                         </td>
                         <td>{{user.email}}</td>
-                        <td>Rich chigga</td>
+                        <td>{{user.dateCreated}}</td>
                         <td>{{ user.role }}</td>
+                        <td>{{ user.accountStatus }}</td>
+
                         <td>
                             <a href="/staff/accounts/updateUsers/?id={{user.username}}" class="btn btn-warning">Update</a></t>
                         </td>
