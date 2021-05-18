@@ -94,7 +94,7 @@ router.post("/accounts/updateUsers",   async function(req, res) {
     ModelUser.update({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
+        password:  Hash.sha256().update(req.body.password).digest("hex"),
         // number: "999",
         // mailingAddress: "Bishan",
         // Role: "Admin"
