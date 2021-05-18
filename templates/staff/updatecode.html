@@ -108,30 +108,37 @@ body{
 
 </style>
 
-<h1 class="display-4">Create Code</h1>
+<h1 class="display-4">Update Code</h1>
   <div class="registration-form">
 
 
       <form method="POST" action="">
         <div class="form-group">
           <label for="productName">code</label>
-          <input type="text" class="form-control" name="code" id="code" placeholder="" required >
+          <input type="text" class="form-control" name="code" id="code" placeholder="" value="{{code.code}}" required >
         </div>
         <div class="form-group">
             <label for="">type:</label>
             <br>
-          <input type="radio" id="%" name="type" value="%"req>
+            {% if code.type == "%" %}
+          <input type="radio" id="%" name="type" value="%" checked = "checked">
           <label for="%">%</label><br>
-          <input type="radio" id="$" name="type" value="$"required>
+          <input type="radio" id="$" name="type" value="$">
           <label for="$">$</label><br>
+          {%else%}
+          <input type="radio" id="%" name="type" value="%">
+          <label for="%">%</label><br>
+          <input type="radio" id="$" name="type" value="$" checked = "checked">
+          <label for="$">$</label><br>
+          {%endif%}
         </div>
         <div class="form-group">
           <label for="amount">amount</label>
-          <input type="number" id="amount" name="amount" placeholder=""  required>
+          <input type="number" id="amount" name="amount" placeholder=""  value="{{code.amount}}" required>
         </div>
         <div class="form-group">
           <label for="end">end date</label>
-          <input type="date" class="form-control" id="end" name="end" placeholder="" min="0" required> 
+          <input type="date" class="form-control" id="end" name="end" placeholder="" min="0" value="{{code.end.getFullYear()}}-{{('0'+code.end.getMonth()).slice(-2)}}-{{('0'+code.end.getDate()).slice(-2)}}" required> <!-- f this -->
         </div>
 
 

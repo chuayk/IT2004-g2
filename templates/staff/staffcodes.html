@@ -190,7 +190,7 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-xs-5">
-                        <h2>Code <b>Management</b></h2>
+                        <h2>Code Test <b>Management</b></h2>
                     </div>
                     <div class="col-xs-7">
                         <a href="/staff/createcode" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
@@ -226,15 +226,15 @@
         Expired
         </td>
         {% endif %}
-        {% if code.type == "percent" %}
+        {% if code.type == "%" %}
         <td>%</td>
-        {% elif code.type == "dollars" %}
+        {% elif code.type == "$" %}
         <td>$</td>
         {% endif %}
         <td>{{ code.end }}</td>
         <td>{{ code.amount }}</td>
         </td>
-        <td><a href="/updatecode/{{code.code}}" class="btn btn-warning">edit</a></td>
+        <td><a href="updatecode?code={{code.code}}" class="btn btn-warning">edit</a></td>
         <td>
           <form action="" method="POST">
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{code.code}}">
