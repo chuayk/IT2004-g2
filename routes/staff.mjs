@@ -10,13 +10,14 @@ export default router;
 
 // Creating users as an admin.
 
-router.get("/createUsers", async function(req, res) {
-	return res.render('staff/createUsers.html', {
+router.get("/accounts/createUsers", async function(req, res) {
+	return res.render('staff/accounts/createUsers.html', {
 	});
 });
 
-router.post("retrieveUsers/createUsers", async function(req, res) {
-	let {username, email, password, password2, phoneNumber, address} = req.body;
+router.post("/accounts/createUsers", async function(req, res) {
+	let {username, email, password, password2, phoneNumber, address, role} = req.body;
+    console.log(req.body);
 	if (req.body.password.length < 4){
 		return res.send('Password must be at least 4 characters')
 	}
@@ -50,13 +51,12 @@ router.post("retrieveUsers/createUsers", async function(req, res) {
 	
 				
 		else{
-				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address})
+				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role})
 				.then(user => {
 				// alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
-				return res.redirect('login/?param1=success')
+				return res.redirect('list/?param1=success')
 				})
 				.catch(err => console.log(err));
-	
 	}
 	});
 
@@ -69,26 +69,26 @@ router.post("retrieveUsers/createUsers", async function(req, res) {
 import { ModelUser } from '../data/user.mjs';
 
 // delete user
-router.post("/retrieveUsers/deleteUser",   async function(req, res) {
+router.post("/accounts/deleteUser",   async function(req, res) {
     // Retrieve ID from URL
 	ModelUser.destroy({
 		where: {"username": req.query.id}
 	})
 	.catch(err => console.log(err));
-    return res.redirect('..')
+    return res.redirect('../list')
 });
 
 // update user
 // Implement query, then update. Now only has update.
 
-router.get("/retrieveUsers/updateUsers", async function(req, res) {
-	return res.render('staff/updateUsers.html', {
+router.get("/accounts/updateUsers", async function(req, res) {
+	return res.render('staff/accounts/updateUsers.html', {
         username: req.query.id
 	});
 });
 
 
-router.post("/retrieveUsers/updateUsers",   async function(req, res) {
+router.post("/accounts/updateUsers",   async function(req, res) {
     // Retrieve ID from URL
 
     ModelUser.update({
@@ -104,19 +104,21 @@ router.post("/retrieveUsers/updateUsers",   async function(req, res) {
             }
         })
 	.catch(err => console.log(err));
-	return res.redirect('..')
+	return res.redirect('../list')
 });
 
 
-router.get("/retrieveUsers",   async function(req, res) {
+router.get("/accounts/list",   async function(req, res) {
     ModelUser.findAll().then((user) => {
          // call views/video/editVideo.handlebar to render the edit video page
-         return res.render('staff/retrieveUsers.html', {
+         return res.render('staff/accounts/retrieveUsers.html', {
             users_list: user,
         });
         }).catch(err => console.log(err)); // To catch no video ID
     // res.render('staff/retrieveUsers.html');
 });
+
+
 
 
 
