@@ -8,6 +8,10 @@ import Hash             		from 'hash.js';
 const router = Router();
 export default router;
 
+//rout to product.mjs -xy
+import RouterProduct from '../routes/product.mjs'
+router.use("/product", RouterProduct)
+
 // Creating users as an admin.
 
 router.get("/accounts/createUsers", async function(req, res) {
@@ -122,61 +126,7 @@ router.get("/accounts/list",   async function(req, res) {
 
 
 
-//create product codes -xy
 
-router.get("/createProduct",      async function(req, res) {
-	console.log("create product page accessed");
-    
-	return res.render('staff/createProduct.html');
-});
-
-router.post("/createProduct", async function (req, res) {
-
-    //let {   productName, category,price, stockCount,description} = req.body;
-
-    console.log(req.body)
-    product.create({ name: req.body.productName, category: req.body.category, price: req.body.price, stock_count: req.body.stockCount, description: req.body.description })
-        .then(product => {
-            console.log(product.name + " added to db")
-            res.redirect('/staff/createProduct');
-        })
-        .catch(err => console.log(err + "what is this"));
-});
-
-
-router.get("/displayProduct", async function (req, res) {
-    product.findAll().then(product => {
-        return res.render('staff/displayProduct.html', {
-            product_list: product,
-        });
-    }).catch(err => console.log(err)); // To catch no video ID
-    // res.render('staff/retrieveUsers.html');
-});
-
-router.get("/displayProduct/updateUsers/:id", async function (req, res) {
-    return res.render('staff/updateUsers.html', {
-        product: req.query.id
-    });
-});
-
-router.post("/retrieveUsers/updateUsers", async function (req, res) {
-    // Retrieve ID from URL
-
-    ModelUser.update({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        // number: "999",
-        // mailingAddress: "Bishan",
-        // Role: "Admin"
-    }, {
-        where: {
-            username: req.query.id
-        }
-    })
-        .catch(err => console.log(err));
-    return res.redirect('..')
-});
 // retrieve codes page for staff
 router.get("/codes", async function (req, res) {
     // var codes = Code.findAll()
