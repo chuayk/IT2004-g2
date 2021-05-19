@@ -68,6 +68,8 @@ router.post("/accounts/createUsers", async function(req, res) {
 
 import { ModelUser } from '../data/user.mjs';
 
+
+
 // delete user
 router.post("/accounts/deleteUser",   async function(req, res) {
     // Retrieve ID from URL
@@ -95,9 +97,10 @@ router.post("/accounts/updateUsers",   async function(req, res) {
         username: req.body.username,
         email: req.body.email,
         password:  Hash.sha256().update(req.body.password).digest("hex"),
-        // number: "999",
-        // mailingAddress: "Bishan",
-        // Role: "Admin"
+        phoneNumber: req.body.number, 
+        address: req.body.address, 
+        role: req.body.role, 
+        accountStatus: req.body.status
     }, {
             where: {
                 username: req.query.id
@@ -110,14 +113,12 @@ router.post("/accounts/updateUsers",   async function(req, res) {
 
 router.get("/accounts/list",   async function(req, res) {
     ModelUser.findAll().then((user) => {
-         // call views/video/editVideo.handlebar to render the edit video page
          return res.render('staff/accounts/retrieveUsers.html', {
             users_list: user,
         });
         }).catch(err => console.log(err)); // To catch no video ID
     // res.render('staff/retrieveUsers.html');
 });
-
 
 
 

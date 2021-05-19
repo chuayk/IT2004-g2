@@ -3,6 +3,8 @@ import { Router } from 'express';
 const router = Router();
 export default router;
 
+import { ModelUser } from '../data/user.mjs';
+
 // ---------------- 
 //	Serves dynamic files from the dynamic folder
 router.get("/dynamic/:path", async function (req, res) {	
@@ -31,6 +33,31 @@ router.get("/",      async function(req, res) {
 		// role: req.query.role
 	});
 });
+
+// Customer Rewview route
+
+router.get("/review", async function(req, res) {
+    ModelUser.findAll().then((user) => {
+		return res.render('customerReview.html', {
+		   users_list: user,
+	   });
+	   }).catch(err => console.log(err));
+});
+
+router.post("/review", async function(req, res) {
+	console.log(req.body.comment);
+	console.log(res.locals.user)
+    ModelUser.update({
+		comment: req.body.comment
+    }, {
+            where: {
+                username: res.locals.user.username
+            }
+        })
+	.catch(err => console.log(err));
+	return res.redirect('../review')
+});
+
 
 router.get("/about", async function(req, res) {
 	console.log("About page accessed");
