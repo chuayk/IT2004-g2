@@ -19,14 +19,16 @@ router.use("/staff", RouterStaff)
 // ---------------- 
 //	TODO:	Common URL paths here
 
-
 // Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
 router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
+	// If not in session, kick out
+	// if (res.locals.user == null){
+	// 	return res.redirect('auth/login')
+	// }
 	return res.render('index.html', {
 		title: "Hello  Not Today",
-		user: req.query.logged_in,
-		role: req.query.role
+		// role: req.query.role
 	});
 });
 

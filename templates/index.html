@@ -1,4 +1,4 @@
-{% if role == 'Guest' %}
+{% if user.role == 'Guest' %}
 {% extends 'layouts/guest_base.html' %}
 {% else %}
 {% extends 'layouts/base.html' %}
@@ -79,7 +79,6 @@ nav:after {
 	right: 0;
 }
 
-# here
 
 * {
 	margin: 0;
@@ -194,7 +193,7 @@ body {
 <!DOCTYPE html>
 <!--Code by Divinector (www.divinectorweb.com)-->
 <body>
-<h1 style="color:white; padding-top: 20px;">Welcome back, Ayres</h1>
+<h1 style="color:white; padding-top: 20px;">Welcome back, {{user.username}} {{user.role}}</h1>
     <header>
 <div class="welcome-text">
         <h1>Welcome to <span>Breadington!</span></h1>

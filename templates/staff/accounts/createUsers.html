@@ -2,15 +2,10 @@
 
 {% block PageContent %}
 
+
 <style>
 
-img {
-width: 100px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 7px;
-}
+
 
 
 h1 {
@@ -114,81 +109,73 @@ body{
     }
 }
 
-
-
-
-
-
-
 </style>
+<h1 class="display-4">Create User</h1>
+
 
 
 <div class="registration-form">
     <form method="POST" action="">
         <div>
-            <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" class="avatar"
+            <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" style="
+width: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 7px;" class="avatar"
                  alt="Avatar">
         </div>
         <div>
         </div>
         <div class="form-group">
-            <p style="text-align: center;">{{ username }}</p>
-        </div>
-        <!--        <div>-->
-        <!--            <label>Password</label><br>-->
-        <!--            <input readonly value="{{ password }}" style="width: 100%; background-color: #e9ecef; border-width: 0.2px">-->
-        <!--        </div>-->
-        <!-- Phone number & billing address; set at where? -->
-        <div class="form-group">
 			<label for="name">Username</label>
-			<input type="text" class="form-control" name="username" value="{{username}}" required>       
+			<input type="text" class="form-control" name="username" value="{{username}}" required>
         </div>
 
         <div class="form-group">
 			<label for="email">Email</label>
-			<input type="email" name="email" class="form-control" value="{{email}}" required>     
-         </div>
+			<input type="email" name="email" class="form-control" value="{{email}}" required>
+        </div>
 
         <div class="form-group">
 			<label for="password">Password</label>
-			<input type="password" name="password" class="form-control" value="{{password}}" minlength="4" required>     
-        </div>
-<!--         
-        <div class="form-group">
-			<label for="number">Contact Number</label>
-			<input type="text" name="number" class="form-control" value="{{number}}"minlength="8"  required>        
+			<input type="password" name="password" class="form-control" value="{{password}}" minlength="4" required>
         </div>
 
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Mailing Address</label>
-            <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3" value= "{{address}}"></textarea>
+			<label for="password2">Confirm Password</label>
+			<input type="password" name="password2" class="form-control" value="{{password2}}"minlength="4"  required>
         </div>
-
         <div class="form-group">
-
-            <label for="exampleFormControlSelect1">Role</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>User</option>
-              <option>Staff</option>
-            </select>        
-        </div> -->
+            <label for="number">Contact Number</label>
+            <input type="text" name="number" class="form-control" value="{{number}}"minlength="8"  required>   
+              </div>
+          <div class="form-group">
+            <label for="address">Mailing Address</label>
+            <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3" title="5 characters minimum"maxlength="30" minlength="5" value= "{{address}}"></textarea>
+              </div>
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="role", value="{{role}}">
+              <option value="Guest">Guest</option>
+              <option value="Staff">Staff</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="status">Account Status</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="status", value="{{status}}">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+        </div>
 
         <div class="form-group">
             <button type="submit" value="Submit" class="btn btn-block create-account">Submit</button>
 
         </div>
+        
     </form>
     <div class="social-media">
     </div>
 </div>
-
-
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-<script src="assets/js/script.js"></script>
-
-
 {% endblock %}
-

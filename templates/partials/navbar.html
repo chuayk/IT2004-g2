@@ -39,27 +39,18 @@
 					<a class="nav-link" href="/Feedback">Feedback</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/staff/retrieveUsers">Account Management</a>
+					<a class="nav-link" href="/staff/accounts/list">Account Management</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
-				{% if user %}
-					<!-- <li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">Video
-							Jots</a>
-						<div class="dropdown-menu">
-							<a href="/video/list" class="dropdown-item">Videos</a>
-							<a href="/video/add"  class="dropdown-item">Add Video</a>
-						</div>
-					</li> -->
+				{% if user !== null  %}
 
 					<li class="nav-item">
 						<a href="/auth/logout" class="nav-link navlink-right">Logout</a>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						{#-- main.js router(/login) #}
-						<a href="/auth/login" class="nav-link">Login {{ user }}</a>
+						<a href="/auth/login" class="nav-link">Login</a>
 					</li>
 					<li class="nav-item">
 						<a href="/auth/register" class="nav-link">Register</a>
