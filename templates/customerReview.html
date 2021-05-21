@@ -1,4 +1,8 @@
+<!-- {% if user.role == 'Guest' %}
+{% extends 'layouts/guest_base.html' %}
+{% else %}
 {% extends 'layouts/base.html' %}
+{% endif %} -->
 {% block PageContent %}
 <style>
     body {
@@ -29,7 +33,7 @@
         flex-direction: column;
         min-width: 0;
         word-wrap: break-word;
-        background-color: #fff;
+        background-color: #f0f8ff;
         background-clip: border-box;
         border: 1px solid #d2d2dc;
         border-radius: 11px;
@@ -132,7 +136,12 @@
         Write us a review!</h1>
 
 
-    <div class="container" style=" background-color: #f4f4f4; border-style: outset; padding-top: 7px; padding-bottom: 30px;">
+    <div class="container"  style=" border: 3px solid #e8e8e8; background-color: white; padding-top: 0.5px; padding-bottom: 30px;">
+        <!-- <div class="row" style="background-color:#0db4ce;">
+            <div class="col-xs-5" style="color: white; margin: auto;">
+                <h2>User <b>Reviews</b></h2>
+            </div>
+        </div> -->
         <div class="items ">
 
             {% for user in users_list %}
@@ -194,7 +203,7 @@
         <div class="container mt-5">
             <div class="d-flex justify-content-center row">
                 <div class="col-md-11">
-                    <form method="POST" action="">
+                    <form method="POST" action="/review/?updated=true">
                         <div class="d-flex flex-column comment-section">
                             <div class="bg-white p-2">
 
@@ -229,6 +238,7 @@
             </div>
         </div>
     </div>
+    
     <script>
         $(document).ready(function () {
 
@@ -271,5 +281,6 @@
 
 
     </script>
+    
 </body>
 {% endblock PageContent %}

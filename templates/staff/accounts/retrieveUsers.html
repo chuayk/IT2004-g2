@@ -9,8 +9,10 @@
 {% for user in users_list %}
     {% if user.accountStatus == "Active" %}
         {% set active_count = active_count + 1 %}
-        {%else%}
+
+    {% elif user.accountStatus == "Inactive" %}
         {% set inactive_count = active_count + 1 %}
+        
     {% endif %}
 {% endfor %}
 
@@ -278,7 +280,6 @@
             {% elif inactive_count == 1 %}
             <p>There is <span style="color:#33b2ff">1</span> user.</p>
             {% else %}
-            <p>Keith Ape</p>
             <p>There are <span style="color:#33b2ff">{{ inactive_count }}</span> users.</p>
             {% endif %}
         </div>
@@ -297,6 +298,7 @@
     <div class="table-responsive">
         <div class="table-wrapper">
             <div class="table-title">
+
                 <div class="row">
                     <div class="col-xs-5">
                         <h2>User <b>Management</b></h2>
@@ -306,6 +308,7 @@
                                 New User</span></a>
                     </div>
                 </div>
+                
             </div>
             <table class="table table-striped">
                 <thead>
@@ -327,9 +330,12 @@
                     <tr>
                         <td>{{user.id}}</td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#bannerformmodal{{ user.username}}"><img
+                            <a href="#" data-toggle="modal" data-target="#bannerformmodal{{ user.username}}">
+                                
+                                <img
                                     src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
                                     class="avatar" alt="Avatar">
+
                                 <div class="modal fade bannerformmodal{{user.username}}" tabindex="-1" role="dialog"
                                     aria-labelledby="bannerformmodal" aria-hidden="true"
                                     id="bannerformmodal{{ user.username}}">

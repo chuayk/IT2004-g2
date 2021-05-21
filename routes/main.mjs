@@ -37,6 +37,8 @@ router.get("/",      async function(req, res) {
 // Customer Rewview route
 
 router.get("/review", async function(req, res) {
+	console.log(req.params.update)
+
     ModelUser.findAll().then((user) => {
 		return res.render('customerReview.html', {
 		   users_list: user,

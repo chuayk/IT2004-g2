@@ -92,6 +92,7 @@ router.get("/accounts/updateUsers", async function(req, res) {
 
 router.post("/accounts/updateUsers",   async function(req, res) {
     // Retrieve ID from URL
+    console.log(req.body.role);
 
     ModelUser.update({
         username: req.body.username,

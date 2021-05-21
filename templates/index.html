@@ -3,6 +3,7 @@
 {% else %}
 {% extends 'layouts/base.html' %}
 {% endif %}
+
 {% block PageContent %}
 <style>
 * {
@@ -193,7 +194,7 @@ body {
 <!DOCTYPE html>
 <!--Code by Divinector (www.divinectorweb.com)-->
 <body>
-<h1 style="color:white; padding-top: 20px;">Welcome back, {{user.username}} {{user.role}}</h1>
+<h1 style="color:white; padding-top: 20px;">Welcome back, {{user.username}} ({{user.role}})</h1>
     <header>
 <div class="welcome-text">
         <h1>Welcome to <span>Breadington!</span></h1>
@@ -215,3 +216,6 @@ body {
 </html>
 
 {% endblock PageContent %}
+
+
+
