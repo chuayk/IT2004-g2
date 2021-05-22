@@ -5,6 +5,10 @@ export default router;
 
 import { ModelUser } from '../data/user.mjs';
 
+
+// If user is not verified, ie. res.locals.user.verified == 0, redirect back to ('/') note to joel
+
+
 // ---------------- 
 //	Serves dynamic files from the dynamic folder
 router.get("/dynamic/:path", async function (req, res) {	
@@ -24,21 +28,41 @@ router.use("/staff", RouterStaff)
 // Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
 router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
-	// If not in session, kick out
-	// if (res.locals.user == null){
-	// 	return res.redirect('auth/login')
-	// }
+	// Prevent crashing
+	if (res.locals.user){let verified = res.locals.user.verified == 1;
+	}
+	// User signs in, matches hash string with url one.
+	if (res.locals.user){
+		if (res.locals.user.verification_hash == req.query.id)
+		{
+			ModelUser.update({
+				verified: true
+			}, {
+					where: {
+						username: res.locals.user.username
+					}
+				})
+			console.log('User verified! tight as hell gurl YOOO!')
+			
+		}
+
+	}
 	return res.render('index.html', {
 		title: "Hello  Not Today",
-		// role: req.query.role
+		// Enable this for verification
+		// verified: verified
 	});
 });
 
-// Customer Rewview route
+// Customer Revview route
 
 router.get("/review", async function(req, res) {
-	console.log(req.params.update)
 
+	if (res.locals.user.verified == 0)
+	{
+		return res.redirect('/')
+	}
+	console.log(req.params.update)
     ModelUser.findAll().then((user) => {
 		return res.render('customerReview.html', {
 		   users_list: user,

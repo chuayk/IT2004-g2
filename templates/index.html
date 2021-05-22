@@ -194,7 +194,12 @@ body {
 <!DOCTYPE html>
 <!--Code by Divinector (www.divinectorweb.com)-->
 <body>
-<h1 style="color:white; padding-top: 20px;">Welcome back, {{user.username}} ({{user.role}})</h1>
+<h1 style="color:white; padding-top: 20px;">Welcome back, {{user.username}} ({{user.role}}) {{verified}}</h1>
+{% if res.locals.user.verified == 0 %}
+<p>Please verify your email to access our services</p>
+{% else %}
+<p></p>
+{% endif %}
     <header>
 <div class="welcome-text">
         <h1>Welcome to <span>Breadington!</span></h1>
@@ -210,10 +215,20 @@ body {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
+
+		<script>
+			window.onload = function() {
+				if(!window.location.hash) {
+					window.location = window.location + '#loaded';
+					window.location.reload();
+				}
+			}  
+			</script>
 </body>
 
 </body>
 </html>
+
 
 {% endblock PageContent %}
 

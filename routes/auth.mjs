@@ -6,9 +6,8 @@ import bcrypt from 'bcryptjs';
 import Passport from 'passport';
 import Hash from 'hash.js';
 import { response, Router } from 'express';
+import nodemailer from 'nodemailer';
 
-import twilio from 'twilio';
-const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN).lookups.v1;
 
 import { ModelUser } from '../data/user.mjs';
 
@@ -30,11 +29,14 @@ router.get("/logout", logout_process);
 
 
 async function login_page(req, res) {
+
 	console.log("Login page accessed");
+	
 	return res.render('auth/login.html', {
 		success: req.query.success,
 		login_failed: req.query.invalid
-	});
+	}
+	);
 }
 
 
@@ -83,9 +85,40 @@ async function register_process(req, res) {
 					}
 
 					else {
-						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address })
+						let test = Hash.sha256().update(req.body.email).digest("hex")
+						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: test ,phoneNumber: req.body.number, address: req.body.address })
 							.then(user => {
-								// alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
+
+
+							// create reusable transporter object using the default SMTP transport
+							let transporter = nodemailer.createTransport({
+								host: "smtp-mail.outlook.com", // hostname
+								secureConnection: false, // TLS requires secureConnection to be false
+							port: 587,
+							secure: false, // true for 465, false for other ports
+							auth: {
+								user: "breadington.official@outlook.com", // generated ethereal user
+								pass: "Suckmybre@d", // generated ethereal password
+							},
+							tls: {
+								ciphers:'SSLv3'
+							}
+							});
+						
+							// send mail with defined transport object
+							transporter.sendMail({
+							from: '"Fred Foo 👻" breadington.official@outlook.com', // sender address
+							to: "ktykuang@gmail.com", // list of receivers
+							subject: "Hello ✔ Verification", // Subject line
+							text: "Please click on this link: http://localhost:3000/" + test, // plain text body
+							html: "<b>Thank you for your registration, please verify here:</b> http://localhost:3000?id=" + test, // html body
+							});
+						
+							console.log("Message sent");
+
+
+
+
 								return res.redirect('login/?success=true')
 							})
 							.catch(err => console.log(err));

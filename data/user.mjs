@@ -18,6 +18,8 @@ export const ModelUser = db.define('user', {
     email: {type: Sequelize.STRING, allowNull: false},
     password: {type: Sequelize.STRING, allowNull: false},
     phoneNumber: {type: Sequelize.STRING, allowNull: true},
+    verified: {type: Sequelize.STRING, defaultValue: "False", allowNull: true},
+    verification_hash: {type: Sequelize.STRING, allowNull: true},
     comment: {type: Sequelize.TEXT, allowNull: true},
     address: {type: Sequelize.TEXT, allowNull: true},
     role: {type: Sequelize.TEXT, defaultValue: "Guest", allowNull: false},
@@ -29,7 +31,7 @@ export const ModelUser = db.define('user', {
 
 });
 
-await ModelUser.sync({ force: true });
+await ModelUser.sync({ force: false });
 console.log("The table for the User model was just (re)created!");
 export default(ModelUser) 
 
