@@ -139,12 +139,12 @@ width: 100px;
 
         <div class="form-group">
 			<label for="password">Password</label>
-			<input type="password" name="password" class="form-control" value="{{password}}" minlength="4" required>
+			<input type="password" name="password" class="form-control" value="{{password}}" id="password" minlength="4" required>
         </div>
 
         <div class="form-group">
 			<label for="password2">Confirm Password</label>
-			<input type="password" name="password2" class="form-control" value="{{password2}}"minlength="4"  required>
+			<input type="password" name="password2" class="form-control" value="{{password2}}" id="password_confirm" oninput="check(this)" minlength="4"  required>
         </div>
         <div class="form-group">
             <label for="number">Contact Number</label>
@@ -178,4 +178,16 @@ width: 100px;
     <div class="social-media">
     </div>
 </div>
+
+
+<script language='javascript' type='text/javascript'>
+    function check(input) {
+        if (input.value != document.getElementById('password').value) {
+            input.setCustomValidity('Password Must be Matching.');
+        } else {
+            // input is valid -- reset the error message
+            input.setCustomValidity('');
+        }
+    }
+</script>
 {% endblock %}

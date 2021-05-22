@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import product from '../data/createP.mjs';
 import Code from '../data/code.mjs';
-import Hash             		from 'hash.js';
+import Hash from 'hash.js';
 
 
 
@@ -12,118 +12,123 @@ export default router;
 import RouterProduct from '../routes/product.mjs'
 router.use("/product", RouterProduct)
 
-// Creating users as an admin.
 
-router.get("/accounts/createUsers", async function(req, res) {
-	return res.render('staff/accounts/createUsers.html', {
-	});
-});
-
-router.post("/accounts/createUsers", async function(req, res) {
-	let {username, email, password, password2, phoneNumber, address, role} = req.body;
-    console.log(req.body);
-	if (req.body.password.length < 4){
-		return res.send('Password must be at least 4 characters')
-	}
-	else if(req.body.password != req.body.password2){
-		// alertMessage(res, 'danger',
-		// 'Passwords do not match', 'fas fa-exclamation-circle', false);
-		return res.send('Passwords do not match')
-	}
-	else {
-		// alertMessage(res, 'success',
-		//  `${req.body.email} registered successfully`, 'fas fa-sign-in-alt', true);
-		// return res.send(`${req.body.email} registered successfully`)
-		ModelUser.findOne({ where: {email: req.body.email} })
-		.then(user => {
-		if (user) {
-			console.log("email already registered.")
-			return res.render('auth/register.html', {
-				registeredEmail: true,
-			});
-				}
-
-		ModelUser.findOne({ where: {username: req.body.username} })
-		.then(user => {
-			if (user) {
-				console.log("username already registered.")
-
-				return res.render('auth/register.html', {
-					registeredUsername: true,
-				});
-			}
-	
-				
-		else{
-				ModelUser.create({username: req.body.username , email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role, accountStatus: req.body.status})
-				.then(user => {
-				// alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
-				return res.redirect('list/?param1=success')
-				})
-				.catch(err => console.log(err));
-	}
-	});
-
-	});
-	}
-});
-
-
-
+// Imports model user for database
 import { ModelUser } from '../data/user.mjs';
 
 
 
-// delete user
-router.post("/accounts/deleteUser",   async function(req, res) {
+router.get("/accounts/list", viewUser_page);
+router.get("/accounts/createUsers", createUser_page);
+router.post("/accounts/createUsers", createUser_process);
+router.post("/accounts/deleteUser", deleteUser_process);
+router.get("/accounts/updateUsers", updateUser_page);
+router.post("/accounts/updateUsers", updateUser_process);
+
+
+
+// Creating users as an admin.
+
+async function createUser_page(req, res) {
+    return res.render('staff/accounts/createUsers.html', {
+    });
+}
+
+
+async function createUser_process(req, res) {
+    let { username, email, password, password2, phoneNumber, address, role } = req.body;
+    console.log(req.body);
+    if (req.body.password.length < 4) {
+        return res.send('Password must be at least 4 characters')
+    }
+    else if (req.body.password != req.body.password2) {
+        return res.send('Passwords do not match')
+    }
+    else {
+        ModelUser.findOne({ where: { email: req.body.email } })
+            .then(user => {
+                if (user) {
+                    console.log("email already registered.")
+                    return res.render('auth/register.html', {
+                        registeredEmail: true,
+                    });
+                }
+
+                ModelUser.findOne({ where: { username: req.body.username } })
+                    .then(user => {
+                        if (user) {
+                            console.log("username already registered.")
+
+                            return res.render('auth/register.html', {
+                                registeredUsername: true,
+                            });
+                        }
+
+                        else {
+                            ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role, accountStatus: req.body.status })
+                                .then(user => {
+                                    // alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
+                                    return res.redirect('list')
+                                })
+                                .catch(err => console.log(err));
+                        }
+                    });
+
+            });
+    }
+}
+
+
+
+async function deleteUser_process(req, res) {
     // Retrieve ID from URL
-	ModelUser.destroy({
-		where: {"username": req.query.id}
-	})
-	.catch(err => console.log(err));
+    ModelUser.destroy({
+        where: { "username": req.query.id }
+    })
+        .catch(err => console.log(err));
     return res.redirect('../list')
-});
+}
 
 // update user
 // Implement query, then update. Now only has update.
 
-router.get("/accounts/updateUsers", async function(req, res) {
-	return res.render('staff/accounts/updateUsers.html', {
+async function updateUser_page(req, res) {
+    return res.render('staff/accounts/updateUsers.html', {
         username: req.query.id
     });
-});
+}
 
 
-router.post("/accounts/updateUsers",   async function(req, res) {
+async function updateUser_process(req, res) {
     // Retrieve ID from URL
     console.log(req.body.role);
 
     ModelUser.update({
         username: req.body.username,
         email: req.body.email,
-        password:  Hash.sha256().update(req.body.password).digest("hex"),
-        phoneNumber: req.body.number, 
-        address: req.body.address, 
-        role: req.body.role, 
+        password: Hash.sha256().update(req.body.password).digest("hex"),
+        phoneNumber: req.body.number,
+        address: req.body.address,
+        role: req.body.role,
         accountStatus: req.body.status
     }, {
-            where: {
-                username: req.query.id
-            }
-        })
-	.catch(err => console.log(err));
-	return res.redirect('../list')
-});
+        where: {
+            username: req.query.id
+        }
+    })
+        .catch(err => console.log(err));
+    return res.redirect('../list')
+}
 
 
-router.get("/accounts/list",   async function(req, res) {
+async function viewUser_page(req, res) {
     ModelUser.findAll().then((user) => {
-         return res.render('staff/accounts/retrieveUsers.html', {
+        return res.render('staff/accounts/retrieveUsers.html', {
             users_list: user,
         });
     }).catch(err => console.log(err)); // To catch no video ID
     // res.render('staff/retrieveUsers.html');
-});
+}
 
 
 

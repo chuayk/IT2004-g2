@@ -1,4 +1,8 @@
+{% if user.role == 'Guest' or user.role == null %}
+{% extends 'layouts/guest_base.html' %}
+{% else %}
 {% extends 'layouts/base.html' %}
+{% endif %}
 
 {% block PageContent %}
 <style>
@@ -137,15 +141,17 @@ width: 100px;
         </div>
         <div class="form-group">
 			<label for="password">Password</label>
-			<input type="password" name="password" class="form-control" value="{{password}}" minlength="4" required>
+			<input type="password" name="password" class="form-control" value="{{password}}" minlength="4" id="password" required>
         </div>
         <div class="form-group">
 			<label for="password2">Confirm Password</label>
-			<input type="password" name="password2" class="form-control" value="{{password2}}"minlength="4"  required>
+			<input type="password" name="password2" class="form-control" value="{{password2}}"minlength="4" id="password_confirm" oninput="check(this)" required>
         </div>
         <div class="form-group">
-          <label for="number">Contact Number</label>
-          <input type="text" name="number" class="form-control" value="{{number}}"minlength="8"  required>   
+          <!-- <label for="number">Contact Number</label>
+          <input type="text" name="number" class="form-control" value="{{number}}"minlength="8"  required>    -->
+          <label for="myPhoneNumber">Your Phone Number</label>
+          <input id="myPhoneNumber" name="myPhoneNumber" type="tel" autocomplete="tel" required>
             </div>
         <div class="form-group">
           <label for="address">Mailing Address</label>
@@ -208,6 +214,17 @@ width: 100px;
           </div>
         </div>
       </div>
+
+      <script language='javascript' type='text/javascript'>
+        function check(input) {
+            if (input.value != document.getElementById('password').value) {
+                input.setCustomValidity('Password Must be Matching.');
+            } else {
+                // input is valid -- reset the error message
+                input.setCustomValidity('');
+            }
+        }
+    </script>
       
   {% if registeredEmail == true %}
   <script>
@@ -220,6 +237,16 @@ width: 100px;
     $('#exampleModal2').modal('show');
   </script>
   {% endif %}
+
+
+  <!-- Passwords do not match -->
+<!-- 
+  {% if differentPass == true %}
+  <script>
+    $('#exampleModal2').modal('show');
+  </script>
+  {% endif %} -->
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

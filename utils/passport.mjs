@@ -60,6 +60,8 @@ const LocalStrategy = new Strategy ({
 
 		if (user == null) {
 			console.log("Invalid Credentials");
+			return done(null, null);
+
 		}
 		else {
 			return done(null, user);

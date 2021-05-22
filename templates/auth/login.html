@@ -135,7 +135,7 @@ body {
              <!-- Background image for card set in CSS! -->
           </div>
           <div class="card-body">
-            <h5 class="card-title text-center"> Welcome to Breadington! 
+            <h5 class="card-title text-center"> Welcome to Breadington!
 
             </h5>
             <form class="form-signin" method="post">
@@ -234,13 +234,13 @@ body {
   </script>
   {% endif %}
 
-  {% if param1 == "success" %}
+  {% if success == "true" %}
     <script>
     $('#successful_login').modal('show');
   </script>
 {% endif %}
 
-{% if login_failed == true %}
+{% if login_failed == 'true' %}
 <script>
 $('#unsuccessful_login').modal('show');
 </script>
