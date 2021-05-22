@@ -108,7 +108,7 @@ async function register_process(req, res) {
 							// send mail with defined transport object
 							transporter.sendMail({
 							from: '"Fred Foo 👻" breadington.official@outlook.com', // sender address
-							to: "ktykuang@gmail.com", // list of receivers
+							to: "", // list of receivers
 							subject: "Hello ✔ Verification", // Subject line
 							text: "Please click on this link: http://localhost:3000/" + test, // plain text body
 							html: "<b>Thank you for your registration, please verify here:</b> http://localhost:3000?id=" + test, // html body
