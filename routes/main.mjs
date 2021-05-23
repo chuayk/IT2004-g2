@@ -25,12 +25,34 @@ router.use("/staff", RouterStaff)
 // ---------------- 
 //	TODO:	Common URL paths here
 
+
+// 
+
+
+// Confirm email page before accessing services
+
+router.get("/confirmEmail", async function(req, res) {
+	return res.render('confirmEmail.html', {
+	});
+});
+
+
 // Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
 router.get("/",      async function(req, res) {
+
 	console.log("Home page accessed");
 	// Prevent crashing
-	if (res.locals.user){let verified = res.locals.user.verified == 1;
+	if (res.locals.user){
+		let verified = res.locals.user.verified == 1;
+		// fuck
+		// if (!verified)  {
+		// 	return res.redirect('/confirmEmail')
+		// }
 	}
+
+
+
+
 	// User signs in, matches hash string with url one.
 	if (res.locals.user){
 		if (res.locals.user.verification_hash == req.query.id)
@@ -69,6 +91,7 @@ router.get("/review", async function(req, res) {
 	   });
 	   }).catch(err => console.log(err));
 });
+
 
 router.post("/review", async function(req, res) {
 	console.log(req.body.comment);
