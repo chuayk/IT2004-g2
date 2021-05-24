@@ -193,7 +193,7 @@
                         <h2>Code Test <b>Management</b></h2>
                     </div>
                     <div class="col-xs-7">
-                        <a href="/staff/createcode" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
+                        <a href="createcode" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
                     </div>
                   <div style="margin-left:30%;margin-top:20%">
                     <form method="POST" action="">
@@ -216,7 +216,7 @@
     <tbody>
     {% for code in codes_list %}
       <tr>
-        <td>{{ code["code"] }}</td>
+        <td>{{ code.code }}</td>
         {% if code.check_valid %}
         <td style="color:green">
         Valid
@@ -231,7 +231,7 @@
         {% elif code.type == "$" %}
         <td>$</td>
         {% endif %}
-        <td>{{ code.end }}</td>
+        <td>{{code.end.getFullYear()}}-{{('0'+code.end.getMonth()).slice(-2)}}-{{('0'+code.end.getDate()).slice(-2)}}</td>
         <td>{{ code.amount }}</td>
         </td>
         <td><a href="updatecode?code={{code.code}}" class="btn btn-warning">edit</a></td>
