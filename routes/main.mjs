@@ -40,6 +40,10 @@ router.use("/", RouterCart)
 
 // Confirm email page before accessing services
 
+
+
+
+
 router.get("/confirmEmail", async function(req, res) {
 
 	if (res.locals.user){
@@ -58,7 +62,6 @@ router.get("/confirmEmail", async function(req, res) {
 		}
 
 	}
-
 	return res.render('confirmEmail.html', {
 	});
 
@@ -71,12 +74,12 @@ router.get("/confirmEmail", async function(req, res) {
 router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
 	// Prevent crashing
-	if (res.locals.user){
-		let verified = res.locals.user.verified == 1;
-		if (!verified)  {
-			return res.redirect('/confirmEmail')
-		}
-	}
+	// if (res.locals.user){
+	// 	let verified = res.locals.user.verified == 1;
+	// 	if (!verified)  {
+	// 		return res.redirect('/confirmEmail')
+	// 	}
+	// }
 
 	// User signs in, matches hash string with url one.
 	if (res.locals.user){
@@ -103,21 +106,17 @@ router.get("/",      async function(req, res) {
 router.post("/", async function(req, res) {
 	console.log("Contents received")
 	console.log(req.body.OTP)
-	
+	console.log(res.locals.user.phoneNumber_pin);
+
 	if (req.body.OTP == res.locals.user.phoneNumber_pin){
-		if (res.locals.user){
-			if (res.locals.user.verification_hash == req.query.id)
-			{
-				ModelUser.update({
-					verified: true
-				}, {
-						where: {
-							username: res.locals.user.username
-						}
-					})
-				console.log('User verified! tight as hell gurl YOOO!')
-			}
-		}
+		ModelUser.update({
+			phoneNumber_verified: true
+		}, {
+				where: {
+					username: res.locals.user.username
+				}
+			})
+			
 
 	}
 	return res.redirect('../')

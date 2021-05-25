@@ -124,7 +124,7 @@ async function register_process(req, res) {
 
 							// Sends number verification
 
-
+							
 							// const accountSID = 'AC1c886159e90de587c54a161fcbb7050d'
 							// const authToken = 'a31e759b37ba556cdf27eefa243d66a6'
 							// const twilioNumber = '+17634529124'
@@ -134,7 +134,7 @@ async function register_process(req, res) {
 							
 							// client.messages 
 							// 	  .create({ 
-							// 		 body: 'fuck pundei',  
+							// 		 body: `Dear Customer, Your OTP for Breadington is ${req.body.phoneNumber_pin}. Use this Passcode to complete your registration. Thank you =).`,
 							// 		 messagingServiceSid: 'MG0d160ce6e5c9c06e5a148e1d983ab07b',      
 							// 		 to: '+6593597922' 
 							// 	   }) 
