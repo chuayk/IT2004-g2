@@ -50,7 +50,7 @@ router.get("/confirmEmail", async function(req, res) {
 		if (res.locals.user.verification_hash == req.query.id)
 		{
 			ModelUser.update({
-				verified: true
+				emailVerified: true
 			}, {
 					where: {
 						username: res.locals.user.username
@@ -75,7 +75,7 @@ router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
 	// Prevent crashing
 	if (res.locals.user){
-		let verified = res.locals.user.verified == 1;
+		let verified = res.locals.user.emailVerified == 1;
 		if (!verified)  {
 			return res.redirect('/confirmEmail')
 		}
@@ -86,7 +86,7 @@ router.get("/",      async function(req, res) {
 		if (res.locals.user.verification_hash == req.query.id)
 		{
 			ModelUser.update({
-				verified: true
+				emailVerified: true
 			}, {
 					where: {
 						username: res.locals.user.username
@@ -97,8 +97,6 @@ router.get("/",      async function(req, res) {
 	}
 	return res.render('index.html', {
 		title: "Hello  Not Today",
-		// Enable this for verification
-		// verified: verified
 	});
 });
 
@@ -110,14 +108,13 @@ router.post("/", async function(req, res) {
 
 	if (req.body.OTP == res.locals.user.phoneNumber_pin){
 		ModelUser.update({
-			phoneNumber_verified: true
+			phoneNumberVerified: true
 		}, {
 				where: {
 					username: res.locals.user.username
 				}
 			})
 			
-
 	}
 	return res.redirect('../')
 
@@ -128,10 +125,8 @@ router.post("/", async function(req, res) {
 
 router.get("/review", async function(req, res) {
 
-	if (res.locals.user.verified == 0)
-	{
-		return res.redirect('/')
-	}
+
+
 	console.log(req.params.update)
     ModelUser.findAll().then((user) => {
 		return res.render('customerReview.html', {

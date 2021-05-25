@@ -14,13 +14,14 @@ export class UserRole {
 
 export const ModelUser = db.define('user', {
 
+    uuid: { type: Sequelize.UUID,    primaryKey: true, defaultValue: Sequelize.UUIDV4  },
     username: {type: Sequelize.STRING, allowNull: false},
     email: {type: Sequelize.STRING, allowNull: false},
     password: {type: Sequelize.STRING, allowNull: false},
     phoneNumber: {type: Sequelize.STRING, allowNull: false},
     phoneNumber_pin: {type: Sequelize.STRING, allowNull: false},
-    phoneNumber_verified: {type: Sequelize.STRING, defaultValue: "False", allowNull: false},
-    verified: {type: Sequelize.STRING, defaultValue: "False", allowNull: false},
+    phoneNumberVerified: {type: Sequelize.STRING, defaultValue: "False", allowNull: false},
+    emailVerified: {type: Sequelize.STRING, defaultValue: "False", allowNull: false},
     verification_hash: {type: Sequelize.STRING, allowNull: false},
     comment: {type: Sequelize.TEXT, allowNull: true},
     address: {type: Sequelize.TEXT, allowNull: false},
@@ -33,8 +34,7 @@ export const ModelUser = db.define('user', {
 
 });
 
-await ModelUser.sync({ force: true });
+await ModelUser.sync({ force: false });
 console.log("The table for the User model was just (re)created!");
 export default(ModelUser) 
 
-// exporting it as 'test' for now
