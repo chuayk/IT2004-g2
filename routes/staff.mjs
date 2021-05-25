@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import product from '../data/createP.mjs';
+import WalkInUser from '../data/createWalk.mjs';
 import Code from '../data/code.mjs';
 import Hash from 'hash.js';
 
@@ -17,6 +18,10 @@ router.use("/codes", RouterReward)
 
 // Imports model user for database
 import { ModelUser } from '../data/user.mjs';
+
+// rout to product.mjs -yh
+// import RouterWalkInUser from '../routes/WalkInUser.mjs'
+// router.use("/walkInUser", RouterWalkInUser)
 
 
 
@@ -142,10 +147,10 @@ router.get("/createWalkInUser", async function (req, res) {
 
 router.post("/createWalkInUser", async function (req, res) {
     let { fullName, nric, gender, phoneNumber, temperature } = req.body;
-    product.create({ fullName: req.body.fullName, nric: req.body.nricy, gender: req.body.gender, phoneNumber: req.body.phoneNumber, temperature: req.body.temperature })
-        .then(product => {
-            console.log(product.fullName + "success db")
+    WalkInUser.create({ fullName: req.body.fullName, nric: req.body.nricy, gender: req.body.gender, phoneNumber: req.body.phoneNumber, temperature: req.body.temperature })
+        .then(WalkInUser => {
+            console.log(WalkInUser.fullName + "success db")
             res.redirect('/');
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err + "what is this"));
 });

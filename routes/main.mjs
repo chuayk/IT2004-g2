@@ -22,6 +22,14 @@ router.use("/auth", RouterAuth);
 
 import RouterStaff from './staff.mjs'
 router.use("/staff", RouterStaff)
+
+import RouterMenu from '../routes/menu.mjs'
+router.use("/", RouterMenu)
+
+import RouterCart from '../routes/cart.mjs'
+router.use("/", RouterCart)
+
+
 // ---------------- 
 //	TODO:	Common URL paths here
 

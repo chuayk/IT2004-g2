@@ -27,7 +27,7 @@ function FilterFile(type, req, file, result) {
 }
 
 /** Where the files are going to be located */
-export const Path = `dynamic`;
+// export const Path = `dynamic`;
 /** Multer handler for uploading arbitrary files */
 export const UploadFile         = Multer({ dest:   `${Path}/file` });
 /** Multer handler for uploading profile images */
@@ -47,3 +47,27 @@ export async function DeleteFile(...files) {
 			console.warn(`Attempting to delete non-existing file(s) ${file}`);
 	}
 }
+export function UploadTo(destination, filter = undefined) {
+	if (filter != undefined) 
+		filter = FilterFile.bind(this, filter);
+	return Multer({ dest:   `${Path}/${destination}`, fileFilter: filter });
+}
+export function DeleteFilePath(...files) {
+	for (let file of files) {
+		if (FileSys.existsSync(file)) {
+			console.log(`Removing from server: ${file}`);
+			return FileSys.unlinkSync(file);
+		}
+		else
+			console.warn(`Attempting to delete non-existing file(s) ${file}`);
+	}
+}
+
+// var storage = multer.diskStorage({
+// 	destination: function (req, file, cb) {
+// 	  cb(null, '/tmp/my-uploads')
+// 	},
+// 	filename: function (req, file, cb) {
+// 	  cb(null, file.fieldname + '-' + Date.now())
+// 	}
+//   })
