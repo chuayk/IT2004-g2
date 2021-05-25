@@ -263,7 +263,7 @@ body {
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
 
-		{% if user.verified == 'False' or user.verified == 0 %}
+		{% if user.phoneNumber_verified == 'False' or user.phoneNumber_verified == 0 %}
 		<script>
 		  $('#verifyNumModal').modal('show');
 		</script>

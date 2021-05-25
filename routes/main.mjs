@@ -13,7 +13,7 @@ import { ModelUser } from '../data/user.mjs';
 // ---------------- 
 //	Serves dynamic files from the dynamic folder
 router.get("/dynamic/:path", async function (req, res) {	
-	return res.sendFile(`./dynamic/${req.params.path}`)
+	return res.sendFile(`${process.cwd()}/dynamic/${req.params.path}`)
 });
 
 // ---------------- 
@@ -67,8 +67,8 @@ router.get("/confirmEmail", async function(req, res) {
 
 
 // Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
-router.get("/",      async function(req, res) {
 
+router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
 	// Prevent crashing
 	if (res.locals.user){
@@ -77,9 +77,6 @@ router.get("/",      async function(req, res) {
 			return res.redirect('/confirmEmail')
 		}
 	}
-
-	
-
 
 	// User signs in, matches hash string with url one.
 	if (res.locals.user){
@@ -93,9 +90,7 @@ router.get("/",      async function(req, res) {
 					}
 				})
 			console.log('User verified! tight as hell gurl YOOO!')
-			
 		}
-
 	}
 	return res.render('index.html', {
 		title: "Hello  Not Today",
@@ -105,10 +100,26 @@ router.get("/",      async function(req, res) {
 });
 
 
-
 router.post("/", async function(req, res) {
 	console.log("Contents received")
 	console.log(req.body.OTP)
+	
+	if (req.body.OTP == res.locals.user.phoneNumber_pin){
+		if (res.locals.user){
+			if (res.locals.user.verification_hash == req.query.id)
+			{
+				ModelUser.update({
+					verified: true
+				}, {
+						where: {
+							username: res.locals.user.username
+						}
+					})
+				console.log('User verified! tight as hell gurl YOOO!')
+			}
+		}
+
+	}
 	return res.redirect('../')
 
 });

@@ -30,7 +30,12 @@ router.post("/register",		 		register_process);
 router.get("/logout",		 	 		logout_process);
 
 
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function login_page(req, res) {
 
 	console.log("Login page accessed");
@@ -43,7 +48,12 @@ async function login_page(req, res) {
 }
 
 
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function login_process(req, res, next) {
 	console.log("Incoming Request");
 	console.log(req.body);
@@ -56,19 +66,34 @@ async function login_process(req, res, next) {
 }
 
 
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function register_page(req, res) {
 	console.log("Register page accessed");
 	return res.render('auth/register.html');
 }
 
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function verifyNumber_page(req, res) {
 	return res.render('auth/verifyNumber.html');
 }
 
 // Change
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function register_process(req, res) {
 
 	let { username, email, password, password2, phoneNumber, address } = req.body;
@@ -138,7 +163,7 @@ async function register_process(req, res) {
 							// send mail with defined transport object
 							transporter.sendMail({
 							from: '"Fred Foo 👻" breadington.official@outlook.com', // sender address
-							to: "ktykuang", // list of receivers
+							to: req.body.email, // list of receivers
 							subject: "Hello ✔ Verification", // Subject line
 							text: "Please click on this link: http://localhost:3000/" + test, // plain text body
 							html: "<b>Thank you for your registration, please verify here:</b> http://localhost:3000/confirmEmail?id=" + test, // html body
@@ -159,7 +184,12 @@ async function register_process(req, res) {
 
 }
 
-
+/**
+ * Logs out the current user
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function logout_process(req, res) {
 	req.logout();
 	return res.redirect("login");
