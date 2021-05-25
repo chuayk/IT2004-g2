@@ -6,22 +6,20 @@
 
 {% block PageContent %}
 <style>
+  h1 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
 
-
-
-h1 {
-text-align: center;
-margin-bottom: 5px;
-}
-body{
+  body {
     background-color: #f5f5f5
-}
+  }
 
-.registration-form{
-	padding: 50px 0;
-}
+  .registration-form {
+    padding: 50px 0;
+  }
 
-.registration-form form{
+  .registration-form form {
     background-color: #fff;
     max-width: 600px;
     margin: auto;
@@ -29,10 +27,10 @@ body{
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-}
+  }
 
-.registration-form .form-icon{
-	text-align: center;
+  .registration-form .form-icon {
+    text-align: center;
     background-color: #5891ff;
     border-radius: 50%;
     font-size: 40px;
@@ -42,15 +40,15 @@ body{
     margin: auto;
     margin-bottom: 50px;
     line-height: 100px;
-}
+  }
 
-.registration-form .item{
-	border-radius: 20px;
+  .registration-form .item {
+    border-radius: 20px;
     margin-bottom: 25px;
     padding: 10px 20px;
-}
+  }
 
-.registration-form .create-account{
+  .registration-form .create-account {
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 18px;
@@ -59,9 +57,9 @@ body{
     border: none;
     color: white;
     margin-top: 20px;
-}
+  }
 
-.registration-form .social-media{
+  .registration-form .social-media {
     max-width: 600px;
     background-color: #fff;
     margin: auto;
@@ -71,14 +69,14 @@ body{
     border-bottom-right-radius: 30px;
     color: #9fadca;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-}
+  }
 
-.registration-form .social-icons{
+  .registration-form .social-icons {
     margin-top: 30px;
     margin-bottom: 16px;
-}
+  }
 
-.registration-form .social-icons a{
+  .registration-form .social-icons a {
     font-size: 23px;
     margin: 0 3px;
     color: #5691ff;
@@ -90,156 +88,169 @@ body{
     text-align: center;
     background-color: #fff;
     line-height: 45px;
-}
+  }
 
-.registration-form .social-icons a:hover{
+  .registration-form .social-icons a:hover {
     text-decoration: none;
     opacity: 0.6;
-}
+  }
 
-@media (max-width: 576px) {
-    .registration-form form{
-        padding: 50px 20px;
+  @media (max-width: 576px) {
+    .registration-form form {
+      padding: 50px 20px;
     }
 
-    .registration-form .form-icon{
-        width: 70px;
-        height: 70px;
-        font-size: 30px;
-        line-height: 70px;
+    .registration-form .form-icon {
+      width: 70px;
+      height: 70px;
+      font-size: 30px;
+      line-height: 70px;
     }
-}
-
+  }
 </style>
 <script src="sweetalert2.all.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 <h1 class="display-4">Registration</h1>
 
 <div class="registration-form">
-    <form method="POST" action="">
-        <div>
-            <img style="
+  <form method="POST" action="">
+    <div>
+      <img style="
 width: 100px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 7px;" src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" class="avatar"
-                 alt="Avatar">
-                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  margin-bottom: 7px;" src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+        class="avatar" alt="Avatar">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-        </div>
-        <div>
-        </div>
-        <div class="form-group">
-			<label for="name">Username</label>
-			<input type="text" class="form-control" name="username" value="{{username}}" required>
-        </div>
-        <div class="form-group">
-			<label for="email">Email</label>
-			<input type="email" name="email" class="form-control" value="{{email}}" required>
+    </div>
+    <div>
+    </div>
+    <div class="form-group">
+      <label for="name">Username</label>
+      <input type="text" class="form-control" name="username" value="{{username}}" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" name="email" class="form-control" value="{{email}}" required>
 
-        </div>
-        <div class="form-group">
-			<label for="password">Password</label>
-			<input type="password" name="password" class="form-control" value="{{password}}" minlength="4" id="password" required>
-        </div>
-        <div class="form-group">
-			<label for="password2">Confirm Password</label>
-			<input type="password" name="password2" class="form-control" value="{{password2}}"minlength="4" id="password_confirm" oninput="check(this)" required>
-        </div>
-        <div class="form-group">
-          <label for="number">Contact Number</label>
-          <input type="text" name="number" class="form-control" value="{{number}}"minlength="8"  required>   
-          <!-- <label for="myPhoneNumber">Your Phone Number</label>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" class="form-control" value="{{password}}" minlength="4" id="password"
+        required>
+    </div>
+    <div class="form-group">
+      <label for="password2">Confirm Password</label>
+      <input type="password" name="password2" class="form-control" value="{{password2}}" minlength="4"
+        id="password_confirm" oninput="check(this)" required>
+    </div>
+    <div class="form-group">
+      <label for="number">Contact Number</label>
+      <input type="text" name="number" class="form-control" value="{{number}}" minlength="8" required>
+      <!-- <label for="myPhoneNumber">Your Phone Number</label>
           <input id="myPhoneNumber" name="myPhoneNumber" type="tel" autocomplete="tel" required> -->
-            </div>
-        <div class="form-group">
-          <label for="address">Mailing Address</label>
-          <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3" title="5 characters minimum"maxlength="30" minlength="5" value= "{{address}}"></textarea>
-            </div>
-<!-- 		
+    </div>
+
+    {% if number_verified == 'false' %}
+    <div class="form-group">
+      <label for="number">Pin: </label>
+      <input type="text" name="number" class="form-control" value="{{phoneNumber_pin}}" minlength="4">
+    </div>
+    {% endif %}
+
+    <div class="form-group">
+      <label for="address">Mailing Address</label>
+      <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3"
+        title="5 characters minimum" maxlength="30" minlength="5" value="{{address}}"></textarea>
+    </div>
+    <!-- 		
         <div class="form-group">
 			<button type="submit" class="btn btn-primary">Submit</button>
 
         </div> -->
 
-        <div class="form-group">
-            <button type="submit" onclick="validate();" value="Submit" class="btn btn-block create-account">Submit</button>
+    <div class="form-group">
+      <button type="submit" onclick="validate();" value="Submit" class="btn btn-block create-account">Submit</button>
 
-        </div>
-    </form>
-    <div class="social-media">
     </div>
+  </form>
+  <div class="social-media">
+  </div>
 </div>
 
 
-  
-  <!-- Modal for registered email -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color: red;">
-          <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Warning!</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p style="color: red;">This email has already been registered. Please use another one.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+
+<!-- Modal for registered email -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: red;">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Warning!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: red;">This email has already been registered. Please use another one.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
 
 
-    <!-- Modal for registered username -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header" style="background-color: red">
-              <h5 class="modal-title" id="exampleModalLabel2" style="color: white;">Warning!</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p style="color: red;">This username has already been registered. Please use another one.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
+<!-- Modal for registered username -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: red">
+        <h5 class="modal-title" id="exampleModalLabel2" style="color: white;">Warning!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <p style="color: red;">This username has already been registered. Please use another one.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <script language='javascript' type='text/javascript'>
-        function check(input) {
-            if (input.value != document.getElementById('password').value) {
-                input.setCustomValidity('Password Must be Matching.');
-            } else {
-                // input is valid -- reset the error message
-                input.setCustomValidity('');
-            }
-        }
-    </script>
-      
-  {% if registeredEmail == true %}
-  <script>
-    $('#exampleModal').modal('show');
-  </script>
-  {% endif %}
+<script language='javascript' type='text/javascript'>
+  function check(input) {
+    if (input.value != document.getElementById('password').value) {
+      input.setCustomValidity('Password Must be Matching.');
+    } else {
+      // input is valid -- reset the error message
+      input.setCustomValidity('');
+    }
+  }
+</script>
 
-    {% if registeredUsername == true %}
-  <script>
-    $('#exampleModal2').modal('show');
-  </script>
-  {% endif %}
+{% if registeredEmail == true %}
+<script>
+  $('#exampleModal').modal('show');
+</script>
+{% endif %}
+
+{% if registeredUsername == true %}
+<script>
+  $('#exampleModal2').modal('show');
+</script>
+{% endif %}
 
 
-  <!-- Passwords do not match -->
+<!-- Passwords do not match -->
 <!-- 
   {% if differentPass == true %}
   <script>
@@ -248,8 +259,11 @@ width: 100px;
   {% endif %} -->
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 {% endblock %}
