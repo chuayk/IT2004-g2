@@ -1,12 +1,14 @@
-import bodyParser from 'body-parser';
-import urlencoded from 'urlencode';
-import alertMessage from 'flash-messenger';
-import user from '../data/models.mjs';
-import bcrypt from 'bcryptjs';
-import Passport from 'passport';
-import Hash from 'hash.js';
-import { response, Router } from 'express';
-import nodemailer from 'nodemailer';
+import bodyParser from 				'body-parser';
+import urlencoded from 				'urlencode';
+import alertMessage from 			'flash-messenger';
+import user from					'../data/models.mjs';
+import bcrypt from 					'bcryptjs';
+import Passport from 				'passport';
+import Hash from 					'hash.js';
+import { response, Router } from 	'express';
+import nodemailer from '			nodemailer';
+import twilio from 					'twilio';
+
 
 
 import { ModelUser } from '../data/user.mjs';
@@ -20,11 +22,12 @@ export default router;
 
 
 
-router.get("/login", login_page);
-router.post("/login", login_process);
-router.get("/register", register_page);
-router.post("/register", register_process);
-router.get("/logout", logout_process);
+router.get("/login", 					login_page);
+router.post("/login", 					login_process);
+router.get("/register", 				register_page);
+router.get("/register/verifyNumber", 	verifyNumber_page);
+router.post("/register",		 		register_process);
+router.get("/logout",		 	 		logout_process);
 
 
 
@@ -59,6 +62,11 @@ async function register_page(req, res) {
 	return res.render('auth/register.html');
 }
 
+
+async function verifyNumber_page(req, res) {
+	return res.render('auth/verifyNumber.html');
+}
+
 // Change
 
 async function register_process(req, res) {
@@ -90,6 +98,23 @@ async function register_process(req, res) {
 							.then(user => {
 
 							// Sends number verification
+
+
+							// const accountSID = 'AC1c886159e90de587c54a161fcbb7050d'
+							// const authToken = 'a31e759b37ba556cdf27eefa243d66a6'
+							// const twilioNumber = '+17634529124'
+							
+							
+							// let client = new twilio(accountSID, authToken)
+							
+							// client.messages 
+							// 	  .create({ 
+							// 		 body: 'fuck pundei',  
+							// 		 messagingServiceSid: 'MG0d160ce6e5c9c06e5a148e1d983ab07b',      
+							// 		 to: '+6593597922' 
+							// 	   }) 
+							// 	  .then(message => console.log(message.sid)) 
+							// 	  .done();
 
 
 							// Sends email

@@ -5,7 +5,7 @@ const sequelize = new Sequelize('itp211', 'breaduser', 'P@ssword123', {
     host: 'localhost',
     dialect: 'mysql',
     define: {
-        timestamps: true
+        timestamps: false
     }
 });
 

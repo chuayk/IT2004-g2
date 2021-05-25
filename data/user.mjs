@@ -18,6 +18,8 @@ export const ModelUser = db.define('user', {
     email: {type: Sequelize.STRING, allowNull: false},
     password: {type: Sequelize.STRING, allowNull: false},
     phoneNumber: {type: Sequelize.STRING, allowNull: true},
+
+    phoneNumber_pin: {type: Sequelize.STRING, allowNull: true},
     verified: {type: Sequelize.STRING, defaultValue: "False", allowNull: true},
     verification_hash: {type: Sequelize.STRING, allowNull: true},
     comment: {type: Sequelize.TEXT, allowNull: true},
