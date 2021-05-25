@@ -1,0 +1,69 @@
+{% extends "layouts/base.html" %}
+{% block PageContent %}
+{% block title %}Product Menu{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="public/css/menustyle.css" />
+{% endblock %}
+
+
+<main role="main">
+    <!-- product page -->
+    <section class=" text-center">
+      <div class="container">
+        <h1>Products we sell </h1>
+        <p class="lead text-muted">We mainly sell bread,buns and cakes</p>
+      </div>
+    </section>
+
+    <div class="container">
+        <ul class="list-group list-group-horizontal align-items-stretch flex-wrap">
+            {%for product in product_list%}
+            <li class="list-group-item border-0">
+
+                <div class="card my-3">
+                        <div class="card-body">
+
+                            <img class="mx-auto d-block" width="80%"  src={{image}} >
+                            <p class="card-text">Name: {{product.id}} </p>
+                            <p class="card-text">Price: ${{product.price}}</p>
+                            <p class="card-text" >Available: {{product.stock_count}}</p>
+                            <p class="card-text" >Discription: <br> {{product.description}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                    <div class="card-footer">
+                                        <form method="POST" action="" >
+                                            <div class="form-group">
+                                                <label for="quantity">Qty:</label>
+                                                <input type="number" id="quantity" name="quantity" min="1" max="5">
+                                            </div>
+
+
+                                            {% if product.stock_count <= 0  %}
+                                                <div class="btn-group">
+                                                    <input type="submit" value="Add to cart" class="btn btn-primary" disabled="disabled"/>
+                                                </div>
+
+                                            {% else %}
+                                                <div class="btn-group">
+                                                        <input type="submit" value="Add to cart" class="btn btn-primary btn-sm" />
+                                                </div>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                            </div>
+                        </div>
+
+                </div>
+                {% endfor %}
+        </ul>
+        </div>
+
+
+  </div>
+
+
+
+</main>
+
+
+
+  {% endblock %}

@@ -5,7 +5,7 @@ const sequelize = new Sequelize('itp211', 'breaduser', 'P@ssword123', {
     host: 'localhost',
     dialect: 'mysql',
     define: {
-        timestamps: false
+        timestamps: true
     }
 });
 
@@ -15,6 +15,6 @@ try {
 } catch (error) {
     console.error('Unable to connect to the database:', error);
 }
-await sequelize.sync({ force: false });
+await sequelize.sync({ force: true });
 console.log("All models were synchronized successfully.");
 export default(sequelize)
