@@ -3,11 +3,12 @@ import { Router } from 'express';
 const router = Router();
 export default router;
 // retrieve codes page for staff
-router.get("/updatecode",updatecodeform)
-router.post("/updatecode",updatecode)
+router.get("/update",updatecodeform)
+router.post("/update",updatecode)
 router.get("/codes", rendercodes);
-router.get("/createcode", createcodeform);
-router.post("/createcode", createcode);
+router.get("/create", createcodeform);
+router.post("/create", createcode);
+router.post("/delete", deletecode)
 //render codes table
 async function rendercodes(req, res) {
     // var codes = Code.findAll()
@@ -41,11 +42,11 @@ async function createcode(req, res) {
         };
         //code created
         await Code.create({ code: req.body.code, type: req.body.type, amount: req.body.amount, end: req.body.end });
-        return res.redirect("codes")
+        return res.redirect("/staff/codes/codes")
     }
     catch (error) {
         console.error(error)
-        return res.redirect("createcode")
+        return res.redirect("/staff/codes/create")
     }
 
 };
@@ -70,10 +71,9 @@ async function updatecode(req,res){
             amount: req.body.amount,
             end : req.body.end,
         },{where:{ code : req.query.code}})
-        return res.redirect("codes")
+        return res.redirect("/staff/codes/codes")
     };
-async function deletecode(req,res){
-    var impcode = req.query.code;
-    const selectcode = await Code.findOne({where:{code:impcode}});
-    selectcode.destroy()
+export async function deletecode(req,res){
+    Code.destroy({where:{code : req.query.code}})
+    res.redirect("/staff/codes/codes")
 }

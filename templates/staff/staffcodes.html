@@ -193,7 +193,7 @@
                         <h2>Code Test <b>Management</b></h2>
                     </div>
                     <div class="col-xs-7">
-                        <a href="createcode" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
+                        <a href="create" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@
     </thead>
     <tbody>
     {% for code in codes_list %}
-      <tr>
+      <tr id="{{code.code}}">
         <td>{{ code.code }}</td>
         {% if code.check_valid %}
         <td style="color:green">
@@ -230,9 +230,9 @@
         <td>{{code.end.getFullYear()}}-{{('0'+code.end.getMonth()).slice(-2)}}-{{('0'+code.end.getDate()).slice(-2)}}</td>
         <td>{{ code.amount }}</td>
         </td>
-        <td><a href="updatecode?code={{code.code}}" class="btn btn-warning">edit</a></td>
+        <td><a href="update/?code={{code.code}}" class="btn btn-warning">edit</a></td>
         <td>
-          <form action="delete?code={{code.code}}" method="get">
+          <form action="delete/?code={{code.code}}" method="POST">
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{code.code}}">
       Delete
     </button>
@@ -255,7 +255,7 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <input type="submit" value="Delete" class="btn btn-danger">
+            <input type="submit"  class="btn btn-danger">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
 
