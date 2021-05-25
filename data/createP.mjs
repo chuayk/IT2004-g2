@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import  db from './database.mjs';
+import db from './database.mjs';
 
 
 /* Creates a user(s) table in MySQL Database.
@@ -14,7 +14,7 @@ export const product = db.define('prduct', {
         type: Sequelize.STRING
     },
     price: {
-        type: Sequelize.FLOAT(5,2)
+        type: Sequelize.FLOAT(10, 2)
     },
     stock_count: {
         type: Sequelize.FLOAT
@@ -22,8 +22,10 @@ export const product = db.define('prduct', {
     description: {
         type: Sequelize.STRING
     },
+
+
 });
 
 await product.sync({ force: false });
 console.log("The table for the product model was just (re)created!");
-export default(product) 
+export default (product)
