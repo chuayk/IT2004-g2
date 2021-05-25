@@ -118,8 +118,8 @@ async function register_process(req, res) {
 					}
 
 					else {
-						let test = Hash.sha256().update(req.body.email).digest("hex")
-						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: test,phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2,4)})
+						let verification_hash = Hash.sha256().update(req.body.email).digest("hex")
+						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), address: req.body.address, verification_hash: verification_hash,phoneNumber: req.body.number, phoneNumber_pin: Math.random().toString().substr(2,4)})
 							.then(user => {
 
 							// Sends number verification
@@ -162,7 +162,7 @@ async function register_process(req, res) {
 						
 							// send mail with defined transport object
 							transporter.sendMail({
-							from: '"Fred Foo 👻" breadington.official@outlook.com', // sender address
+							from: '"Breadington Team 👻" breadington.official@outlook.com', // sender address
 							to: req.body.email, // list of receivers
 							subject: "Hello ✔ Verification", // Subject line
 							text: "Please click on this link: http://localhost:3000/" + test, // plain text body

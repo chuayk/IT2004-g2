@@ -74,12 +74,12 @@ router.get("/confirmEmail", async function(req, res) {
 router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
 	// Prevent crashing
-	// if (res.locals.user){
-	// 	let verified = res.locals.user.verified == 1;
-	// 	if (!verified)  {
-	// 		return res.redirect('/confirmEmail')
-	// 	}
-	// }
+	if (res.locals.user){
+		let verified = res.locals.user.verified == 1;
+		if (!verified)  {
+			return res.redirect('/confirmEmail')
+		}
+	}
 
 	// User signs in, matches hash string with url one.
 	if (res.locals.user){

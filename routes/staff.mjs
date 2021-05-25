@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import product from '../data/createP.mjs';
-import WalkInUser from '../data/createWalk.mjs';
-import Code from '../data/code.mjs';
-import Hash from 'hash.js';
-
+import { Router } from      'express';
+import product from         '../data/createP.mjs';
+import WalkInUser from      '../data/createWalk.mjs';
+import Code from            '../data/code.mjs';
+import Hash from            'hash.js';
+import { ModelUser } from '../data/user.mjs';
 
 
 const router = Router();
@@ -17,7 +17,7 @@ import RouterReward from '../routes/staffcodes.mjs'
 router.use("/codes", RouterReward)
 
 // Imports model user for database
-import { ModelUser } from '../data/user.mjs';
+
 
 // rout to product.mjs -yh
 // import RouterWalkInUser from '../routes/WalkInUser.mjs'
@@ -25,23 +25,36 @@ import { ModelUser } from '../data/user.mjs';
 
 
 
-router.get("/accounts/list", viewUser_page);
-router.get("/accounts/createUsers", createUser_page);
-router.post("/accounts/createUsers", createUser_process);
-router.post("/accounts/deleteUser", deleteUser_process);
-router.get("/accounts/updateUsers", updateUser_page);
-router.post("/accounts/updateUsers", updateUser_process);
+router.get("/accounts/list",                viewUser_page);
+router.get("/accounts/createUsers",         createUser_page);
+router.post("/accounts/createUsers",        createUser_process);
+router.post("/accounts/deleteUser",         deleteUser_process);
+router.get("/accounts/updateUsers",         updateUser_page);
+router.post("/accounts/updateUsers",        updateUser_process);
 
 
 
 // Creating users as an admin.
 
+
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function createUser_page(req, res) {
     return res.render('staff/accounts/createUsers.html', {
     });
 }
 
 
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function createUser_process(req, res) {
     let { username, email, password, password2, phoneNumber, address, role } = req.body;
     console.log(req.body);
@@ -72,7 +85,8 @@ async function createUser_process(req, res) {
                         }
 
                         else {
-                            ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role, accountStatus: req.body.status })
+                            let verification_hash = Hash.sha256().update(req.body.email).digest("hex")
+                            ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role, accountStatus: req.body.status, verification_hash: verification_hash, phoneNumber_pin: Math.random().toString().substr(2,4) })
                                 .then(user => {
                                     // alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
                                     return res.redirect('list')
@@ -86,7 +100,12 @@ async function createUser_process(req, res) {
 }
 
 
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function deleteUser_process(req, res) {
     // Retrieve ID from URL
     ModelUser.destroy({
@@ -99,6 +118,13 @@ async function deleteUser_process(req, res) {
 // update user
 // Implement query, then update. Now only has update.
 
+
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function updateUser_page(req, res) {
     return res.render('staff/accounts/updateUsers.html', {
         username: req.query.id
@@ -106,6 +132,13 @@ async function updateUser_page(req, res) {
 }
 
 
+
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function updateUser_process(req, res) {
     // Retrieve ID from URL
     console.log(req.body.role);
@@ -128,15 +161,24 @@ async function updateUser_process(req, res) {
 }
 
 
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
+
+
 async function viewUser_page(req, res) {
     ModelUser.findAll().then((user) => {
         return res.render('staff/accounts/retrieveUsers.html', {
             users_list: user,
         });
-    }).catch(err => console.log(err)); // To catch no video ID
+
+        // return res.json(user)
+    }).catch(err => console.log(err)); 
     // res.render('staff/retrieveUsers.html');
 }
-
 
 
 //create walk in user -yh
