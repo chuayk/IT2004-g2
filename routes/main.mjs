@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import twilio from 'twilio';
 
 const router = Router();
 export default router;
@@ -40,8 +41,28 @@ router.use("/", RouterCart)
 // Confirm email page before accessing services
 
 router.get("/confirmEmail", async function(req, res) {
+
+	if (res.locals.user){
+		if (res.locals.user.verification_hash == req.query.id)
+		{
+			ModelUser.update({
+				verified: true
+			}, {
+					where: {
+						username: res.locals.user.username
+					}
+				})
+			console.log('User verified! tight as hell gurl YOOO!')
+			return res.redirect('/')
+			
+		}
+
+	}
+
 	return res.render('confirmEmail.html', {
 	});
+
+	
 });
 
 
@@ -52,13 +73,12 @@ router.get("/",      async function(req, res) {
 	// Prevent crashing
 	if (res.locals.user){
 		let verified = res.locals.user.verified == 1;
-		// fuck
-		// if (!verified)  {
-		// 	return res.redirect('/confirmEmail')
-		// }
+		if (!verified)  {
+			return res.redirect('/confirmEmail')
+		}
 	}
 
-
+	
 
 
 	// User signs in, matches hash string with url one.
@@ -83,6 +103,16 @@ router.get("/",      async function(req, res) {
 		// verified: verified
 	});
 });
+
+
+
+router.post("/", async function(req, res) {
+	console.log("Contents received")
+	console.log(req.body.OTP)
+	return res.redirect('../')
+
+});
+
 
 // Customer Revview route
 
