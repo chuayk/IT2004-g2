@@ -28,8 +28,9 @@ async function createcodeform(req, res) {
     return res.render('staff/createcode.html')
 };
 
-
+// create code
 async function createcode(req, res) {
+    //validation
     try {
         var codes = Code.findAll()
         if (req.body.code.length != 10) {
@@ -38,6 +39,7 @@ async function createcode(req, res) {
         else if (req.body.code in codes) {
             throw "code exists"
         };
+        //code created
         await Code.create({ code: req.body.code, type: req.body.type, amount: req.body.amount, end: req.body.end });
         return res.redirect("codes")
     }
@@ -70,3 +72,8 @@ async function updatecode(req,res){
         },{where:{ code : req.query.code}})
         return res.redirect("codes")
     };
+async function deletecode(req,res){
+    var impcode = req.query.code;
+    const selectcode = await Code.findOne({where:{code:impcode}});
+    selectcode.destroy()
+}

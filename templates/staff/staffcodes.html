@@ -195,10 +195,6 @@
                     <div class="col-xs-7">
                         <a href="createcode" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
                     </div>
-                  <div style="margin-left:30%;margin-top:20%">
-                    <form method="POST" action="">
-</form>
-                  </div>
                 </div>
             </div>
   <table class="table table-striped">
@@ -236,7 +232,7 @@
         </td>
         <td><a href="updatecode?code={{code.code}}" class="btn btn-warning">edit</a></td>
         <td>
-          <form action="" method="POST">
+          <form action="delete?code={{code.code}}" method="get">
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{code.code}}">
       Delete
     </button>
