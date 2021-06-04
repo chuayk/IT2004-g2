@@ -123,6 +123,18 @@ router.post("/", async function(req, res) {
 
 // Customer Revview route
 
+
+router.get("/review-data", async function(req, res) {
+
+    const users = await ModelUser.findAll({raw: true});
+    return res.json({
+        "rows": users,
+        "total": users.length,
+    }
+)
+});
+
+
 router.get("/review", async function(req, res) {
 
 
@@ -132,7 +144,8 @@ router.get("/review", async function(req, res) {
 		return res.render('customerReview.html', {
 		   users_list: user,
 	   });
-	   }).catch(err => console.log(err));
+	   }
+	   ).catch(err => console.log(err));
 });
 
 

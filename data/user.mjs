@@ -13,7 +13,6 @@ export class UserRole {
 // user is the name of the table.
 
 export const ModelUser = db.define('user', {
-
     uuid: { type: Sequelize.UUID,    primaryKey: true, defaultValue: Sequelize.UUIDV4  },
     username: {type: Sequelize.STRING, allowNull: false},
     email: {type: Sequelize.STRING, allowNull: false},
@@ -30,11 +29,9 @@ export const ModelUser = db.define('user', {
     dateCreated: {type: Sequelize.DATEONLY, defaultValue: Sequelize.NOW},
     dateUpdated: {type: Sequelize.DATEONLY, defaultValue: Sequelize.NOW}
 
-
-
 });
 
-await ModelUser.sync({ force: false });
+await ModelUser.sync({ force: true });
 console.log("The table for the User model was just (re)created!");
 export default(ModelUser) 
 

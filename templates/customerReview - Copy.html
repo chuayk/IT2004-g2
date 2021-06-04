@@ -1,0 +1,287 @@
+<!-- {% if user.role == 'Guest' %}
+{% extends 'layouts/guest_base.html' %}
+{% else %}
+{% extends 'layouts/base.html' %}
+{% endif %} -->
+{% block PageContent %}
+<style>
+    body {
+        background-color: whitesmoke;
+        margin-bottom: 25px;
+    }
+
+    @media (max-width:991.98px) {
+        .padding {
+            padding: 1.5rem
+        }
+    }
+
+    @media (max-width:767.98px) {
+        .padding {
+            padding: 1rem
+        }
+    }
+
+    .padding {
+        padding: 5rem
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        width: 350px;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #f0f8ff;
+        background-clip: border-box;
+        border: 1px solid #d2d2dc;
+        border-radius: 11px;
+        -webkit-box-shadow: 0px 0px 5px 0px rgb(249, 249, 250);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1);
+        box-shadow: 0px 0px 5px 0px rgb(161, 163, 164)
+    }
+
+    .card .card-body {
+        padding: 1rem 1rem
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+        padding: 1.25rem
+    }
+
+    p {
+        font-size: 0.875rem;
+        margin-bottom: .5rem;
+        line-height: 1.5rem
+    }
+
+    h4 {
+        line-height: .2 !important
+    }
+
+    .profile {
+        margin-top: 16px;
+        margin-left: 11px
+    }
+
+    .profile-pic {
+        width: 58px
+    }
+
+    .cust-name {
+        font-size: 18px
+    }
+
+    .cust-profession {
+        font-size: 10px
+    }
+
+    .items {
+        width: 90%;
+        margin: 0px auto;
+        margin-top: 100px
+    }
+
+    .slick-slide {
+        margin: 10px
+    }
+
+
+
+    .date {
+        font-size: 11px
+    }
+
+    .comment-text {
+        font-size: 12px
+    }
+
+    .fs-12 {
+        font-size: 12px
+    }
+
+    .shadow-none {
+        box-shadow: none
+    }
+
+    .name {
+        color: #007bff
+    }
+
+    .cursor:hover {
+        color: blue
+    }
+
+    .cursor {
+        cursor: pointer
+    }
+
+    .textarea {
+        resize: none
+    }
+</style>
+
+
+
+
+<body>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+    <h1 class="display-4"
+        style="  text-align: center; padding-bottom: 45px; padding-top: 30px;font-weight: 500; ">
+        Write us a review!</h1>
+
+
+    <div class="container"  style=" border: 3px solid #e8e8e8; background-color: white; padding-top: 0.5px; padding-bottom: 30px;">
+        <!-- <div class="row" style="background-color:#0db4ce;">
+            <div class="col-xs-5" style="color: white; margin: auto;">
+                <h2>User <b>Reviews</b></h2>
+            </div>
+        </div> -->
+        <div class="items ">
+
+            {% for user in users_list %}
+            {% if user.comment != null %}
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <h4 class="card-title"><img src="https://img.icons8.com/ultraviolet/40/000000/quote-left.png">
+                        </h4>
+                        <div class="template-demo">
+                            <p>{{ user.comment }}</p>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-2">
+
+                                <img class="profile-pic"
+                                    src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png">
+
+
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="profile">
+                                    <h4 class="cust-name" style="padding-left:15px;">{{ user.username }}</h4>
+                                    {% if user.role == "Guest" %}
+                                    <p class="cust-profession" style="padding-left:15px;">{{ user.role }}</p>
+                                    {% else %}
+                                    <p class="cust-profession" style="padding-left:15px; color: red;">{{ user.role }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            {% else %}
+            <p></p>
+            {% endif %}
+
+            {% endfor %}
+
+
+
+        </div>
+
+
+        <div class="container mt-5">
+            <div class="d-flex justify-content-center row">
+                <div class="col-md-11">
+                    <form method="POST" action="/review/?updated=true">
+                        <div class="d-flex flex-column comment-section">
+                            <div class="bg-white p-2">
+
+                            </div>
+                            {% if user.comment != null %}
+                            <div class="bg-light p-2">
+                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
+                                        src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                        width="40">
+                                    <textarea class="form-control ml-1 shadow-none textarea" name="comment"
+                                        value="{{comment}}"></textarea>
+                                </div>
+                                <div class="mt-2 text-right"><input class="btn btn-primary" type="submit"
+                                        value="Submit"></div>
+                            </div>
+                            {% else %}
+                            <div class="bg-light p-2">
+                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
+                                        src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                        width="40">
+                                    <textarea class="form-control ml-1 shadow-none textarea" name="comment"
+                                        value="{{comment}}"></textarea>
+                                </div>
+                                <div class="mt-2 text-right"><input class="btn btn-primary" type="submit"
+                                        value="Update"></div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function () {
+
+            $('.items').slick({
+                dots: true,
+                infinite: true,
+                speed: 800,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+
+                ]
+            });
+        });
+
+
+    </script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+{% endblock PageContent %}

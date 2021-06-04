@@ -6,6 +6,7 @@ import Hash from            'hash.js';
 import { ModelUser } from '../data/user.mjs';
 
 
+
 const router = Router();
 export default router;
 
@@ -24,11 +25,11 @@ router.use("/codes", RouterReward)
 // router.use("/walkInUser", RouterWalkInUser)
 
 
-
 router.get("/accounts/list",                viewUser_page);
+router.get("/accounts/list/data",                viewUser_data);
 router.get("/accounts/createUsers",         createUser_page);
 router.post("/accounts/createUsers",        createUser_process);
-router.post("/accounts/deleteUser",         deleteUser_process);
+router.get("/accounts/deleteUser",         deleteUser_process);
 router.get("/accounts/updateUsers",         updateUser_page);
 router.post("/accounts/updateUsers",        updateUser_process);
 
@@ -69,7 +70,7 @@ async function createUser_process(req, res) {
             .then(user => {
                 if (user) {
                     console.log("email already registered.")
-                    return res.render('auth/register.html', {
+                    return res.render('staff/accounts/createUsers.html', {
                         registeredEmail: true,
                     });
                 }
@@ -79,7 +80,7 @@ async function createUser_process(req, res) {
                         if (user) {
                             console.log("username already registered.")
 
-                            return res.render('auth/register.html', {
+                            return res.render('staff/accounts/createUsers.html', {
                                 registeredUsername: true,
                             });
                         }
@@ -107,12 +108,13 @@ async function createUser_process(req, res) {
  * @returns 
  */
 async function deleteUser_process(req, res) {
-    // Retrieve ID from URL
+        // Retrieve ID from URL
     ModelUser.destroy({
         where: { "username": req.query.id }
     })
         .catch(err => console.log(err));
-    return res.redirect('../list')
+    console.log("User deleted")
+    return res.redirect('/staff/accounts/list')
 }
 
 // update user
@@ -157,8 +159,12 @@ async function updateUser_process(req, res) {
         }
     })
         .catch(err => console.log(err));
-    return res.redirect('../list')
+    return res.redirect('http://localhost:3000/staff/accounts/list')
 }
+
+
+
+
 
 
 /**
@@ -168,17 +174,28 @@ async function updateUser_process(req, res) {
  * @returns 
  */
 
-
 async function viewUser_page(req, res) {
-    ModelUser.findAll().then((user) => {
-        return res.render('staff/accounts/retrieveUsers.html', {
-            users_list: user,
-        });
-
-        // return res.json(user)
-    }).catch(err => console.log(err)); 
-    // res.render('staff/retrieveUsers.html');
+    res.render('staff/accounts/retrieveUsers.html');
 }
+
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
+
+ async function viewUser_data(req, res) {
+    const users = await ModelUser.findAll({raw: true});
+    return res.json({
+        "rows": users,
+        "total": users.length,
+    }
+)
+}
+
+
+
 
 
 //create walk in user -yh
