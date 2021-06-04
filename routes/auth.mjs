@@ -135,7 +135,7 @@ async function register_process(req, res) {
 
 
 							// const accountSID = 'AC1c886159e90de587c54a161fcbb7050d'
-							// const authToken = 'a31e759b37ba556cdf27eefa243d66a6'
+							// const authToken = '82140205eacb0eb8784894a03bf7bd92'
 							// const twilioNumber = '+17634529124'
 							
 							
@@ -143,7 +143,7 @@ async function register_process(req, res) {
 							
 							// client.messages 
 							// 	  .create({ 
-							// 		 body: 'fuck pundei',  
+							// 		 body: 'Dear Customer, Your OTP for Breadington is ' + user.phoneNumber_pin + '. Use this Passcode to verify your phone number. Thank you.',  
 							// 		 messagingServiceSid: 'MG0d160ce6e5c9c06e5a148e1d983ab07b',      
 							// 		 to: '+6593597922' 
 							// 	   }) 

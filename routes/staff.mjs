@@ -24,12 +24,13 @@ import { ModelUser } from '../data/user.mjs';
 
 
 
-router.get("/accounts/list", viewUser_page);
-router.get("/accounts/createUsers", createUser_page);
-router.post("/accounts/createUsers", createUser_process);
-router.post("/accounts/deleteUser", deleteUser_process);
-router.get("/accounts/updateUsers", updateUser_page);
-router.post("/accounts/updateUsers", updateUser_process);
+router.get("/accounts/list",            viewUser_page);
+router.get("/accounts/list/data",       viewUser_data);
+router.get("/accounts/createUsers",     createUser_page);
+router.post("/accounts/createUsers",    createUser_process);
+router.get("/accounts/deleteUser",     deleteUser_process);
+router.get("/accounts/updateUsers",     updateUser_page);
+router.post("/accounts/updateUsers",    updateUser_process);
 
 
 
@@ -55,7 +56,7 @@ async function createUser_process(req, res) {
             .then(user => {
                 if (user) {
                     console.log("email already registered.")
-                    return res.render('auth/register.html', {
+                    return res.render('staff/accounts/createUsers.html', {
                         registeredEmail: true,
                     });
                 }
@@ -65,7 +66,7 @@ async function createUser_process(req, res) {
                         if (user) {
                             console.log("username already registered.")
 
-                            return res.render('auth/register.html', {
+                            return res.render('staff/accounts/createUsers.html', {
                                 registeredUsername: true,
                             });
                         }
@@ -74,7 +75,7 @@ async function createUser_process(req, res) {
                             ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role, accountStatus: req.body.status })
                                 .then(user => {
                                     // alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
-                                    return res.redirect('list')
+                                    return res.redirect('/staff/accounts/list')
                                 })
                                 .catch(err => console.log(err));
                         }
@@ -86,13 +87,20 @@ async function createUser_process(req, res) {
 
 
 
-async function deleteUser_process(req, res) {
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
+ async function deleteUser_process(req, res) {
     // Retrieve ID from URL
-    ModelUser.destroy({
-        where: { "username": req.query.id }
-    })
-        .catch(err => console.log(err));
-    return res.redirect('../list')
+ModelUser.destroy({
+    where: { "username": req.query.id }
+})
+    .catch(err => console.log(err));
+console.log("User deleted")
+return res.redirect('/staff/accounts/list')
 }
 
 // update user
@@ -123,7 +131,7 @@ async function updateUser_process(req, res) {
         }
     })
         .catch(err => console.log(err));
-    return res.redirect('../list')
+    return res.redirect('/staff/accounts/list')
 }
 
 
@@ -136,6 +144,23 @@ async function viewUser_page(req, res) {
     // res.render('staff/retrieveUsers.html');
 }
 
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
+
+ async function viewUser_data(req, res) {
+    const users = await ModelUser.findAll({raw: true});
+    return res.json({
+        "rows": users,
+        "total": users.length,
+    }
+)
+
+
+}
 
 
 // //create walk in user -yh

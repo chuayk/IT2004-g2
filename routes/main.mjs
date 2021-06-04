@@ -46,7 +46,7 @@ router.get("/confirmEmail", async function(req, res) {
 		if (res.locals.user.verification_hash == req.query.id)
 		{
 			ModelUser.update({
-				verified: true
+				emailVerified: true
 			}, {
 					where: {
 						username: res.locals.user.username
@@ -58,7 +58,6 @@ router.get("/confirmEmail", async function(req, res) {
 		}
 
 	}
-
 	return res.render('confirmEmail.html', {
 	});
 
@@ -66,13 +65,13 @@ router.get("/confirmEmail", async function(req, res) {
 });
 
 
-// Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
 
+// Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
 router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
 	// Prevent crashing
 	if (res.locals.user){
-		let verified = res.locals.user.verified == 1;
+		let verified = res.locals.user.emailVerified == 1;
 		if (!verified)  {
 			return res.redirect('/confirmEmail')
 		}
@@ -83,7 +82,7 @@ router.get("/",      async function(req, res) {
 		if (res.locals.user.verification_hash == req.query.id)
 		{
 			ModelUser.update({
-				verified: true
+				emailVerified: true
 			}, {
 					where: {
 						username: res.locals.user.username
@@ -94,8 +93,6 @@ router.get("/",      async function(req, res) {
 	}
 	return res.render('index.html', {
 		title: "Hello  Not Today",
-		// Enable this for verification
-		// verified: verified
 	});
 });
 
@@ -103,27 +100,21 @@ router.get("/",      async function(req, res) {
 router.post("/", async function(req, res) {
 	console.log("Contents received")
 	console.log(req.body.OTP)
-	
-	if (req.body.OTP == res.locals.user.phoneNumber_pin){
-		if (res.locals.user){
-			if (res.locals.user.verification_hash == req.query.id)
-			{
-				ModelUser.update({
-					verified: true
-				}, {
-						where: {
-							username: res.locals.user.username
-						}
-					})
-				console.log('User verified! tight as hell gurl YOOO!')
-			}
-		}
+	console.log(res.locals.user.phoneNumber_pin);
 
+	if (req.body.OTP == res.locals.user.phoneNumber_pin){
+		ModelUser.update({
+			phoneNumberVerified: true
+		}, {
+				where: {
+					username: res.locals.user.username
+				}
+			})
+			
 	}
 	return res.redirect('../')
 
 });
-
 
 // Customer Revview route
 

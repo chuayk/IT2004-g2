@@ -13,20 +13,20 @@ import { response, Router } 	from 'express';
 export function initialize_passport(server) {
 	Passport.use(LocalStrategy);
 	Passport.serializeUser(async function (user, done) {
-		return done(null, user.id);
+		return done(null, user.uuid);
 	});
-	Passport.deserializeUser(async function (id, done) {
+	Passport.deserializeUser(async function (uuid, done) {
 		try {
-			const user = await ModelUser.findByPk(id);
+			const user = await ModelUser.findByPk(uuid);
 			if (user == null) {
-				throw new Error ("Invalid user id");
+				throw new Error ("Invalid user uuid");
 			}
 			else {
 				return done(null, user);
 			}
 		}
 		catch (error) {
-			console.error(`Failed to deserialize user ${id}`);
+			console.error(`Failed to deserialize user ${uuid}`);
 			console.error(error);
 			return done (error, false);
 		}

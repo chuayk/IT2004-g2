@@ -5,198 +5,9 @@
 {% endif %} -->
 {% block PageContent %}
 <style>
-              body{
-background:#eee;
-padding-bottom: 25px;
-}
-
-/* CONTACTS */
-.contact-box {
-  background-color: #ffffff;
-  border: 1px solid #e7eaec;
-  padding: 20px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-.contact-box > a {
-  color: inherit;
-}
-.contact-box.center-version {
-  border: 1px solid #e7eaec;
-  padding: 0;
-}
-.contact-box.center-version > a {
-  display: block;
-  background-color: #ffffff;
-  padding: 20px;
-  text-align: center;
-}
-.contact-box.center-version > a img {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 10px;
-}
-.contact-box.center-version address {
-  margin-bottom: 0;
-}
-.contact-box .contact-box-footer {
-  text-align: center;
-  background-color: #ffffff;
-  border-top: 1px solid #e7eaec;
-  padding: 15px 20px;
-}
-.contact-box .contact-box-footer input {
-width: 185px;
-margin-top: 6px;
-
-}
-
-a{
-    text-decoration:none !important;
-}
-
-/* COmmen section! */
-
-body{ background: #fafafa;}
-.widget-area.blank {
-background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
--webkit-box-shadow: none;
--moz-box-shadow: none;
--ms-box-shadow: none;
--o-box-shadow: none;
-box-shadow: none;
-}
-body .no-padding {
-padding: 0;
-}
-.widget-area {
-background-color: #fff;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
--webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-float: left;
-padding: 20px 30px;
-position: relative;
-width: 204%;
-}
-.status-upload {
-background: none repeat scroll 0 0 #f5f5f5;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-float: left;
-width: 100.5%;
-}
-.status-upload form {
-float: left;
-width: 100%;
-}
-.status-upload form textarea {
-background: none repeat scroll 0 0 #fff;
-border: medium none;
--webkit-border-radius: 4px 4px 0 0;
--moz-border-radius: 4px 4px 0 0;
--ms-border-radius: 4px 4px 0 0;
--o-border-radius: 4px 4px 0 0;
-border-radius: 4px 4px 0 0;
-color: #777777;
-float: left;
-font-family: Lato;
-font-size: 14px;
-height: 142px;
-letter-spacing: 0.3px;
-padding: 20px;
-width: 100%;
-resize:vertical;
-outline:none;
-border: 1px solid #F2F2F2;
-}
-
-.status-upload ul {
-float: left;
-list-style: none outside none;
-margin: 0;
-padding: 0 0 0 15px;
-width: auto;
-}
-.status-upload ul > li {
-float: left;
-}
-.status-upload ul > li > a {
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-color: #777777;
-float: left;
-font-size: 14px;
-height: 30px;
-line-height: 30px;
-margin: 10px 0 10px 10px;
-text-align: center;
--webkit-transition: all 0.4s ease 0s;
--moz-transition: all 0.4s ease 0s;
--ms-transition: all 0.4s ease 0s;
--o-transition: all 0.4s ease 0s;
-transition: all 0.4s ease 0s;
-width: 30px;
-cursor: pointer;
-}
-.status-upload ul > li > a:hover {
-background: none repeat scroll 0 0 #606060;
-color: #fff;
-}
-.status-upload form input {
-border: medium none;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-color: #fff;
-float: right;
-font-family: Lato;
-font-size: 14px;
-letter-spacing: 0.3px;
-margin-right: 9px;
-margin-top: 9px;
-padding: 6px 15px;
-}
-.dropdown > a > span.green:before {
-border-left-color: #2dcb73;
-}
-.status-upload form input > i {
-margin-right: 7px;
-}
-
-
-.align-center {
-    text-align: center;
-}
-.hash-list {
-    display: block;
-    padding: 0;
-    margin: 0 auto;
-}
-
-@media (min-width: 768px){
-    .hash-list.cols-3 > li:nth-last-child(-n+3) {
-        border-bottom: none;
-    }
-}
-@media (min-width: 768px){
-    .hash-list.cols-3 > li {
-        width: 33.3333%;
+    body {
+        background-color: #f0f8ff;
+        margin-bottom: 25px;
     }
 
     @media (max-width:991.98px) {
@@ -320,18 +131,108 @@ margin-right: 7px;
         href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <h1 class="display-4"
-        style="  text-align: center; padding-bottom: 45px; padding-top: 30px;font-weight: 500; ">
-        Write us a review!</h1>
+    
+
+    
+<div class="container my-1 z-depth-1">
+
+
+  <!--Section: Content-->
+  <section class="dark-grey-text">
+
+    <div class="row pr-lg-5">
+      <div class="col-md-7 mb-4">
+
+        <div class="view">
+          <img src="https://mdbootstrap.com/img/illustrations/graphics(4).png" class="img-fluid" alt="smaple image">
+        </div>
+
+      </div>
+      <div class="col-md-5 d-flex align-items-center">
+        <div>
+          
+          <h3 class="font-weight-bold mb-4">Your review matters to us!</h3>
+
+        	<p>Lorem ipsum dolor sit amet consectetur adip elit. Maiores deleniti explicabo voluptatem quisquam nulla asperiores aspernatur aperiam voluptate et consectetur minima delectus, fugiat eum soluta blanditiis adipisci, velit dolore magnam.</p>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Content-->
+
+<hr>
+<h1 class="text-center ">What our customers are saying...</h1>
+
+
+
+<hr>
+
+
+<div class="container z-depth-1 py-5 my-5">
+  <section class="mx-md-5 text-center text-lg-left">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12">
+        <div class="row p-5">
+          <div class="col-lg-8 d-flex flex-column justify-content-between">
+            <p class="text-muted mb-4">"I'm a spiritual miracle lyrical spritual miracle spiritual lyrical individual, SKIPPIN' AND FLIPPIN' AND DIPPIN' AND FLIPPIN' AND SKIPPIN' AND DIPPIN' AND FLIPPIN' AND ILLEST TO THE KILLEST OF THE SKILLEST OF THE WILLEST, MAN, FUCK LIL' WAYNE, AND THE GOVERNMENT'S CORRUPT! FUCK THE GOVERNMENT, CAUSE I DON'T GIVE A FUCK! I'M BRINGING REAL HIP-HOP BACK! FUCK THAT MAINSTREAM SHIT! YOU'D BETTER FUCKING BELIEVE IT CAUSE IT'S THE WHITE BOY THAT SAID IT!"</p>
+            <div>
+              <p class="font-weight-bold lead mb-2"><strong>Filthy Frank</strong></p>
+              <p class="font-weight-bold text-muted">ass ass ass ass ass</p>
+            </div>
+          </div>
+          <div class="col-lg-4 d-flex mb-2 align-items-center">
+              <div class="avatar mx-4 w-100 white d-flex justify-content-center align-items-center">
+                <img src="https://i.ibb.co/25x8YLW/daaf8b5fee120fbe69c8fa74e8fca2b9.jpg" class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- Carousel wrapper -->
+
+<!-- Carousel wrapper -->
+</div>
+
+
+
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <div class="container"  style=" border: 3px solid #e8e8e8; background-color: white; padding-top: 0.5px; padding-bottom: 30px;">
+      <br>
+      <h1 class="text-center ">Show us some love!</h1>
+      <hr>
         <!-- <div class="row" style="background-color:#0db4ce;">
             <div class="col-xs-5" style="color: white; margin: auto;">
                 <h2>User <b>Reviews</b></h2>
             </div>
         </div> -->
-        <div class="items ">
+        <div class="items">
 
             {% for user in users_list %}
             {% if user.comment != null %}
@@ -426,10 +327,157 @@ margin-right: 7px;
                 </div>
             </div>
         </div>
+
+        
     </div>
+
+
     
+    <br>
+
+    <div class="container z-depth-1 my-5">
+
+        <section class="text-center py-5">
+      
+          <p class="mb-4 pb-2 lead font-weight-bold">Trusted by many</p>
+      
+          <!-- Logo carousel -->
+          <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="1800">
+            <div class="carousel-inner">
+              <!-- First slide -->
+              <div class="carousel-item active">
+                <!--Grid row-->
+                <div class="row">
+      
+                  <!--First column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/5.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/First column-->
+      
+                  <!--Second column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/7.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Second column-->
+      
+                  <!--Third column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/6.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Third column-->
+      
+                  <!--Fourth column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/9.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Fourth column-->
+      
+                </div>
+                <!--/Grid row-->
+              </div>
+              <!-- First slide -->
+      
+              <!-- Second slide -->
+              <div class="carousel-item">
+                <!--Grid row-->
+                <div class="row">
+      
+                  <!--First column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/11.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/First column-->
+      
+                  <!--Second column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/10.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Second column-->
+      
+                  <!--Third column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/12.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Third column-->
+      
+                  <!--Fourth column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/13.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Fourth column-->
+      
+                </div>
+                <!--/Grid row-->
+              </div>
+              <!-- Second slide -->
+      
+              <!-- Third slide -->
+              <div class="carousel-item">
+                <!--Grid row-->
+                <div class="row">
+      
+                  <!--First column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/1a.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/First column-->
+      
+                  <!--Second column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/2a.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Second column-->
+      
+                  <!--Third column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/3a.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Third column-->
+      
+                  <!--Fourth column-->
+                  <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                    <img src="https://mdbootstrap.com/img/Photos/Template/4a.png" class="img-fluid px-4" alt="Logo">
+                  </div>
+                  <!--/Fourth column-->
+      
+                </div>
+                <!--/Grid row-->
+              </div>
+              <!-- Third slide -->
+            </div>
+      
+          </div>
+          <!-- Logo carousel -->
+          
+        </section>
+      
+      </div>
     <script>
-        $(document).ready(function () {
+
+    //     $(document).ready(function () {
+    //         fetch("http://localhost:3000/review-data")
+    // .then(function(resp) {
+    //     return resp.json();
+    // }) 
+    // .then(function(data){
+
+    //     for (i = 0; i < data.rows.length; i++) {
+    //         if (data.rows[i].comment != ""){
+
+    //             // Add comment into comments carousel
+
+    //         }
+
+    //     }
+
+
+    // }
+    
+    // )
+
+
+
 
             $('.items').slick({
                 dots: true,
@@ -465,8 +513,12 @@ margin-right: 7px;
                     }
 
                 ]
-            });
-        });
+            }
+            
+            
+            );
+        // }
+        // );
 
 
     </script>
