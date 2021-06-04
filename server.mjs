@@ -12,7 +12,7 @@ import MethodOverrides from 'method-override';
 import Path            from 'path';
 import passport 	   from 'passport';
 import { initialize_passport } from './utils/passport.mjs';
-
+import {initialize_database } from './data/database.mjs'
 import Nunjcks         from 'nunjucks';
 
 const Server = Express();
@@ -39,7 +39,7 @@ Server.use(BodyParser.urlencoded( { extended: false }));
 Server.use(BodyParser.json());
 Server.use(CookieParser());
 Server.use(MethodOverrides('_method'));
-
+initialize_database(false);
 /**
  * Express Session
  */
