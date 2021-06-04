@@ -54,6 +54,7 @@ async function login_page(req, res) {
  * @param res {import('express').Response}
  * @returns 
  */
+
 async function login_process(req, res, next) {
 	console.log("Incoming Request");
 	console.log(req.body);
@@ -86,6 +87,12 @@ async function register_page(req, res) {
 async function verifyNumber_page(req, res) {
 	return res.render('auth/verifyNumber.html');
 }
+
+
+
+
+
+
 
 // Change
 /**
@@ -122,6 +129,8 @@ async function register_process(req, res) {
 						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: test,phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2,4)})
 							.then(user => {
 
+
+								
 							// Sends number verification
 
 
@@ -144,7 +153,6 @@ async function register_process(req, res) {
 
 							// Sends email
 
-
 							// create reusable transporter object using the default SMTP transport
 							let transporter = nodemailer.createTransport({
 								host: "smtp-mail.outlook.com", // hostname
@@ -163,7 +171,7 @@ async function register_process(req, res) {
 							// send mail with defined transport object
 							transporter.sendMail({
 							from: '"Fred Foo 👻" breadington.official@outlook.com', // sender address
-							to: req.body.email, // list of receivers
+							to: "ktykuang@gmail.com", // list of receivers
 							subject: "Hello ✔ Verification", // Subject line
 							text: "Please click on this link: http://localhost:3000/" + test, // plain text body
 							html: "<b>Thank you for your registration, please verify here:</b> http://localhost:3000/confirmEmail?id=" + test, // html body
@@ -183,6 +191,10 @@ async function register_process(req, res) {
 		});
 
 }
+
+
+
+
 
 /**
  * Logs out the current user
