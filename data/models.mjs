@@ -1,25 +1,16 @@
-import ORM from 'sequelize'
-const { Sequelize, DataTypes, Model } = ORM;
-import {ModelProduct} from '../data/createProduct.mjs'
+import Sequelize from 'sequelize';
+import  db from './database.mjs';
+
 /* Creates a user(s) table in MySQL Database.
 Note that Sequelize automatically pleuralizes the entity name as the table name
 */
-export function initialize_models(database) {
-	try {
-		console.log("Intitializing ORM models");
-		//	Initialzie models
-		ModelProduct.initialize(database);
+export const test = db.define('test', {
 
-		console.log("Building ORM model relations and indices");
-		//	Create relations between models or tables
-		//	Setup foreign keys, indexes etc
-	
+    please: {
+        type: Sequelize.STRING
+    },
+});
 
-		
-	}
-	catch (error) {
-		console.error ("Failed to configure ORM models");
-		console.error (error);
-	}
-}
-
+await test.sync({ force: true });
+console.log("The table for the User model was just (re)created!");
+export default(test) 

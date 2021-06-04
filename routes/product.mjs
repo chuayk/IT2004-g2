@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {ModelProduct} from '../data/createProduct.mjs';
+import product from '../data/createP.mjs';
 import { UploadTo, DeleteFile, DeleteFilePath,UploadFile } from '../utils/multer.mjs';
 const router = Router();
 export default router;
@@ -12,25 +12,11 @@ router.get("/createProduct",      async function(req, res) {
 });
 
 router.post("/createProduct",async function (req, res) {
-    try{
-        console.log(req.body)
-        const product = await ModelProduct.create({
-            pname : req.body.productName,
-            category : req.body.category,
-            price : (req.body.price)*=100, //in cents
-            stockCount : req.body.stockCount,
-            description : req.body.description
-        });
-        console.log(product.pname+"success db")
-        res.redirect('/staff/displayProduct');
-    }
-
-
-    catch(error){
-        console.error(error);
-		return res.status(500).end();      
-	};
     //const Uploader = UploadTo("public/img").single("file");
+
+    //let {   productName, category,price, stockCount,description} = req.body;
+    console.log(req.body);
+    product.create({ name: req.body.productName, category: req.body.category, price: req.body.price, stock_count: req.body.stockCount, description: req.body.description })
     // Uploader(req, res, async function (error_upload) {
     
     //     if (error_upload) {
@@ -55,15 +41,14 @@ router.post("/createProduct",async function (req, res) {
     //         }
     //     }
     // }
-
-    // .then(product => {
-    //     console.log(product.name + " added to db")
-    //     res.redirect('/staff/product/createProduct');
-    //     return res.render("staff/product/displayProduct.html", {
-    //         path: req.file.path
-    //     });
-    // })
-    // .catch(err => console.log(err + "what is this"))
+    .then(product => {
+        console.log(product.name + " added to db")
+        res.redirect('/staff/product/createProduct');
+        return res.render("staff/product/displayProduct.html", {
+            path: req.file.path
+        });
+    })
+    .catch(err => console.log(err + "what is this"))
 
 
 
@@ -72,7 +57,7 @@ router.post("/createProduct",async function (req, res) {
 
 router.get("/displayProduct", async function (req, res) {
     
-    ModelProduct.findAll().then(product => {
+    product.findAll().then(product => {
         return res.render('staff/product/displayProduct.html', {
             product_list: product,
 

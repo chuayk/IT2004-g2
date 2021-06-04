@@ -1,6 +1,7 @@
 import { Router } from 'express';
-//import WalkInUser from '../data/createWalk.mjs';
-//import Code from '../data/code.mjs';
+import product from '../data/createP.mjs';
+import WalkInUser from '../data/createWalk.mjs';
+import Code from '../data/code.mjs';
 import Hash from 'hash.js';
 
 
@@ -10,10 +11,10 @@ export default router;
 
 //rout to product.mjs -xy
 import RouterProduct from '../routes/product.mjs'
-router.use("/", RouterProduct)
+router.use("/product", RouterProduct)
 
-//import RouterReward from '../routes/staffcodes.mjs'
-// router.use("/codes", RouterReward)
+import RouterReward from '../routes/staffcodes.mjs'
+router.use("/codes", RouterReward)
 
 // Imports model user for database
 import { ModelUser } from '../data/user.mjs';
@@ -138,18 +139,18 @@ async function viewUser_page(req, res) {
 
 
 
-// //create walk in user -yh
-// router.get("/createWalkInUser", async function (req, res) {
-//     console.log("create walk in user page accessed");
-//     return res.render('staff/createWalkInUser.html');
-// });
+//create walk in user -yh
+router.get("/createWalkInUser", async function (req, res) {
+    console.log("create walk in user page accessed");
+    return res.render('staff/createWalkInUser.html');
+});
 
-// router.post("/createWalkInUser", async function (req, res) {
-//     let { fullName, nric, gender, phoneNumber, temperature } = req.body;
-//     WalkInUser.create({ fullName: req.body.fullName, nric: req.body.nricy, gender: req.body.gender, phoneNumber: req.body.phoneNumber, temperature: req.body.temperature })
-//         .then(WalkInUser => {
-//             console.log(WalkInUser.fullName + "success db")
-//             res.redirect('/');
-//         })
-//         .catch(err => console.log(err + "what is this"));
-// });
+router.post("/createWalkInUser", async function (req, res) {
+    let { fullName, nric, gender, phoneNumber, temperature } = req.body;
+    WalkInUser.create({ fullName: req.body.fullName, nric: req.body.nricy, gender: req.body.gender, phoneNumber: req.body.phoneNumber, temperature: req.body.temperature })
+        .then(WalkInUser => {
+            console.log(WalkInUser.fullName + "success db")
+            res.redirect('/');
+        })
+        .catch(err => console.log(err + "what is this"));
+});
