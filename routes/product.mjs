@@ -57,30 +57,32 @@ router.post("/createProduct",async function (req, res) {
     //     }
     // }
 
-    // .then(product => {
-    //     console.log(product.name + " added to db")
-    //     res.redirect('/staff/product/createProduct');
-    //     return res.render("staff/product/displayProduct.html", {
-    //         path: req.file.path
-    //     });
-    // })
-    // .catch(err => console.log(err + "what is this"))
 
 
 
 });
-
-
 router.get("/displayProduct", async function (req, res) {
-    
-    ModelProduct.findAll().then(product => {
-        return res.render('staff/product/displayProduct.html', {
-            product_list: product,
+    return res.render('staff/product/displayProduct.html')
+})
 
-        });
-    }).catch(err => console.log(err)); // To catch no video ID
+router.get("/displayProduct-data", async function (req, res) {
+    
+    // ModelProduct.findAll().then(product => {
+    //     return res.render('staff/product/displayProduct.html', {
+    //         product_list: product,
+
+    //     });
+    // }).catch(err => console.log(err)); // To catch no video ID
     // res.render('staff/retrieveUsers.html');
+    const product = await ModelProduct.findAll({raw: true});
+	return res.json({
+		"total": product.length,
+		"rows":  product
+	});
+
 });
+
+
 
 // router.get("/displayProduct/updateUsers/:id", async function (req, res) {
 //     return res.render('staff/updateUsers.html', {
