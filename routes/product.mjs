@@ -44,7 +44,7 @@ router.post("/createProduct",async function (req, res) {
     //         try {
         
     //             console.log (`File uploaded without problems`);
-    //             return res.render('/staff/product/createProduct', {
+    //             return res.render('/staff/createProduct', {
     //                 path: req.file.path
     //             });
     //         }
@@ -66,14 +66,6 @@ router.get("/displayProduct", async function (req, res) {
 })
 
 router.get("/displayProduct-data", async function (req, res) {
-    
-    // ModelProduct.findAll().then(product => {
-    //     return res.render('staff/product/displayProduct.html', {
-    //         product_list: product,
-
-    //     });
-    // }).catch(err => console.log(err)); // To catch no video ID
-    // res.render('staff/retrieveUsers.html');
     const product = await ModelProduct.findAll({raw: true});
 	return res.json({
 		"total": product.length,
