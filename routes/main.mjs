@@ -5,6 +5,7 @@ const router = Router();
 export default router;
 
 import { ModelUser } from '../data/user.mjs';
+import Op			   from 'sequelize';
 
 
 // If user is not verified, ie. res.locals.user.verified == 0, redirect back to ('/') note to joel
@@ -117,6 +118,18 @@ router.post("/", async function(req, res) {
 });
 
 // Customer Revview route
+
+
+router.get("/review-data", async function(req, res) {
+    const users = await ModelUser.findAll({raw: true});
+    return res.json({
+        // server sort.
+        "rows": users,
+        "total": users.length,
+    }
+)
+})
+
 
 router.get("/review", async function(req, res) {
 

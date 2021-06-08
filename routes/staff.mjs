@@ -5,6 +5,7 @@ import Hash from 'hash.js';
 
 
 
+
 const router = Router();
 export default router;
 
@@ -17,6 +18,8 @@ router.use("/", RouterProduct)
 
 // Imports model user for database
 import { ModelUser } from '../data/user.mjs';
+import Sequelize from 'sequelize';
+
 
 // rout to product.mjs -yh
 // import RouterWalkInUser from '../routes/WalkInUser.mjs'
@@ -144,6 +147,9 @@ async function viewUser_page(req, res) {
     // res.render('staff/retrieveUsers.html');
 }
 
+
+const Op = Sequelize.Op
+
 /**
  * 
  * @param req {import('express').Request}
@@ -152,10 +158,34 @@ async function viewUser_page(req, res) {
  */
 
  async function viewUser_data(req, res) {
-    const users = await ModelUser.findAll({raw: true});
+    // const users = await ModelUser.findAll({raw: true});
+    /**
+     * @type {WhereOptions}
+     */
+    const condition = (req.query.search) ? {
+        [Op.or]: {
+            "username": { [Op.substring] : req.query.search },
+            "email": { [Op.substring]: req.query.search},
+        }
+    } : undefined;
+
+    const total = await ModelUser.count({
+        where: condition
+    });
+
+    const users = await ModelUser.findAll({
+        where: condition,
+        // offset: parseInt(req.query.offset),
+        // limit: parseInt(req.query.limit),
+        order: (req.query.sort) ? [[req.query.sort, req.query.order.toUpperCase()]] : undefined,
+        raw: true
+    })
+
+
     return res.json({
         "rows": users,
-        "total": users.length,
+        // "total": users.length
+        "total": total
     }
 )
 

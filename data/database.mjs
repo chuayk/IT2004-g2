@@ -23,7 +23,7 @@
 import ExpSessionStore from 'express-mysql-session';
 import ORM             from 'sequelize';
 
-const { Sequelize, DataTypes, Model } = ORM;
+const { Sequelize, DataTypes, Model, Op} = ORM;
 
 import {initialize_models } from './models.mjs';
 
