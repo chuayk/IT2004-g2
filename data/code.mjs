@@ -40,7 +40,11 @@ export class ModelCode extends Model{
     get code() {return this.getDataValue("code")}
     get type() {return this.getDataValue("type")}
     get amount() {return this.getDataValue("amount")}
-    get dollars() {return this.getDataValue("amount")/100}
+    get formatedamount() {
+        if(this.getDataValue("type") == "$")
+        {return this.getDataValue("amount")/100}
+        return this.getDataValue("amount")
+    }
     check_valid(){
         if(this.getDataValue("expireon")>new Date()){
             return true;

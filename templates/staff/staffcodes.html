@@ -228,7 +228,7 @@
         <td>$</td>
         {% endif %}
         <td>{{code.expireon.getFullYear()}}-{{('0'+code.expireon.getMonth()).slice(-2)}}-{{('0'+code.expireon.getDate()).slice(-2)}}</td>
-        <td>{{ code.dollars }}</td>
+        <td>{{ code.formatedamount }}</td>
         </td>
         <td><a href="update/?code={{code.code}}" class="btn btn-warning">edit</a></td>
         <td>

@@ -8,7 +8,7 @@ router.post("/update",updatecode)
 router.get("/codes", rendercodes);
 router.get("/create", createcodeform);
 router.post("/create", createcode);
-// router.post("/delete", deletecode)
+router.post("/delete", deletecode)
 // //render codes table
 async function rendercodes(req, res) {
     // var codes = Code.findAll()
@@ -79,7 +79,9 @@ async function updatecode(req,res){
         },{where:{ code : req.query.code}})
         return res.redirect("/staff/codes/codes")
     };
-export async function deletecode(req,res){
-    ModelCode.destroy({where:{code : req.query.code}})
+async function deletecode(req,res){
+    var impcode = req.query.code;
+    console.log("checking"+impcode)
+    ModelCode.destroy({where:{"code" : impcode}})
     res.redirect("/staff/codes/codes")
 }
