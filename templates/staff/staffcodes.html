@@ -213,7 +213,7 @@
     {% for code in codes_list %}
       <tr id="{{code.code}}">
         <td>{{ code.code }}</td>
-        {% if code.check_valid %}
+        {% if code.check_valid() %}
         <td style="color:green">
         Valid
         </td>
@@ -227,8 +227,8 @@
         {% elif code.type == "$" %}
         <td>$</td>
         {% endif %}
-        <td>{{code.end.getFullYear()}}-{{('0'+code.end.getMonth()).slice(-2)}}-{{('0'+code.end.getDate()).slice(-2)}}</td>
-        <td>{{ code.amount }}</td>
+        <td>{{code.expireon.getFullYear()}}-{{('0'+code.expireon.getMonth()).slice(-2)}}-{{('0'+code.expireon.getDate()).slice(-2)}}</td>
+        <td>{{ code.formatedamount }}</td>
         </td>
         <td><a href="update/?code={{code.code}}" class="btn btn-warning">edit</a></td>
         <td>

@@ -13,8 +13,8 @@ export default router;
 import RouterProduct from '../routes/product.mjs'
 router.use("/", RouterProduct)
 
-//import RouterReward from '../routes/staffcodes.mjs'
-// router.use("/codes", RouterReward)
+import RouterReward from '../routes/staffcodes.mjs'
+router.use("/codes", RouterReward)
 
 // Imports model user for database
 import { ModelUser } from '../data/user.mjs';
