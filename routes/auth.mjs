@@ -30,7 +30,12 @@ router.post("/register",		 		register_process);
 router.get("/logout",		 	 		logout_process);
 
 
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function login_page(req, res) {
 
 	console.log("Login page accessed");
@@ -43,6 +48,12 @@ async function login_page(req, res) {
 }
 
 
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 
 async function login_process(req, res, next) {
 	console.log("Incoming Request");
@@ -56,19 +67,40 @@ async function login_process(req, res, next) {
 }
 
 
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function register_page(req, res) {
 	console.log("Register page accessed");
 	return res.render('auth/register.html');
 }
 
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function verifyNumber_page(req, res) {
 	return res.render('auth/verifyNumber.html');
 }
 
-// Change
 
+
+
+
+
+
+// Change
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function register_process(req, res) {
 
 	let { username, email, password, password2, phoneNumber, address } = req.body;
@@ -97,11 +129,13 @@ async function register_process(req, res) {
 						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: test,phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2,4)})
 							.then(user => {
 
+
+								
 							// Sends number verification
 
 
 							// const accountSID = 'AC1c886159e90de587c54a161fcbb7050d'
-							// const authToken = 'a31e759b37ba556cdf27eefa243d66a6'
+							// const authToken = '82140205eacb0eb8784894a03bf7bd92'
 							// const twilioNumber = '+17634529124'
 							
 							
@@ -109,7 +143,7 @@ async function register_process(req, res) {
 							
 							// client.messages 
 							// 	  .create({ 
-							// 		 body: 'fuck pundei',  
+							// 		 body: 'Dear Customer, Your OTP for Breadington is ' + user.phoneNumber_pin + '. Use this Passcode to verify your phone number. Thank you.',  
 							// 		 messagingServiceSid: 'MG0d160ce6e5c9c06e5a148e1d983ab07b',      
 							// 		 to: '+6593597922' 
 							// 	   }) 
@@ -118,7 +152,6 @@ async function register_process(req, res) {
 
 
 							// Sends email
-
 
 							// create reusable transporter object using the default SMTP transport
 							let transporter = nodemailer.createTransport({
@@ -138,10 +171,10 @@ async function register_process(req, res) {
 							// send mail with defined transport object
 							transporter.sendMail({
 							from: '"Fred Foo 👻" breadington.official@outlook.com', // sender address
-							to: "", // list of receivers
+							to: "ktykuang@gmail.com", // list of receivers
 							subject: "Hello ✔ Verification", // Subject line
 							text: "Please click on this link: http://localhost:3000/" + test, // plain text body
-							html: "<b>Thank you for your registration, please verify here:</b> http://localhost:3000?id=" + test, // html body
+							html: "<b>Thank you for your registration, please verify here:</b> http://localhost:3000/confirmEmail?id=" + test, // html body
 							});
 						
 							console.log("Message sent");
@@ -160,6 +193,15 @@ async function register_process(req, res) {
 }
 
 
+
+
+
+/**
+ * Logs out the current user
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function logout_process(req, res) {
 	req.logout();
 	return res.redirect("login");

@@ -4,472 +4,226 @@
 {% extends 'layouts/base.html' %}
 {% endif %} -->
 {% block PageContent %}
-<style>
-              body{
-background:#eee;
-padding-bottom: 25px;
-}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
-/* CONTACTS */
-.contact-box {
-  background-color: #ffffff;
-  border: 1px solid #e7eaec;
-  padding: 20px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-.contact-box > a {
-  color: inherit;
-}
-.contact-box.center-version {
-  border: 1px solid #e7eaec;
-  padding: 0;
-}
-.contact-box.center-version > a {
-  display: block;
-  background-color: #ffffff;
-  padding: 20px;
-  text-align: center;
-}
-.contact-box.center-version > a img {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 10px;
-}
-.contact-box.center-version address {
-  margin-bottom: 0;
-}
-.contact-box .contact-box-footer {
-  text-align: center;
-  background-color: #ffffff;
-  border-top: 1px solid #e7eaec;
-  padding: 15px 20px;
-}
-.contact-box .contact-box-footer input {
-width: 185px;
-margin-top: 6px;
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 
-}
-
-a{
-    text-decoration:none !important;
-}
-
-/* COmmen section! */
-
-body{ background: #fafafa;}
-.widget-area.blank {
-background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
--webkit-box-shadow: none;
--moz-box-shadow: none;
--ms-box-shadow: none;
--o-box-shadow: none;
-box-shadow: none;
-}
-body .no-padding {
-padding: 0;
-}
-.widget-area {
-background-color: #fff;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
--webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-float: left;
-padding: 20px 30px;
-position: relative;
-width: 204%;
-}
-.status-upload {
-background: none repeat scroll 0 0 #f5f5f5;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-float: left;
-width: 100.5%;
-}
-.status-upload form {
-float: left;
-width: 100%;
-}
-.status-upload form textarea {
-background: none repeat scroll 0 0 #fff;
-border: medium none;
--webkit-border-radius: 4px 4px 0 0;
--moz-border-radius: 4px 4px 0 0;
--ms-border-radius: 4px 4px 0 0;
--o-border-radius: 4px 4px 0 0;
-border-radius: 4px 4px 0 0;
-color: #777777;
-float: left;
-font-family: Lato;
-font-size: 14px;
-height: 142px;
-letter-spacing: 0.3px;
-padding: 20px;
-width: 100%;
-resize:vertical;
-outline:none;
-border: 1px solid #F2F2F2;
-}
-
-.status-upload ul {
-float: left;
-list-style: none outside none;
-margin: 0;
-padding: 0 0 0 15px;
-width: auto;
-}
-.status-upload ul > li {
-float: left;
-}
-.status-upload ul > li > a {
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-color: #777777;
-float: left;
-font-size: 14px;
-height: 30px;
-line-height: 30px;
-margin: 10px 0 10px 10px;
-text-align: center;
--webkit-transition: all 0.4s ease 0s;
--moz-transition: all 0.4s ease 0s;
--ms-transition: all 0.4s ease 0s;
--o-transition: all 0.4s ease 0s;
-transition: all 0.4s ease 0s;
-width: 30px;
-cursor: pointer;
-}
-.status-upload ul > li > a:hover {
-background: none repeat scroll 0 0 #606060;
-color: #fff;
-}
-.status-upload form input {
-border: medium none;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-color: #fff;
-float: right;
-font-family: Lato;
-font-size: 14px;
-letter-spacing: 0.3px;
-margin-right: 9px;
-margin-top: 9px;
-padding: 6px 15px;
-}
-.dropdown > a > span.green:before {
-border-left-color: #2dcb73;
-}
-.status-upload form input > i {
-margin-right: 7px;
-}
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/custom-view/bootstrap-table-custom-view.js"></script>
 
 
-.align-center {
-    text-align: center;
-}
-.hash-list {
-    display: block;
-    padding: 0;
-    margin: 0 auto;
-}
+<section class="dark-grey-text">
 
-@media (min-width: 768px){
-    .hash-list.cols-3 > li:nth-last-child(-n+3) {
-        border-bottom: none;
-    }
-}
-@media (min-width: 768px){
-    .hash-list.cols-3 > li {
-        width: 33.3333%;
-    }
+  <div class="row pr-lg-5">
+    <div class="col-md-7 mb-4">
 
-    @media (max-width:991.98px) {
-        .padding {
-            padding: 1.5rem
-        }
-    }
+      <div class="view">
+        <img src="https://mdbootstrap.com/img/illustrations/graphics(4).png" class="img-fluid" alt="smaple image">
+      </div>
 
-    @media (max-width:767.98px) {
-        .padding {
-            padding: 1rem
-        }
-    }
+    </div>
+    <div class="col-md-5 d-flex align-items-center">
+      <div>
+        
+        <h3 class="font-weight-bold mb-4">Your review matters to us!</h3>
 
-    .padding {
-        padding: 5rem
-    }
+        <p>Lorem ipsum dolor sit amet consectetur adip elit. Maiores deleniti explicabo voluptatem quisquam nulla asperiores aspernatur aperiam voluptate et consectetur minima delectus, fugiat eum soluta blanditiis adipisci, velit dolore magnam.</p>
 
-    .card {
-        position: relative;
-        display: flex;
-        width: 350px;
-        flex-direction: column;
-        min-width: 0;
-        word-wrap: break-word;
-        background-color: #f0f8ff;
-        background-clip: border-box;
-        border: 1px solid #d2d2dc;
-        border-radius: 11px;
-        -webkit-box-shadow: 0px 0px 5px 0px rgb(249, 249, 250);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1);
-        box-shadow: 0px 0px 5px 0px rgb(161, 163, 164)
-    }
+      </div>
+    </div>
+  </div>
 
-    .card .card-body {
-        padding: 1rem 1rem
-    }
+</section>
+<!--Section: Content-->
 
-    .card-body {
-        flex: 1 1 auto;
-        padding: 1.25rem
-    }
+<hr>
+<h1 class="text-center ">What our customers are saying...</h1>
+<hr>
 
-    p {
-        font-size: 0.875rem;
-        margin-bottom: .5rem;
-        line-height: 1.5rem
-    }
+<table
+  id="table"
+  data-search="true"
+  data-pagination="true"
+  data-page-size="6"
+  data-show-custom-view="true"
+  data-custom-view="customViewFormatter"
+  data-show-custom-view-button="true">
+  <thead>
+    <tr>
+      <th data-field="username">Name</th>
+      <th data-field="email">Email</th>
+      <th data-field="role">Role</th>
+      <th data-field="comment">Comment</th>
+    </tr>
+</thead>
+</table>
 
-    h4 {
-        line-height: .2 !important
-    }
-
-    .profile {
-        margin-top: 16px;
-        margin-left: 11px
-    }
-
-    .profile-pic {
-        width: 58px
-    }
-
-    .cust-name {
-        font-size: 18px
-    }
-
-    .cust-profession {
-        font-size: 10px
-    }
-
-    .items {
-        width: 90%;
-        margin: 0px auto;
-        margin-top: 100px
-    }
-
-    .slick-slide {
-        margin: 10px
-    }
-
-
-
-    .date {
-        font-size: 11px
-    }
-
-    .comment-text {
-        font-size: 12px
-    }
-
-    .fs-12 {
-        font-size: 12px
-    }
-
-    .shadow-none {
-        box-shadow: none
-    }
-
-    .name {
-        color: #007bff
-    }
-
-    .cursor:hover {
-        color: blue
-    }
-
-    .cursor {
-        cursor: pointer
-    }
-
-    .textarea {
-        resize: none
-    }
-</style>
-
-
-
-
-<body>
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <h1 class="display-4"
-        style="  text-align: center; padding-bottom: 45px; padding-top: 30px;font-weight: 500; ">
-        Write us a review!</h1>
-
-
-    <div class="container"  style=" border: 3px solid #e8e8e8; background-color: white; padding-top: 0.5px; padding-bottom: 30px;">
-        <!-- <div class="row" style="background-color:#0db4ce;">
-            <div class="col-xs-5" style="color: white; margin: auto;">
-                <h2>User <b>Reviews</b></h2>
-            </div>
-        </div> -->
-        <div class="items ">
-
-            {% for user in users_list %}
-            {% if user.comment != null %}
-
-                <div class="card">
-
-                    <div class="card-body">
-                        <h4 class="card-title"><img src="https://img.icons8.com/ultraviolet/40/000000/quote-left.png">
-                        </h4>
-                        <div class="template-demo">
-                            <p>{{ user.comment }}</p>
-                        </div>
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-sm-2">
-
-                                <img class="profile-pic"
-                                    src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png">
-
-
-                            </div>
-                            <div class="col-sm-10">
-                                <div class="profile">
-                                    <h4 class="cust-name" style="padding-left:15px;">{{ user.username }}</h4>
-                                    {% if user.role == "Guest" %}
-                                    <p class="cust-profession" style="padding-left:15px;">{{ user.role }}</p>
-                                    {% else %}
-                                    <p class="cust-profession" style="padding-left:15px; color: red;">{{ user.role }}</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-
-
-                    </div>
-
-
-
-                </div>
-
-
-            {% else %}
-            <p></p>
-            {% endif %}
-
-            {% endfor %}
-
-
-
+<template id="profileTemplate">
+  <div class="col-4 mt-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-lg-8 col-md-6">
+            <h3 class="mb-0 text-truncated">%NAME%</h3>
+            <p class="lead">%ROLE%</p>
+            <p>
+              %COMMENT%
+            </p>
+            <p>
+              <span class="badge badge-info tags">%EMAIL%</span>
+            </p>
+          </div>
+          <div class="col-12 col-lg-4 col-md-6 text-center">
+            <img src="https://robohash.org/18.146.255.198.png" alt="" class="mx-auto rounded-circle img-fluid" style="height: 120px;">
+            <br>
+            <ul class="list-inline ratings text-center" title="Ratings">
+              <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+              </li>
+            </ul>
+          </div>
+          <!-- <div class="col-12 col-lg-4">
+            <h3 class="mb-0">%FOLLOWER%</h3>
+            <small>Followers</small>
+            <button class="btn btn-block btn-outline-success" title="Follow"><span class="fa fa-plus-circle"></span></button>
+          </div> -->
+          <!-- <div class="col-12 col-lg-4">
+            <h3 class="mb-0">%FOLLOWING%</h3>
+            <small>Following</small>
+            <button class="btn btn-outline-info btn-block" title="View Profile"><span class="fa fa-user"></span></button>
+          </div>
+          <div class="col-12 col-lg-4">
+            <h3 class="mb-0">%SNIPPETS%</h3>
+            <small>Snippets</small>
+            <button type="button" class="btn btn-outline-primary btn-block" title="Options"><span class="fa fa-cog"></span></button>
+          </div> -->
         </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<hr>
+
+<div class="container"  style=" border: 3px solid #e8e8e8; background-color: white; padding-top: 0.5px; padding-bottom: 30px;">
+  <br>
+  <h1 class="text-center ">Show us some love!</h1>
+  <hr>
+    <!-- <div class="row" style="background-color:#0db4ce;">
+        <div class="col-xs-5" style="color: white; margin: auto;">
+            <h2>User <b>Reviews</b></h2>
+        </div>
+    </div> -->
+    <div class="items">
 
 
-        <div class="container mt-5">
-            <div class="d-flex justify-content-center row">
-                <div class="col-md-11">
-                    <form method="POST" action="/review/?updated=true">
-                        <div class="d-flex flex-column comment-section">
-                            <div class="bg-white p-2">
 
-                            </div>
-                            {% if user.comment != null %}
-                            <div class="bg-light p-2">
-                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
-                                        src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-                                        width="40">
-                                    <textarea class="form-control ml-1 shadow-none textarea" name="comment"
-                                        value="{{comment}}"></textarea>
-                                </div>
-                                <div class="mt-2 text-right"><input class="btn btn-primary" type="submit"
-                                        value="Submit"></div>
-                            </div>
-                            {% else %}
-                            <div class="bg-light p-2">
-                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
-                                        src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-                                        width="40">
-                                    <textarea class="form-control ml-1 shadow-none textarea" name="comment"
-                                        value="{{comment}}"></textarea>
-                                </div>
-                                <div class="mt-2 text-right"><input class="btn btn-primary" type="submit"
-                                        value="Update"></div>
-                            </div>
-                            {% endif %}
+
+
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-11">
+                <form method="POST" action="/review/?updated=true">
+                    <div class="d-flex flex-column comment-section">
+                        <div class="bg-white p-2">
+
                         </div>
-                    </form>
+                        {% if user.comment != null %}
+                        <div class="bg-light p-2">
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
+                                    src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                    width="40">
+                                <textarea class="form-control ml-1 shadow-none textarea" name="comment"
+                                    value="{{comment}}"></textarea>
+                            </div>
+                            <div class="mt-2 text-right"><input class="btn btn-primary" type="submit"
+                                    value="Submit"></div>
+                        </div>
+                        {% else %}
+                        <div class="bg-light p-2">
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
+                                    src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                    width="40">
+                                <textarea class="form-control ml-1 shadow-none textarea" name="comment"
+                                    value="{{comment}}"></textarea>
+                            </div>
+                            <div class="mt-2 text-right"><input class="btn btn-primary" type="submit"
+                                    value="Update"></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </form>
 
-                </div>
             </div>
         </div>
     </div>
+
     
-    <script>
-        $(document).ready(function () {
-
-            $('.items').slick({
-                dots: true,
-                infinite: true,
-                speed: 800,
-                autoplay: true,
-                autoplaySpeed: 2000,
-                slidesToShow: 4,
-                slidesToScroll: 4,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3,
-                            infinite: true,
-                            dots: true
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-
-                ]
-            });
-        });
+</div>
 
 
-    </script>
-    
-</body>
+
+<script>
+  $(function() {
+
+    fetch("/staff/accounts/list/data")
+    .then(function(resp) {
+        return resp.json();
+    }) 
+    .then(function(data){
+
+
+      var myData = data.rows
+      console.log(myData)
+
+
+    $('#table').bootstrapTable({
+
+      data : myData
+      
+      // data: [
+      //   {
+      //     'name': data.rows[0].username,
+      //     'image': 'https://robohash.org/68.186.255.198.png',
+      //     'following': data.rows[0].role,
+      //     'snippets': data.rows[0].comment
+      //   },
+      // ]
+
+    })
+  })
+
+  })
+
+  function customViewFormatter (data) {
+    var template = $('#profileTemplate').html()
+    var view = ''
+    $.each(data, function (i, row) {
+      view += template.replace('%NAME%', row.username)
+        .replace('%IMAGE%', row.image)
+        .replace('%EMAIL%', row.email)
+        .replace('%ROLE%', row.role)
+        .replace('%COMMENT%', row.comment);
+    })
+
+    return `<div class="row mx-0">${view}</div>`
+  }
+</script>
 {% endblock PageContent %}

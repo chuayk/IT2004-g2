@@ -55,13 +55,14 @@ export class ModelUser extends Model{
 	**/
 	static initialize(database) {
 		ModelUser.init({
+    uuid: { type: Sequelize.UUID,    primaryKey: true, defaultValue: Sequelize.UUIDV4  },
     username: {type: Sequelize.STRING, allowNull: false},
     email: {type: Sequelize.STRING, allowNull: false},
     password: {type: Sequelize.STRING, allowNull: false},
     phoneNumber: {type: Sequelize.STRING, allowNull: true},
-
     phoneNumber_pin: {type: Sequelize.STRING, allowNull: true},
-    verified: {type: Sequelize.STRING, defaultValue: "False", allowNull: true},
+	phoneNumberVerified: {type: Sequelize.STRING, defaultValue: "False", allowNull: false},
+    emailVerified: {type: Sequelize.STRING, defaultValue: "False", allowNull: true},
     verification_hash: {type: Sequelize.STRING, allowNull: true},
     comment: {type: Sequelize.TEXT, allowNull: true},
     address: {type: Sequelize.TEXT, allowNull: true},

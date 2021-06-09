@@ -1,9 +1,11 @@
 import { Router } from 'express';
+import twilio from 'twilio';
 
 const router = Router();
 export default router;
 
 import { ModelUser } from '../data/user.mjs';
+import Op			   from 'sequelize';
 
 
 // If user is not verified, ie. res.locals.user.verified == 0, redirect back to ('/') note to joel
@@ -12,7 +14,7 @@ import { ModelUser } from '../data/user.mjs';
 // ---------------- 
 //	Serves dynamic files from the dynamic folder
 router.get("/dynamic/:path", async function (req, res) {	
-	return res.sendFile(`./dynamic/${req.params.path}`)
+	return res.sendFile(`${process.cwd()}/dynamic/${req.params.path}`)
 });
 
 // ---------------- 
@@ -40,51 +42,94 @@ router.use("/staff", RouterStaff)
 // Confirm email page before accessing services
 
 router.get("/confirmEmail", async function(req, res) {
-	return res.render('confirmEmail.html', {
-	});
-});
 
-
-// Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
-router.get("/",      async function(req, res) {
-
-	console.log("Home page accessed");
-	// Prevent crashing
-	if (res.locals.user){
-		let verified = res.locals.user.verified == 1;
-		// fuck
-		// if (!verified)  {
-		// 	return res.redirect('/confirmEmail')
-		// }
-	}
-
-
-
-
-	// User signs in, matches hash string with url one.
 	if (res.locals.user){
 		if (res.locals.user.verification_hash == req.query.id)
 		{
 			ModelUser.update({
-				verified: true
+				emailVerified: true
 			}, {
 					where: {
 						username: res.locals.user.username
 					}
 				})
 			console.log('User verified! tight as hell gurl YOOO!')
+			return res.redirect('/')
 			
 		}
 
 	}
+	return res.render('confirmEmail.html', {
+	});
+
+	
+});
+
+
+
+// Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
+router.get("/",      async function(req, res) {
+	console.log("Home page accessed");
+	// Prevent crashing
+	if (res.locals.user){
+		let verified = res.locals.user.emailVerified == 1;
+		if (!verified)  {
+			return res.redirect('/confirmEmail')
+		}
+	}
+
+	// User signs in, matches hash string with url one.
+	if (res.locals.user){
+		if (res.locals.user.verification_hash == req.query.id)
+		{
+			ModelUser.update({
+				emailVerified: true
+			}, {
+					where: {
+						username: res.locals.user.username
+					}
+				})
+			console.log('User verified! tight as hell gurl YOOO!')
+		}
+	}
 	return res.render('index.html', {
 		title: "Hello  Not Today",
-		// Enable this for verification
-		// verified: verified
 	});
 });
 
+
+router.post("/", async function(req, res) {
+	console.log("Contents received")
+	console.log(req.body.OTP)
+	console.log(res.locals.user.phoneNumber_pin);
+
+	if (req.body.OTP == res.locals.user.phoneNumber_pin){
+		ModelUser.update({
+			phoneNumberVerified: true
+		}, {
+				where: {
+					username: res.locals.user.username
+				}
+			})
+			
+	}
+	return res.redirect('../')
+
+});
+
 // Customer Revview route
+
+
+router.get("/review-data", async function(req, res) {
+    const users = await ModelUser.findAll({raw: true});
+    return res.json({
+        // server sort.
+        "rows": users,
+        "total": users.length,
+    }
+)
+})
+
 
 router.get("/review", async function(req, res) {
 

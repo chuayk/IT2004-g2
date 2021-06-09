@@ -8,7 +8,6 @@ export default router;
 
 router.get("/createProduct",      async function(req, res) {
 	console.log("create product page accessed");
-    
 	return res.render('staff/product/createProduct.html');
 });
 
