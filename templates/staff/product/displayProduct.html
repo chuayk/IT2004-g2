@@ -3,7 +3,6 @@
 {% block PageContent %}
 
 
-<<<<<<< HEAD
 
 <div class="tab-pane container-fluid active" id="updateDelete">
   <h1 class="display-4 text-center">Update/Delete Products</h1>
@@ -174,55 +173,5 @@
 
 
   </div>
-=======
-<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
-
-<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table-locale-all.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/export/bootstrap-table-export.min.js"></script>
-
-<style>
-  .select,
-  #locale {
-    width: 100%;
-  }
-
-  .like {
-    margin-right: 10px;
-  }
-</style>
-<div id="toolbar">
-  <button id="remove" class="btn btn-danger" disabled>
-    <i class="fa fa-trash"></i> Delete
-  </button>
->>>>>>> xuanyeh
 </div>
-
-<table  	
-data-toggle="table"
-data-url="/staff/displayProduct-data">
-<thead>
-  <tr>
-    <th data-field="uuid">ID</th>
-    <th data-field="pname">Item Name</th>
-    <th data-field="price">Item Price</th>
-  </tr>
-</thead>
-</table>
-<script>
-  $('#table').bootstrapTable({
-  url: "/staff/displayProduct-data",
-  columns: [{
-    field: 'uuid',
-    title: 'Item ID'
-  }, {
-    field: 'pname',
-    title: 'Item Name'
-  }, {
-    field: 'price',
-    title: 'Item Price'
-  }]
-})
-</script>
 {% endblock %}

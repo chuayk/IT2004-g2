@@ -43,7 +43,7 @@ router.post("/createProduct",async function (req, res) {
     //         try {
         
     //             console.log (`File uploaded without problems`);
-    //             return res.render('/staff/createProduct', {
+    //             return res.render('/staff/product/createProduct', {
     //                 path: req.file.path
     //             });
     //         }
@@ -56,24 +56,30 @@ router.post("/createProduct",async function (req, res) {
     //     }
     // }
 
+    // .then(product => {
+    //     console.log(product.name + " added to db")
+    //     res.redirect('/staff/product/createProduct');
+    //     return res.render("staff/product/displayProduct.html", {
+    //         path: req.file.path
+    //     });
+    // })
+    // .catch(err => console.log(err + "what is this"))
 
 
 
 });
+
+
 router.get("/displayProduct", async function (req, res) {
-    return res.render('staff/product/displayProduct.html')
-})
+    
+    ModelProduct.findAll().then(product => {
+        return res.render('staff/product/displayProduct.html', {
+            product_list: product,
 
-router.get("/displayProduct-data", async function (req, res) {
-    const product = await ModelProduct.findAll({raw: true});
-	return res.json({
-		"total": product.length,
-		"rows":  product
-	});
-
+        });
+    }).catch(err => console.log(err)); // To catch no video ID
+    // res.render('staff/retrieveUsers.html');
 });
-
-
 
 // router.get("/displayProduct/updateUsers/:id", async function (req, res) {
 //     return res.render('staff/updateUsers.html', {
