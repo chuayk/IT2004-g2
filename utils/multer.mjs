@@ -7,6 +7,7 @@
 import Multer  from 'multer';
 import FileSys from 'fs';
 import Path    from 'path';
+import {v1} from 'uuid';
 
 /**
  * File filter used to accept image files only
@@ -34,7 +35,17 @@ export const UploadFile         = Multer({ dest:   `${Path}/file` });
 export const UploadProfileImage = Multer({ dest:   `${Path}/profile`, fileFilter: FilterFile.bind(this, "image") });
 /** Multer handler for uploading product images */
 export const UploadProductImage = Multer({ dest:   `${Path}/product`, fileFilter: FilterFile.bind(this, "image") });
-
+const storage = Multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/productpic')
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        // or 
+        // uuid, or fieldname
+        cb(null, `${v1()}-${originalname}`);
+    }
+})
 /**
  * Function to delete a uploaded file
  * @param files {...Express.Multer.File}
@@ -47,10 +58,10 @@ export async function DeleteFile(...files) {
 			console.warn(`Attempting to delete non-existing file(s) ${file}`);
 	}
 }
-export function UploadTo(destination, filter = undefined) {
+export function UploadTo( filter = undefined) {
 	if (filter != undefined) 
 		filter = FilterFile.bind(this, filter);
-	return Multer({ dest:   `${Path}/${destination}`, fileFilter: filter });
+	return Multer({ storage});
 }
 export function DeleteFilePath(...files) {
 	for (let file of files) {
@@ -62,6 +73,8 @@ export function DeleteFilePath(...files) {
 			console.warn(`Attempting to delete non-existing file(s) ${file}`);
 	}
 }
+
+
 
 // var storage = multer.diskStorage({
 // 	destination: function (req, file, cb) {
