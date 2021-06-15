@@ -4,8 +4,6 @@ import { Router } from 'express';
 import Hash from 'hash.js';
 
 
-
-
 const router = Router();
 export default router;
 
@@ -25,13 +23,11 @@ import Sequelize from 'sequelize';
 // import RouterWalkInUser from '../routes/WalkInUser.mjs'
 // router.use("/walkInUser", RouterWalkInUser)
 
-
-
 router.get("/accounts/list",            viewUser_page);
 router.get("/accounts/list/data",       viewUser_data);
 router.get("/accounts/createUsers",     createUser_page);
 router.post("/accounts/createUsers",    createUser_process);
-router.get("/accounts/deleteUser",     deleteUser_process);
+router.get("/accounts/deleteUser",      deleteUser_process);
 router.get("/accounts/updateUsers",     updateUser_page);
 router.post("/accounts/updateUsers",    updateUser_process);
 
@@ -43,7 +39,6 @@ async function createUser_page(req, res) {
     return res.render('staff/accounts/createUsers.html', {
     });
 }
-
 
 async function createUser_process(req, res) {
     let { username, email, password, password2, phoneNumber, address, role } = req.body;
@@ -75,8 +70,8 @@ async function createUser_process(req, res) {
                         }
 
                         else {
-                            ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), phoneNumber: req.body.number, address: req.body.address, role: req.body.role, accountStatus: req.body.status })
-                                .then(user => {
+                            ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: Hash.sha256().update(req.body.email).digest("hex"),phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2,4)})
+                            .then(user => {
                                     // alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
                                     return res.redirect('/staff/accounts/list')
                                 })
@@ -106,9 +101,12 @@ console.log("User deleted")
 return res.redirect('/staff/accounts/list')
 }
 
-// update user
-// Implement query, then update. Now only has update.
-
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
 async function updateUser_page(req, res) {
     return res.render('staff/accounts/updateUsers.html', {
         username: req.query.id

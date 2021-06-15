@@ -32,14 +32,14 @@ router.use("/staff", RouterStaff)
 // router.use("/", RouterCart)
 
 
-// ---------------- 
 //	TODO:	Common URL paths here
 
-
-// 
-
+router.get("/review",             review);
+router.get("/review-data",        review_data);
 
 // Confirm email page before accessing services
+
+
 
 router.get("/confirmEmail", async function(req, res) {
 
@@ -70,7 +70,6 @@ router.get("/confirmEmail", async function(req, res) {
 // Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
 router.get("/",      async function(req, res) {
 	console.log("Home page accessed");
-	// Prevent crashing
 	if (res.locals.user){
 		let verified = res.locals.user.emailVerified == 1;
 		if (!verified)  {
@@ -111,27 +110,23 @@ router.post("/", async function(req, res) {
 					username: res.locals.user.username
 				}
 			})
-			
 	}
 	return res.redirect('../')
 
 });
 
-// Customer Revview route
 
 
-router.get("/review-data", async function(req, res) {
+async function review_data(req, res) {
     const users = await ModelUser.findAll({raw: true});
     return res.json({
-        // server sort.
         "rows": users,
         "total": users.length,
     }
 )
-})
+}
 
-
-router.get("/review", async function(req, res) {
+async function review (req, res) {
 
 	if (res.locals.user.verified == 0)
 	{
@@ -143,7 +138,7 @@ router.get("/review", async function(req, res) {
 		   users_list: user,
 	   });
 	   }).catch(err => console.log(err));
-});
+}
 
 
 router.post("/review", async function(req, res) {

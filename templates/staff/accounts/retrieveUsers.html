@@ -236,6 +236,9 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
 
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js"></script>
+
+
 <h1 class="display-4" style="text-align: center; padding-bottom: 25px; padding-top: 30px;font-style: ">User Account
     Management </h1>
 <!-- <p style="text-align: center; font-weight: bold;">Note for admin: click on <span
@@ -309,6 +312,8 @@
 <table
 
 id="table"
+data-show-refresh="true"
+data-auto-refresh="true"
 data-total-fields = "total"
 data-data-fields = "rows"
 data-server-sort ="true"

@@ -38,6 +38,8 @@
 // export default(ModelUser) 
 
 // exporting it as 'test' for now
+
+
 import ORM from 'sequelize'
 const { Sequelize, DataTypes, Model } = ORM;
 
@@ -59,13 +61,13 @@ export class ModelUser extends Model{
     username: {type: Sequelize.STRING, allowNull: false},
     email: {type: Sequelize.STRING, allowNull: false},
     password: {type: Sequelize.STRING, allowNull: false},
-    phoneNumber: {type: Sequelize.STRING, allowNull: true},
-    phoneNumber_pin: {type: Sequelize.STRING, allowNull: true},
+    phoneNumber: {type: Sequelize.STRING, allowNull: false},
+    phoneNumber_pin: {type: Sequelize.STRING, allowNull: false},
 	phoneNumberVerified: {type: Sequelize.STRING, defaultValue: "False", allowNull: false},
-    emailVerified: {type: Sequelize.STRING, defaultValue: "False", allowNull: true},
-    verification_hash: {type: Sequelize.STRING, allowNull: true},
+    emailVerified: {type: Sequelize.STRING, defaultValue: "False", allowNull: false},
+    verification_hash: {type: Sequelize.STRING, allowNull: false},
     comment: {type: Sequelize.TEXT, allowNull: true},
-    address: {type: Sequelize.TEXT, allowNull: true},
+    address: {type: Sequelize.TEXT, allowNull: false},
     role: {type: Sequelize.TEXT, defaultValue: "Guest", allowNull: false},
     accountStatus: {type: Sequelize.TEXT, defaultValue: "Active", allowNull: false},
     dateCreated: {type: Sequelize.DATEONLY, defaultValue: Sequelize.NOW},
