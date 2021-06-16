@@ -9,6 +9,11 @@
 	{% block PageMeta %}
 	{% endblock PageMeta %}
 
+	
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+
+
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css">
@@ -37,9 +42,15 @@
 
 	<title>
 		{% block PageTitle %}
-		VidJot - The Video Collection Jotter Nunjucks
+		Breadington - Your One Stop Shop For Bread
 		{% endblock PageTitle %}
 	</title>
+	
+	<style>
+		* {
+			font-family: 'Ovo', serif;
+		}
+	</style>
 </head>
 <body>
 	{% include "partials/guest_navbar.html" %}
