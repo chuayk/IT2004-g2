@@ -4,6 +4,8 @@
 {% extends 'layouts/base.html' %}
 {% endif %} -->
 {% block PageContent %}
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -18,6 +20,11 @@
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/custom-view/bootstrap-table-custom-view.js"></script>
 
+<style>
+  body {
+    margin-bottom: 15px;
+  }
+</style>
 
 <section class="dark-grey-text">
 
@@ -34,8 +41,9 @@
         
         <h3 class="font-weight-bold mb-4">Your review matters to us!</h3>
 
-        <p>Lorem ipsum dolor sit amet consectetur adip elit. Maiores deleniti explicabo voluptatem quisquam nulla asperiores aspernatur aperiam voluptate et consectetur minima delectus, fugiat eum soluta blanditiis adipisci, velit dolore magnam.</p>
+<p>It’s probably obvious why we want all our customers to leave a review. We’re confident in our products and proud of how they help people so we want to hear your story!</p>
 
+<p>What we really can’t stress enough, however, is how your review helps others. If you take the time to talk about your experience with Skara, other people use that information to make their decisions.</p>
       </div>
     </div>
   </div>
@@ -81,7 +89,7 @@
             </p>
           </div>
           <div class="col-12 col-lg-4 col-md-6 text-center">
-            <img src="https://robohash.org/18.146.255.198.png" alt="" class="mx-auto rounded-circle img-fluid" style="height: 120px;">
+            <img src=%IMAGE% alt="" class="mx-auto rounded-circle img-fluid" style="height: 80px;">
             <br>
             <ul class="list-inline ratings text-center" title="Ratings">
               
@@ -183,7 +191,7 @@
 <script>
   $(function() {
 
-    fetch("/staff/accounts/list/data")
+    fetch("/review-data")
     .then(function(resp) {
         return resp.json();
     }) 
@@ -191,7 +199,6 @@
 
 
       var myData = data.rows
-      console.log(myData)
 
 
     $('#table').bootstrapTable({
@@ -215,9 +222,17 @@
   function customViewFormatter (data) {
     var template = $('#profileTemplate').html()
     var view = ''
+    var textArray = [
+    'https://i.ibb.co/z7jXHv3/croissant.png',
+    'https://i.ibb.co/Y2y1Xmz/bread-of-the-dead.png',
+    'https://i.ibb.co/N3Z67p0/bag.png',
+    'https://i.ibb.co/drP3Fhc/sandwich.png'
+];
     $.each(data, function (i, row) {
+      var randomNumber = Math.floor(Math.random()*textArray.length);
+      console.log("fucl")
       view += template.replace('%NAME%', row.username)
-        .replace('%IMAGE%', row.image)
+        .replace('%IMAGE%', textArray[randomNumber])
         .replace('%EMAIL%', row.email)
         .replace('%ROLE%', row.role)
         .replace('%COMMENT%', row.comment);

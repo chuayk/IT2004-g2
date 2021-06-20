@@ -109,7 +109,6 @@ async function register_process(req, res) {
 							registeredUsername: true,
 						});
 					}
-
 					else {
 						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: Hash.sha256().update(req.body.email).digest("hex"), phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2, 4) })
 							.then(user => {

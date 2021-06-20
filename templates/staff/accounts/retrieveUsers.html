@@ -11,8 +11,9 @@
         width: 50px;
     }
 
+
     body {
-        color: #black;
+        color: black;
         background: #f5f5f5;
         font-family: 'Varela Round', sans-serif;
         font-size: 14px;
@@ -211,32 +212,40 @@
     .display-4 {
         margin: auto;
     }
+
     .select,
-  #locale {
-    width: 100%;
-  }
-  .like {
-    margin-right: 10px;
-  }
+    #locale {
+        width: 100%;
+    }
+
+    .like {
+        margin-right: 10px;
+    }
 </style>
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
 <!-- Bootstrap table  -->
 <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
 
-<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js"></script>
+<script
+    src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js"></script>
 
 
 <h1 class="display-4" style="text-align: center; padding-bottom: 25px; padding-top: 30px;font-style: ">User Account
@@ -246,19 +255,17 @@
     to look at <strong>order list.</strong></p> -->
 
 
-
-
-
-    <div class="container">
-        <div class="card-deck" style="margin-bottom:-40px">
-            <div class="card" style="width:400px">
-                <div class="card-body">
-                    <h4 class="card-title" style="text-align:center;"><img style="width: 50px;"
-                                                                           src="https://i.ibb.co/wyxkCVy/group.png">
-                        <p>Total users</p></h4>
-                    <p class="card-text" style="text-align:center;">
-                        <div style="text-align: center; font-size: 17px">
-                            <span id="total_users"></span>
+<div class="container" style="margin-top: 20px;">
+    <div class="card-deck" style="margin-bottom:-40px">
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <h4 class="card-title" style="text-align:center;"><img style="width: 50px;"
+                        src="https://i.ibb.co/wyxkCVy/group.png">
+                    <p>Total users</p>
+                </h4>
+                <p class="card-text" style="text-align:center;">
+                <div style="text-align: center; font-size: 17px">
+                    <span id="total_users"></span>
                 </div>
                 </p>
             </div>
@@ -266,36 +273,38 @@
         <div class="card" style="width:400px">
             <div class="card-body">
                 <h4 class="card-title" style="text-align:center;"><img style="width: 50px;"
-                                                                       src="https://icon-library.com/images/active-icon/active-icon-15.jpg">
-                    <p>Active</p></h4>
+                        src="https://icon-library.com/images/active-icon/active-icon-15.jpg">
+                    <p>Active</p>
+                </h4>
                 <p class="card-text" style="text-align:center;">
-                    <div style="text-align: center; font-size: 17px">
-                        <span id="active_users"></span>
+                <div style="text-align: center; font-size: 17px">
+                    <span id="active_users"></span>
 
+                </div>
+                </p>
             </div>
-            </p>
         </div>
-    </div>
 
 
 
 
-    
-    <div class="card" style="width:400px">
-        <div class="card-body">
-            <h4 class="card-title" style="text-align:center;"><img style="width: 50px;"
-                                                                   src="https://cdn.onlinewebfonts.com/svg/img_298493.png">
-                <p>Inactive</p></h4>
-            <p class="card-text" style="text-align:center;">
+
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <h4 class="card-title" style="text-align:center;"><img style="width: 50px;"
+                        src="https://cdn.onlinewebfonts.com/svg/img_298493.png">
+                    <p>Inactive</p>
+                </h4>
+                <p class="card-text" style="text-align:center;">
                 <div style="text-align: center; font-size: 17px">
                     <span id="inactive_users"></span>
 
+                </div>
+                </p>
+            </div>
         </div>
-        </p>
     </div>
-    </div>
-    </div>
-    </div>
+</div>
 
 
 
@@ -308,47 +317,59 @@
 <div id="toolbar">
     <a class="btn btn-primary" href="/staff/accounts/createUsers" role="button">Add new user</a>
     <!-- <button id="button" class="btn btn-danger">remove</button> -->
-  </div>
-<table
-
-id="table"
-data-show-refresh="true"
-data-auto-refresh="true"
-data-total-fields = "total"
-data-data-fields = "rows"
-data-server-sort ="true"
-data-toolbar="#toolbar"
-data-search="true"
-data-show-refresh="true"
-data-show-toggle="true"
-data-show-fullscreen="true"
-data-detail-view="true"
-data-detail-formatter="detailFormatter"
-data-minimum-count-columns="2"
-data-show-pagination-switch="true"
-data-side-pagination="server"
-data-pagination="true"
-data-id-field="id"
-data-page-list="[10, 25, 50, 100, all]"
-data-show-footer="true"
-  data-toggle="table"
-  data-url="/staff/accounts/list/data">
-  <thead>
-    <tr>
-        <th data-field="state" data-checkbox="true"></th>
-        <th data-field="username" data-sortable="true">Username </th>
-        <th data-field="email" data-sortable="true">Email</th>
-        <th data-field="dateCreated" data-sortable="true">Date Created</th>
-        <th data-field="role" data-sortable="true">Role</th>
-        <th data-field="accountStatus" data-sortable="true">Status</th>
-        <th data-field="action" data-formatter="actionFormatter">Action</th>
+</div>
+<table id="table" data-show-refresh="true" data-auto-refresh="true" data-total-fields="total" data-data-fields="rows"
+    data-server-sort="true" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="true"
+    data-show-fullscreen="true" data-detail-view="true" data-detail-formatter="detailFormatter"
+    data-minimum-count-columns="2" data-show-pagination-switch="true" data-side-pagination="server"
+    data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
+    data-toggle="table" data-url="/staff/accounts/list/data">
+    <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="username" data-sortable="true">Username </th>
+            <th data-field="email" data-sortable="true">Email</th>
+            <th data-field="dateCreated" data-sortable="true">Date Created</th>
+            <th data-field="role" data-sortable="true">Role</th>
+            <th data-field="accountStatus" data-sortable="true">Status</th>
+            <th data-field="action" data-formatter="actionFormatter">Action</th>
 
 
 
 
-    </tr>
-  </thead>
+        </tr>
+    </thead>
 </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container my-4">
+
+    <!-- <p class="font-weight-bold">New Users</p>
+
+    <p><strong>Detailed documentation and more examples of Bootstrap Charts you can find in our <a href="https://mdbootstrap.com/docs/jquery/javascript/charts/"
+          target="_blank">Bootstrap Charts Docs</a>.</p> -->
+
+    <hr class="my-4">
+    <h1 class="display-8" style="text-align: center; padding-bottom: 25px; padding-top: 30px;">- registros de usuarios
+        por mes -</h1>
+    <p class="display-15" style="text-align: center;">(I'm learning spanish don't flame me)</p>
+    <hr class="my-4">
+    <div>
+        <canvas id="lineChart"></canvas>
+    </div>
+
+</div>
+
+
 
 
 
@@ -356,75 +377,238 @@ data-show-footer="true"
 
 <script>
 
-var $table = $('#table')
-  var $button = $('#button')
+    var $table = $('#table')
+    var $button = $('#button')
 
-  $(function() {
-    $button.click(function () {
-      var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-        return row.username
-      })
-      $table.bootstrapTable('remove', {
-        field: 'username',
-        values: ids
-      })
+    $(function () {
+        $button.click(function () {
+            var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+                return row.username
+            })
+            $table.bootstrapTable('remove', {
+                field: 'username',
+                values: ids
+            })
+        })
+
+
     })
 
 
-  })
+    function detailFormatter(index, row) {
+        var html = []
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+        })
+        return html.join('')
+    }
 
 
-  function detailFormatter(index, row) {
-    var html = []
-    $.each(row, function (key, value) {
-      html.push('<p><b>' + key + ':</b> ' + value + '</p>')
-    })
-    return html.join('')
-  }
+    function actionFormatter(index, row) {
+        var html = []
+        $.each(row, function (key, value) {
+            if (key == 'username') {
+                html.push('<a class="edit" href="http://localhost:3000/staff/accounts/updateUsers?id=' + value + '" title="edit"><i class="fa fa-edit"></i></a>')
+                html.push('<a class="edit" href="http://localhost:3000/staff/accounts/deleteUser?id=' + value + '" title="edit"><i class="fa fa-trash"></i></a>')
 
-
-  function actionFormatter(index, row ){
-      var html = []
-      $.each(row, function(key, value) {
-          if (key == 'username') {
-              html.push('<a class="edit" href="http://localhost:3000/staff/accounts/updateUsers?id=' + value + '" title="edit"><i class="fa fa-edit"></i></a>')
-              html.push('<a class="edit" href="http://localhost:3000/staff/accounts/deleteUser?id=' + value + '" title="edit"><i class="fa fa-trash"></i></a>')
-
-          }
-          
-          
-      })
-      return html.join("")
-  }
-
-
-  fetch("/staff/accounts/list/data")
-    .then(function(resp) {
-        return resp.json();
-    }) 
-    .then(function(data){
-        var active_count = 0;
-        var inactive_count = 0;
-        console.log('here')
-        console.log(data)
-
-        for (i = 0; i < data.rows.length; i++) {
-            if (data.rows[i].accountStatus == "Active")
-            {
-                active_count += 1;
             }
-            else inactive_count += 1;
-        }    style="color:#33b2ff"
-        document.getElementById("total_users").innerHTML = "There are currently <span style='color:#33b2ff'>" +  data.total + "</span> users."
-        document.getElementById("active_users").innerHTML = "There are currently <span style='color:green'>" +  active_count + "</span> users."
-        document.getElementById("inactive_users").innerHTML = "There are currently <span style='color:red'>" +  inactive_count + "</span> users."
 
-        console.log('active count=', active_count);
-        console.log('inactive count=', inactive_count);
 
-    })
+        })
+        return html.join("")
+    }
 
-  </script>
+
+    fetch("/staff/accounts/list/data")
+        .then(function (resp) {
+            return resp.json();
+        })
+        .then(function (data) {
+            var active_count = 0;
+            var inactive_count = 0;
+            console.log('here')
+            console.log(data)
+
+            // Users per month count.
+            var janCount = 0;
+            var febCount = 0;
+            var marchCount = 0;
+            var aprilCount = 0;
+            var mayCount = 0;
+            var juneCount = 0;
+            var julyCount = 0;
+            var augCount = 0;
+            var sepCount = 0;
+            var octCount = 0;
+            var novCount = 0;
+            var decCount = 0;
+
+            var janStaffCount = 0;
+            var febStaffCount = 0;
+            var marchStaffCount = 0;
+            var aprilStaffCount = 0;
+            var mayStaffCount = 0;
+            var juneStaffCount = 0;
+            var julyStaffCount = 0;
+            var augStaffCount = 0;
+            var sepStaffCount = 0;
+            var octStaffCount = 0;
+            var novStaffCount = 0;
+            var decStaffCount = 0;
+
+            for (i = 0; i < data.rows.length; i++) {
+
+                console.log("here")
+                var monthCreated = data.rows[i].dateCreated.substr(5, 2)
+
+                if (data.rows[i].role == "Guest") {
+                    switch (monthCreated) {
+                        case "01":
+                            janCount += 1
+                            break;
+                        case "02":
+                            febCount += 1
+                            break;
+                        case "03":
+                            marchCount += 1
+                            break;
+                        case "04":
+                            aprilCount += 1
+                            break;
+                        case "05":
+                            mayCount += 1
+                            break;
+                        case "06":
+                            juneCount += 1
+                            break;
+                        case "07":
+                            julyCount += 1
+                            break;
+                        case "08":
+                            augCount += 1
+                            break;
+                        case "09":
+                            sepCount += 1
+                            break;
+                        case "10":
+                            octCount += 1
+                            break;
+                        case "11":
+                            novCount += 1
+                            break;
+                        case "12":
+                            decCount += 1
+                            break;
+
+                    }
+                }
+
+                if (data.rows[i].role == "Staff") {
+                    switch (monthCreated) {
+                        case "01":
+                            janStaffCount += 1
+                            break;
+                        case "02":
+                            febStaffCount += 1
+                            break;
+                        case "03":
+                            marchStaffCount += 1
+                            break;
+                        case "04":
+                            aprilStaffCount += 1
+                            break;
+                        case "05":
+                            mayStaffCount += 1
+                            break;
+                        case "06":
+                            juneStaffCount += 1
+                            break;
+                        case "07":
+                            julyStaffCount += 1
+                            break;
+                        case "08":
+                            augStaffCount += 1
+                            break;
+                        case "09":
+                            sepStaffCount += 1
+                            break;
+                        case "10":
+                            octStaffCount += 1
+                            break;
+                        case "11":
+                            novStaffCount += 1
+                            break;
+                        case "12":
+                            decStaffCount += 1
+                            break;
+
+                    }
+                }
+
+
+                if (data.rows[i].accountStatus == "Active") {
+                    active_count += 1;
+                }
+                else inactive_count += 1;
+
+            } style = "color:#33b2ff"
+            document.getElementById("total_users").innerHTML = "There are currently <span style='color:#33b2ff'>" + data.total + "</span> users."
+            document.getElementById("active_users").innerHTML = "There are currently <span style='color:green'>" + active_count + "</span> users."
+            document.getElementById("inactive_users").innerHTML = "There are currently <span style='color:red'>" + inactive_count + "</span> users."
+
+            console.log('active count=', active_count);
+            console.log('inactive count=', inactive_count);
+
+
+
+
+            //Line chart
+            var ctxL = document.getElementById("lineChart").getContext('2d');
+            var myLineChart = new Chart(ctxL, {
+                type: 'line',
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                    datasets: [{
+                        label: "Guest accounts created per month",
+                        data: [janCount, febCount, marchCount, aprilCount, mayCount, juneCount, julyCount, augCount, sepCount, octCount, novCount, decCount],
+                        backgroundColor: [
+
+                            'rgb(177,218,251)',
+                        ],
+                        borderColor: [
+                            'rgb(101,181,246)',
+                        ],
+                        borderWidth: 2
+                    },
+
+                    {
+                        label: "Staff accounts created per month",
+                        data: [janStaffCount, febStaffCount, marchStaffCount, aprilStaffCount, mayStaffCount, juneStaffCount, julyStaffCount, augStaffCount, sepStaffCount, octStaffCount, novStaffCount, decStaffCount],
+                        backgroundColor: [
+                            'rgba(105, 0, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(200, 99, 132, .7)',
+                        ],
+                        borderWidth: 2
+                    }
+
+
+                    ]
+                },
+
+
+            });
+
+
+        })
+
+
+    // Line Chart
+
+
+
+</script>
 
 
 

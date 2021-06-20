@@ -1,11 +1,15 @@
-import { Router } from 'express';
-import twilio from 'twilio';
+import { Router } from 		'express';
+import twilio from 			'twilio';
 
 const router = Router();
 export default router;
 
-import { ModelUser } from '../data/user.mjs';
-import Op			   from 'sequelize';
+import { ModelUser } from 	'../data/user.mjs';
+import Sequelize from 		'sequelize';
+
+// Imports OP from sequelize
+
+const Op = Sequelize.Op
 
 
 // If user is not verified, ie. res.locals.user.verified == 0, redirect back to ('/') note to joel
@@ -42,7 +46,6 @@ router.get("/review-data",        review_data);
 
 
 router.get("/confirmEmail", async function(req, res) {
-
 	if (res.locals.user){
 		if (res.locals.user.verification_hash == req.query.id)
 		{
@@ -58,6 +61,7 @@ router.get("/confirmEmail", async function(req, res) {
 			
 		}
 
+
 	}
 	return res.render('confirmEmail.html', {
 	});
@@ -69,13 +73,34 @@ router.get("/confirmEmail", async function(req, res) {
 
 // Need to change passing in of "USER OBJECT" instead of just role. This is temporary.
 router.get("/",      async function(req, res) {
+	
+	
+	if (!res.locals.user){
+		return res.redirect('/auth/login')
+	}
+
+	// If user is staff, automatically verify email & phone number.
+
+	if (res.locals.user.role == "Staff") {
+			ModelUser.update({
+				emailVerified: true,
+				phoneNumberVerified: true
+			}, {
+					where: {
+						username: res.locals.user.username
+					}
+				})
+	}
+
+
 	console.log("Home page accessed");
-	if (res.locals.user){
+	if (res.locals.user && res.locals.user.role != "Staff"){
 		let verified = res.locals.user.emailVerified == 1;
 		if (!verified)  {
 			return res.redirect('/confirmEmail')
 		}
 	}
+
 
 	// User signs in, matches hash string with url one.
 	if (res.locals.user){
@@ -98,10 +123,10 @@ router.get("/",      async function(req, res) {
 
 
 router.post("/", async function(req, res) {
-	console.log("Contents received")
 	console.log(req.body.OTP)
 	console.log(res.locals.user.phoneNumber_pin);
 
+	
 	if (req.body.OTP == res.locals.user.phoneNumber_pin){
 		ModelUser.update({
 			phoneNumberVerified: true
@@ -118,15 +143,24 @@ router.post("/", async function(req, res) {
 
 
 async function review_data(req, res) {
-    const users = await ModelUser.findAll({raw: true});
+	
+
+    const users = await ModelUser.findAll({ where: { comment: {[Op.ne]: null} } });
     return res.json({
         "rows": users,
         "total": users.length,
+		"image": "https://robohash.org/18.146.255.198.png"
     }
 )
+
+
 }
 
 async function review (req, res) {
+
+	if (!res.locals.user){
+		return res.redirect('/error403')
+	}
 
 	if (res.locals.user.verified == 0)
 	{
@@ -170,3 +204,12 @@ router.get("/home", async function(req, res) {
 	});
 });
 
+router.get("/error404", async function(req, res) {
+	return res.render('error404.html', {
+	});
+});
+
+router.get("/error403", async function(req, res) {
+	return res.render('error403.html', {
+	});
+});

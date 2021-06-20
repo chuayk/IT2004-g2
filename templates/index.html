@@ -553,10 +553,12 @@ body {
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
 
-		{% if user.phoneNumberVerified == 'False' or user.phoneNumberVerified == 0 %}
+		{% if user.role != "Staff" %}
+			{% if user.phoneNumberVerified == 'False' or user.phoneNumberVerified == 0 %}
 		<script>
 		  $('#verifyNumModal').modal('show');
 		</script>
+			{% endif %}
 		{% endif %}
 
 		<script>

@@ -96,3 +96,21 @@ Server.listen(Port, function() {
 });
 
 //xy editied this
+
+
+
+// Error 404 in place
+
+Server.use(function(req, res, next) {
+	res.status(404);
+  
+	// respond with html page
+	if (req.accepts('html')) {
+		res.redirect("/error404")
+	  return;
+	}
+  
+  });
+
+
+
