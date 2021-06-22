@@ -58,6 +58,7 @@ export class ModelUser extends Model{
 	static initialize(database) {
 		ModelUser.init({
     uuid: { type: Sequelize.UUID,    primaryKey: true, defaultValue: Sequelize.UUIDV4  },
+	urlPic: {type: Sequelize.STRING, allowNull: false},
     username: {type: Sequelize.STRING, allowNull: false},
     email: {type: Sequelize.STRING, allowNull: false},
     password: {type: Sequelize.STRING, allowNull: false},

@@ -7,6 +7,8 @@ import Hash from 'hash.js';
 import { response, Router } from 'express';
 import nodemailer from '			nodemailer';
 import twilio from 'twilio';
+import multer from 'multer';
+var upload = multer({ dest: 'public/userPic' })
 
 
 
@@ -19,7 +21,7 @@ router.get("/login", login_page);
 router.post("/login", login_process);
 router.get("/register", register_page);
 router.get("/register/verifyNumber", verifyNumber_page);
-router.post("/register", register_process);
+router.post("/register", upload.single('avatar'), register_process);
 router.get("/logout", logout_process);
 
 
@@ -89,6 +91,9 @@ async function verifyNumber_page(req, res) {
  */
 async function register_process(req, res) {
 
+	console.log('here')
+
+
 	let { username, email, password, password2, phoneNumber, address } = req.body;
 
 	ModelUser.findOne({ where: { email: req.body.email } })
@@ -110,10 +115,9 @@ async function register_process(req, res) {
 						});
 					}
 					else {
-						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: Hash.sha256().update(req.body.email).digest("hex"), phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2, 4) })
+						let verification_hash = Hash.sha256().update(req.body.email).digest("hex")
+						ModelUser.create({ username: req.body.username, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: verification_hash, phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2, 4), urlPic: req.file.path })
 							.then(user => {
-
-
 
 								// Sends number verification
 
@@ -157,8 +161,8 @@ async function register_process(req, res) {
 									from: '"Fred Foo 👻" breadington.official@outlook.com', // sender address
 									to: "ktykuang@gmail.com", // list of receivers
 									subject: "Hello ✔ Verification", // Subject line
-									text: "Please click on this link: http://localhost:3000/" + test, // plain text body
-									html: "<b>Thank you for your registration, please verify here:</b> http://localhost:3000/confirmEmail?id=" + test, // html body
+									text: "Please click on this link: http://localhost:3000/" + verification_hash, // plain text body
+									html: "<b>Thank you for your registration, please verify here:</b> http://localhost:3000/confirmEmail?id=" + verification_hash, // html body
 								});
 
 								console.log("Message sent");

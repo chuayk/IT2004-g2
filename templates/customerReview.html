@@ -128,7 +128,7 @@
 
 <div class="container"  style=" border: 3px solid #e8e8e8; background-color: white; padding-top: 0.5px; padding-bottom: 30px;">
   <br>
-  <h1 class="text-center ">Show us some love!</h1>
+  <h1 class="text-center ">Show us some love! </h1>
   <hr>
     <!-- <div class="row" style="background-color:#0db4ce;">
         <div class="col-xs-5" style="color: white; margin: auto;">
@@ -155,7 +155,7 @@
                         {% if user.comment != null %}
                         <div class="bg-light p-2">
                             <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
-                                    src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                    src="{{ user.urlPic }}"
                                     width="40">
                                 <textarea class="form-control ml-1 shadow-none textarea" name="comment"
                                     value="{{comment}}"></textarea>
@@ -166,7 +166,7 @@
                         {% else %}
                         <div class="bg-light p-2">
                             <div class="d-flex flex-row align-items-start"><img class="rounded-circle"
-                                    src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                    src="{{ user.urlPic }}"
                                     width="40">
                                 <textarea class="form-control ml-1 shadow-none textarea" name="comment"
                                     value="{{comment}}"></textarea>
@@ -231,7 +231,8 @@
       var randomNumber = Math.floor(Math.random()*textArray.length);
       console.log("fucl")
       view += template.replace('%NAME%', row.username)
-        .replace('%IMAGE%', textArray[randomNumber])
+      .replace('%IMAGE%', row.urlPic)
+        // .replace('%IMAGE%', textArray[randomNumber])
         .replace('%EMAIL%', row.email)
         .replace('%ROLE%', row.role)
         .replace('%COMMENT%', row.comment);

@@ -4,6 +4,7 @@ import { Router } from 'express';
 import Hash from 'hash.js';
 
 
+
 const router = Router();
 export default router;
 
@@ -17,19 +18,20 @@ router.use("/codes", RouterReward)
 // Imports model user for database
 import { ModelUser } from '../data/user.mjs';
 import Sequelize from 'sequelize';
-
+import multer from 'multer';
+var upload = multer({ dest: 'public/userPic' })
 
 // rout to product.mjs -yh
 // import RouterWalkInUser from '../routes/WalkInUser.mjs'
 // router.use("/walkInUser", RouterWalkInUser)
 
-router.get("/accounts/list",            viewUser_page);
-router.get("/accounts/list/data",       viewUser_data);
-router.get("/accounts/createUsers",     createUser_page);
-router.post("/accounts/createUsers",    createUser_process);
-router.get("/accounts/deleteUser",      deleteUser_process);
-router.get("/accounts/updateUsers",     updateUser_page);
-router.post("/accounts/updateUsers",    updateUser_process);
+router.get("/accounts/list",                                    viewUser_page);
+router.get("/accounts/list/data",                               viewUser_data);
+router.get("/accounts/createUsers",                             createUser_page);
+router.post("/accounts/createUsers", upload.single('avatar'),   createUser_process);
+router.get("/accounts/deleteUser",                              deleteUser_process);
+router.get("/accounts/updateUsers",                             updateUser_page);
+router.post("/accounts/updateUsers",                            updateUser_process);
 
 
 
@@ -49,6 +51,7 @@ async function createUser_page(req, res) {
 }
 
 async function createUser_process(req, res) {
+    console.log(req.file)
     let { username, email, password, password2, phoneNumber, address, role } = req.body;
     console.log(req.body);
     if (req.body.password.length < 4) {
@@ -78,7 +81,7 @@ async function createUser_process(req, res) {
                         }
 
                         else {
-                            ModelUser.create({ username: req.body.username, role: req.body.role, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: Hash.sha256().update(req.body.email).digest("hex"),phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2,4)})
+                            ModelUser.create({ username: req.body.username, role: req.body.role, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: Hash.sha256().update(req.body.email).digest("hex"),phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2,4), urlPic: req.file.path})
                             .then(user => {
                                     // alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
                                     return res.redirect('/staff/accounts/list')
