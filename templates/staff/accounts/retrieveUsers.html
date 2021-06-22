@@ -3,22 +3,9 @@
 {% block PageContent %}
 
 
-{% set active_count = 0 %}
-{% set inactive_count = 0 %}
-
-{% for user in users_list %}
-    {% if user.accountStatus == "Active" %}
-        {% set active_count = active_count + 1 %}
-
-    {% elif user.accountStatus == "Inactive" %}
-        {% set inactive_count = inactive_count + 1 %}
-        
-    {% endif %}
-{% endfor %}
 
 
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
     tr img {
         width: 50px;
@@ -224,12 +211,39 @@
     .display-4 {
         margin: auto;
     }
+    .select,
+  #locale {
+    width: 100%;
+  }
+  .like {
+    margin-right: 10px;
+  }
 </style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<!-- Bootstrap table  -->
+<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js"></script>
+
+
 <h1 class="display-4" style="text-align: center; padding-bottom: 25px; padding-top: 30px;font-style: ">User Account
     Management </h1>
-<p style="text-align: center; font-weight: bold;">Note for admin: click on <span
+<!-- <p style="text-align: center; font-weight: bold;">Note for admin: click on <span
         style="text-decoration: underline">user's picture</span>
-    to look at <strong>order list.</strong></p>
+    to look at <strong>order list.</strong></p> -->
 
 
 
@@ -240,11 +254,11 @@
             <div class="card" style="width:400px">
                 <div class="card-body">
                     <h4 class="card-title" style="text-align:center;"><img style="width: 50px;"
-                                                                           src="https://lh3.googleusercontent.com/pJ4z__rqfGhiz1be1WUGdav4knyr7SZ1yxLfkCKoZhre7G5vcWcJP35iM3Tr_TAaSZVm">
-                        <p>Online</p></h4>
+                                                                           src="https://i.ibb.co/wyxkCVy/group.png">
+                        <p>Total users</p></h4>
                     <p class="card-text" style="text-align:center;">
                         <div style="text-align: center; font-size: 17px">
-                    <p>There is <span style="color:#33b2ff">1</span> user.</p>
+                            <span id="total_users"></span>
                 </div>
                 </p>
             </div>
@@ -256,18 +270,17 @@
                     <p>Active</p></h4>
                 <p class="card-text" style="text-align:center;">
                     <div style="text-align: center; font-size: 17px">
-                        {% if active_count == 0 %}
-                <p>There are no users.</p>
-                {% elif active_count == 1 %}
-                <p>There is <span style="color:#33b2ff">1</span> user.</p>
-                {% else %}
-                <p></p>
-                <p>There are <span style="color:#33b2ff">{{ active_count }}</span> users.</p>
-                {% endif %}
+                        <span id="active_users"></span>
+
             </div>
             </p>
         </div>
     </div>
+
+
+
+
+    
     <div class="card" style="width:400px">
         <div class="card-body">
             <h4 class="card-title" style="text-align:center;"><img style="width: 50px;"
@@ -275,13 +288,8 @@
                 <p>Inactive</p></h4>
             <p class="card-text" style="text-align:center;">
                 <div style="text-align: center; font-size: 17px">
-                    {% if inactive_count == 0 %}
-            <p>There are no users.</p>
-            {% elif inactive_count == 1 %}
-            <p>There is <span style="color:#33b2ff">1</span> user.</p>
-            {% else %}
-            <p>There are <span style="color:#33b2ff">{{ inactive_count }}</span> users.</p>
-            {% endif %}
+                    <span id="inactive_users"></span>
+
         </div>
         </p>
     </div>
@@ -291,153 +299,136 @@
 
 
 
-
-
-
-<div class="container">
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="table-title">
-
-                <div class="row">
-                    <div class="col-xs-5">
-                        <h2>User <b>Management</b></h2>
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="/staff/accounts/createUsers" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>Add
-                                New User</span></a>
-                    </div>
-                </div>
-                
-            </div>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Date created</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    {% for user in users_list %}
-                    <tr>
-                        <td>{{user.id}}</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#bannerformmodal{{ user.username}}">
-                                
-                                <img
-                                    src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-                                    class="avatar" alt="Avatar">
-
-                                <div class="modal fade bannerformmodal{{user.username}}" tabindex="-1" role="dialog"
-                                    aria-labelledby="bannerformmodal" aria-hidden="true"
-                                    id="bannerformmodal{{ user.username}}">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-content">
-
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">
-                                                        &times;
-                                                    </button>
-                                                    <h4 class="modal-title" id="myModalLabel"
-                                                        style="position:absolute; left:55px;">{{ user.username }}'s
-                                                        profile </h4></div>
-
-                                                        <div class="modal-body" style="color: black; text-align: center">
-                                                            <p><span style="color: red">Name: </span><br>{{ user.username }} </p>
-                                                            <p><span style="color: red">Address: </span><br>{{ user.address }}</p>
-                                                            <p>
-                                                                <a href="" class="btn btn-warning">Items info</a>
-                                                            </p>
-                                                        </div>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            {{user.username}}
-                        </td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.dateCreated}}</td>
-                        <td>{{ user.role }}</td>
-                        <td>{{ user.accountStatus }}</td>
-
-                        <td>
-                            <a href="/staff/accounts/updateUsers/?id={{user.username}}" class="btn btn-warning">Update</a></t>
-                        </td>
-
-                        
-                        <td>
-
-                            <form action="/staff/accounts/deleteUser/?id={{user.username}}" method="POST">
-                                <button type="button" id="delBtn" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{user.username}}">
-                                    Delete
-                                </button>
-                                                            <!-- The Modal -->
-
-                            <div class="modal" id="myModal_{{user.username}}">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Delete Confirmation</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            Are you sure you want to delete {{user.username}}?
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <input type="submit" value="Delete" class="btn btn-danger">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                Cancel
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            </form>
-                        </td>
-
-
-
-
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-</div>
+<br>
 <br>
 
+
+<hr>
+
+<div id="toolbar">
+    <a class="btn btn-primary" href="/staff/accounts/createUsers" role="button">Add new user</a>
+    <!-- <button id="button" class="btn btn-danger">remove</button> -->
+  </div>
+<table
+
+id="table"
+data-show-refresh="true"
+data-auto-refresh="true"
+data-total-fields = "total"
+data-data-fields = "rows"
+data-server-sort ="true"
+data-toolbar="#toolbar"
+data-search="true"
+data-show-refresh="true"
+data-show-toggle="true"
+data-show-fullscreen="true"
+data-detail-view="true"
+data-detail-formatter="detailFormatter"
+data-minimum-count-columns="2"
+data-show-pagination-switch="true"
+data-side-pagination="server"
+data-pagination="true"
+data-id-field="id"
+data-page-list="[10, 25, 50, 100, all]"
+data-show-footer="true"
+  data-toggle="table"
+  data-url="/staff/accounts/list/data">
+  <thead>
+    <tr>
+        <th data-field="state" data-checkbox="true"></th>
+        <th data-field="username" data-sortable="true">Username </th>
+        <th data-field="email" data-sortable="true">Email</th>
+        <th data-field="dateCreated" data-sortable="true">Date Created</th>
+        <th data-field="role" data-sortable="true">Role</th>
+        <th data-field="accountStatus" data-sortable="true">Status</th>
+        <th data-field="action" data-formatter="actionFormatter">Action</th>
+
+
+
+
+    </tr>
+  </thead>
+</table>
+
+
+
+
+
 <script>
-window.onload = function() {
-	if(!window.location.hash) {
-		window.location = window.location + '#loaded';
-		window.location.reload();
-	}
-}  
-</script>
+
+var $table = $('#table')
+  var $button = $('#button')
+
+  $(function() {
+    $button.click(function () {
+      var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+        return row.username
+      })
+      $table.bootstrapTable('remove', {
+        field: 'username',
+        values: ids
+      })
+    })
+
+
+  })
+
+
+  function detailFormatter(index, row) {
+    var html = []
+    $.each(row, function (key, value) {
+      html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+    })
+    return html.join('')
+  }
+
+
+  function actionFormatter(index, row ){
+      var html = []
+      $.each(row, function(key, value) {
+          if (key == 'username') {
+              html.push('<a class="edit" href="http://localhost:3000/staff/accounts/updateUsers?id=' + value + '" title="edit"><i class="fa fa-edit"></i></a>')
+              html.push('<a class="edit" href="http://localhost:3000/staff/accounts/deleteUser?id=' + value + '" title="edit"><i class="fa fa-trash"></i></a>')
+
+          }
+          
+          
+      })
+      return html.join("")
+  }
+
+
+  fetch("/staff/accounts/list/data")
+    .then(function(resp) {
+        return resp.json();
+    }) 
+    .then(function(data){
+        var active_count = 0;
+        var inactive_count = 0;
+        console.log('here')
+        console.log(data)
+
+        for (i = 0; i < data.rows.length; i++) {
+            if (data.rows[i].accountStatus == "Active")
+            {
+                active_count += 1;
+            }
+            else inactive_count += 1;
+        }    style="color:#33b2ff"
+        document.getElementById("total_users").innerHTML = "There are currently <span style='color:#33b2ff'>" +  data.total + "</span> users."
+        document.getElementById("active_users").innerHTML = "There are currently <span style='color:green'>" +  active_count + "</span> users."
+        document.getElementById("inactive_users").innerHTML = "There are currently <span style='color:red'>" +  inactive_count + "</span> users."
+
+        console.log('active count=', active_count);
+        console.log('inactive count=', inactive_count);
+
+    })
+
+  </script>
+
+
+
+
+
 
 {% endblock %}

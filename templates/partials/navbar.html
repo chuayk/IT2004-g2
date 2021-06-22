@@ -1,3 +1,11 @@
+<link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3" style="height: 70px;">
 	<div class="container">
 		<a class="navbar-brand" href="/"><img src="https://i.ibb.co/mJdpDwz/IMG-0603.png" alt="" style="height: 150x;"></a>
@@ -7,7 +15,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
+			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<a class="nav-link" href="/">Home</a>
 				</li>
@@ -15,7 +23,7 @@
 					<a class="nav-link" href="/about">Sales</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/staff/product/createProduct">Inventory</a>
+					<a class="nav-link" href="/staff/createProduct">Inventory</a>
 				</li>
 				<li class="nav-item">
 					<div class="container">
@@ -41,9 +49,62 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/staff/accounts/list">Account Management</a>
 				</li>
+
+
+
 			</ul>
+
 			<ul class="navbar-nav ml-auto">
-				{% if user !== null  %}
+				<li class="nav-item">
+					<img src="https://i.ibb.co/6t6wNQZ/admin.png" alt="" style="width: 38px; margin-right: 5px;">
+				</li>
+
+				<li class="nav-item">
+
+	
+                    <div id="nav-profile-dropdown" class="btn-group navbar-right">
+                        <button data-toggle="dropdown" class="btn btn-success navbar-btn dropdown-toggle" type="button">
+                            <i class="glyphicon glyphicon-user"></i><span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                {% if user !== null  %}
+                                <div class="container p-2">
+                                    <p>Welcome back, {{ user.username }}</p>
+                                    <div class="col text-center">
+                                        <a href="/auth/logout" class="btn btn-primary btn active" role="button"
+                                            aria-pressed="true">Log out</a>
+                                    </div>
+
+
+                                </div>
+                                {% else %}
+
+                                <div class="container p-2">
+                                    <form method="post" action="/wp-login.php" id="navloginform" name="loginform">
+                                        <div class="row">
+                                            <div class="col text-center">
+                                                <a href="/auth/login" class="btn btn-primary btn-sm active"
+                                                    role="button" aria-pressed="true">Log In</a>
+
+
+                                                <a href="/auth/register" class="btn btn-primary btn-sm active"
+                                                    role="button" aria-pressed="true">Sign Up</a>
+
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="/wp-admin/" name="redirect_to">
+                                    </form>
+                                </div>
+                                {% endif %}
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+
+				<!-- {% if user !== null  %}
 
 					<li class="nav-item">
 						<a href="/auth/logout" class="nav-link navlink-right">Logout</a>
@@ -55,7 +116,7 @@
 					<li class="nav-item">
 						<a href="/auth/register" class="nav-link">Register</a>
 					</li>
-				{% endif %}
+				{% endif %} -->
 			</ul>
 		</div>
 	</div>

@@ -3,20 +3,21 @@
  */
 
 
-import Express         from 'express';
-import ExpSession      from 'express-session';
-import BodyParser      from 'body-parser';
-import urlencoded	   from 'urlencode';
-import CookieParser    from 'cookie-parser';
-import MethodOverrides from 'method-override';
-import Path            from 'path';
-import passport 	   from 'passport';
-import { initialize_passport } from './utils/passport.mjs';
-import {initialize_database } from './data/database.mjs'
-import Nunjcks         from 'nunjucks';
+import Express         			from 'express';
+import ExpSession      			from 'express-session';
+import BodyParser      			from 'body-parser';
+import urlencoded	   			from 'urlencode';
+import CookieParser    			from 'cookie-parser';
+import MethodOverrides 			from 'method-override';
+import Path            			from 'path';
+import passport 	   			from 'passport';
+import { initialize_passport } 	from './utils/passport.mjs';
+import {initialize_database } 	from './data/database.mjs'
+import Nunjcks         			from 'nunjucks';
 
 const Server = Express();
 const Port   = process.env.PORT || 3000;
+
 
 /**
  * Template Engine
@@ -43,11 +44,15 @@ initialize_database(false);
 /**
  * Express Session
  */
+
+// Session timeouts in 15 minutes. Needs re-authentication after 15 mins.
+
 Server.use(ExpSession({
 	name:   'example-app',
 	secret: 'random-secret',
 	resave:  false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	cookie:{_expires : 900000}
 }));
 
 /**
