@@ -1,15 +1,20 @@
-// // import { Router } from 'express';
-// // import product from '../data/createProduct.mjs';
-// // const router = Router();
-// // export default router;
-// // //not done
-// // router.get("/cart", async function(req,res){
-// //     product.findAll().then(product => {
-// //         return res.render('customer/cart.html',{
-// //             product_list: product,
-// //         })
-// //     })
-// // })
+import { Router } from 'express';
+import product from '../data/createProduct.mjs';
+const router = Router();
+export default router;
+
+router.get("/cart", Cart)
+router.get("/addCart", addCart)
+router.get("/emptyCart", emptyCart)
+router.post("/createProduct", createProductPost)
+//not done
+router.get("/cart", async function(req,res){
+    product.findAll().then(product => {
+        return res.render('customer/cart.html',{
+            product_list: product,
+        })
+    })
+})
 
 // const cartRepository = require('./repository')
 //     const productRepository = require('../Product/repository');

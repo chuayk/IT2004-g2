@@ -36,15 +36,15 @@
             
                     <div class="photo"><img src="%IMAGE%" alt="" class="card-img-top" ></div>
                 <div class="content">
-                    <h5 class="txt4">%NAME%</h5>
-                    <p class="txt4">%PRICE%</p>
-                    <p class="txt5">%CATEGORY%</p>
+                    <h5 class="txt4 text-center">%NAME%</h5>
+                    <p class="txt4 text-center">$%PRICE%</p>
+                    <p class="txt2">Category: %CATEGORY%</p>
+                    <p  class="txt2">Available: %STOCKCOUNT%</p>
                     <p class="txt2" >%DESCRIPTION%</p>
-                    <p  class="txt2">%STOCKCOUNT%</p>
                 </div>
                 <div class="footer">
-                    <p><a class="waves-effect waves-light btn" href="#">Read More</a><a id="heart"><span class="like"><i class="fab fa-gratipay"></i>Like</span></a></p>
-                    <p class="txt3"><i class="far fa-clock"></i>10 Minutes Ago <span class="comments"><i class="fas fa-comments"></i>45 Comments</span></p>
+                    <p><a id="heart"><span class="like"><i class="fas fa-cart-plus"></i></span></a></p>
+                    <p class="txt3"><i class="far fa-clock"></i>10 Minutes Ago </p>
                 </div>
          
         </div>
@@ -79,7 +79,7 @@ document.querySelector(".fa-gratipay").style.color = "#E74C3C";
         $.each(data, function (i, row) {
             view += template.replace('%NAME%', row.pname)
                 .replace('%IMAGE%', row.picUrl)
-                .replace('%PRICE%', row.price)
+                .replace('%PRICE%', (row.price/100).toFixed(2))
                 .replace('%CATEGORY%', row.category)
                 .replace('%DESCRIPTION%', row.description)
                 .replace('%STOCKCOUNT%', row.stockCount);

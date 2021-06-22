@@ -13,7 +13,8 @@
 // 			"pname"      :{ type: DataTypes.STRING(128), allowNull: false },
 // 			"category"       : { type: DataTypes.STRING(64),  allowNull: false },
 // 			"total_price"      : { type: DataTypes.INTEGER(), allowNull: false },
-//             "grand_total"      : { type: DataTypes.INTEGER(), allowNull: false },
+//          "quantity"      : { type: DataTypes.INTEGER(), allowNull: false },
+//          "grand_total"      : { type: DataTypes.INTEGER(), allowNull: false },
 // 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 
 // 		}, {

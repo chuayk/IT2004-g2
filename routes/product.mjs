@@ -2,8 +2,9 @@
 import { Router } from 'express';
 import { ModelProduct } from '../data/createProduct.mjs';
 import Sequelize from 'sequelize';
+import fs from 'fs';
 import { UploadTo, DeleteFile, DeleteFilePath, UploadFile, UploadProductImage } from '../utils/multer.mjs';
-
+import { flash_message } from '../helpers/flash-messenger.mjs';
 const router = Router();
 export default router;
 
@@ -47,7 +48,8 @@ async function createProductPost(req, res) {
                 console.log(`File uploaded without problems`);
                
                 return res.render("staff/product/createProduct.html", {
-                    path: req.file.path
+                    path: req.file.path,
+                    savedDB: true,
                 });
             }
             catch (error) {
@@ -105,6 +107,7 @@ async function displayProductData(req, res) {
 
 async function updateProduct(req, res) {
     //const productsss = await ModelProduct.findAll({where:{uuid:req.query.id}})
+    // const getproduct = await ModelProduct.findAll
     return res.render('staff/product/updateProduct.html', {
         product_uuid: req.query.id,
 
@@ -126,6 +129,7 @@ async function updateProductPost(req, res) {
                 product_uuid: req.query.id
             }
         })
+        // flash_message(res,warn,)
         return res.redirect("/staff/displayProduct")
     }
     catch (error) {
@@ -140,6 +144,6 @@ async function deleteProduct(req, res) {
         where: { "product_uuid": req.query.id }
     })
         .catch(err => console.log(err));
-    console.log("Produt deleted")
+    console.log("Product deleted")
     return res.redirect('/staff/displayProduct')
 }
