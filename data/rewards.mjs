@@ -12,12 +12,12 @@ export class ModelReward extends Model{
 	static initialize(database) {
 		ModelReward.init({
 			"uuid"       : {type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
-            "name"       : {type: DataTypes.VARCHAR(30), allowNull: false},
-            "description": {type: DataTypes.VARCHAR(150), allowNull:false},
+            "name"       : {type: DataTypes.STRING(30), allowNull: false},
+            "description": {type: DataTypes.STRING(150), allowNull:false},
             "type"       : {type: DataTypes.ENUM("%","$"),defaultValue:"$"},
             "amount"     : {type: DataTypes.INTEGER(), allowNull: false},
             "duration"   : {type: DataTypes.INTEGER(),allowNull: false},
-            "price"      : {typr: DataTypes.INTEGER(), allowNull: false}
+            "price"      : {type: DataTypes.INTEGER(),allowNull: false},
 		}, {
 			"sequelize": database,
 			"modelName": "Rewards",

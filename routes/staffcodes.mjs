@@ -1,28 +1,80 @@
 import {ModelCode} from '../data/code.mjs';
 import { Router } from 'express';
+import Sequelize from 'sequelize';
 const router = Router();
 export default router;
 // retrieve codes page for staff
 router.get("/update",updatecodeform)
 router.post("/update",updatecode)
 router.get("/codes", rendercodes);
+router.get("/data", code_data)
 router.get("/create", createcodeform);
 router.post("/create", createcode);
-router.post("/delete", deletecode)
+router.get("/delete", deletecode)
 /**
  * render codes table
  * @param req {import('express').Request}
  * @param res {import('express').Response}
  * @returns 
  */
-async function rendercodes(req, res) {
+// async function rendercodes(req, res) {
+//     ModelCode.findAll().then((code) => {
+//         return res.render('staff/staffcodes.html', {
+//             codes_list: code
+//         });
+//     })
+// }
+async function  rendercodes(req, res) {
     ModelCode.findAll().then((code) => {
         return res.render('staff/staffcodes.html', {
-            codes_list: code
+            codes: code,
         });
-    })
+    }).catch(err => console.log(err)); // To catch no video ID
+    // res.render('staff/retrieveUsers.html');
 }
 
+
+const Op = Sequelize.Op
+
+/**
+ * 
+ * @param req {import('express').Request}
+ * @param res {import('express').Response}
+ * @returns 
+ */
+
+ async function code_data(req, res) {
+    /**
+     * @type {WhereOptions}
+     */
+    const condition = (req.query.search) ? {
+        [Op.or]: {
+            "code": { [Op.substring] : req.query.search },
+        }
+    } : undefined;
+
+    const total = await ModelCode.count({
+        where: condition
+    });
+
+    const codes = await ModelCode.findAll({
+        where: condition,
+        // offset: parseInt(req.query.offset),
+        // limit: parseInt(req.query.limit),
+        order: (req.query.sort) ? [[req.query.sort, req.query.order.toUpperCase()]] : undefined,
+        raw: true
+    })
+
+
+    return res.json({
+        "rows": codes,
+        // "total": users.length
+        "total": total
+    }
+)
+
+
+}
 
 
 /**

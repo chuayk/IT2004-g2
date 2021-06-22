@@ -1,5 +1,4 @@
 {% extends "layouts/base.html" %}
-{% block title %} {% endblock %}
 {% block PageContent %}
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -184,92 +183,143 @@
   #filter{
   display:inline;}
 </style>
-<div class="container">
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-xs-5">
-                        <h2>Code Test <b>Management</b></h2>
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="create" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>create new code</span></a>
-                    </div>
-                </div>
-            </div>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>valid?</th>
-        <th>Type</th>
-        <th>expires on</th>
-        <th>%/$ off</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for code in codes_list %}
-      <tr id="{{code.code}}">
-        <td>{{ code.code }}</td>
-        {% if code.check_valid() %}
-        <td style="color:green">
-        Valid
-        </td>
-        {% else %}
-        <td style="color:red">
-        Expired
-        </td>
-        {% endif %}
-        {% if code.type == "%" %}
-        <td>%</td>
-        {% elif code.type == "$" %}
-        <td>$</td>
-        {% endif %}
-        <td>{{code.expireon.getFullYear()}}-{{('0'+code.expireon.getMonth()).slice(-2)}}-{{('0'+code.expireon.getDate()).slice(-2)}}</td>
-        <td>{{ code.formatedamount }}</td>
-        </td>
-        <td><a href="update/?code={{code.code}}" class="btn btn-warning">edit</a></td>
-        <td>
-          <form action="delete/?code={{code.code}}" method="POST">
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{code.code}}">
-      Delete
-    </button>
 
-    <!-- The Modal -->
-    <div class="modal" id="myModal_{{code.code}}">
-      <div class="modal-dialog">
-        <div class="modal-content">
 
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Delete Confirmation</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-          <!-- Modal body -->
-          <div class="modal-body">
-            Are you sure you want to delete reward {{code.code}}?
-          </div>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <input type="submit"  class="btn btn-danger">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          </div>
 
-        </div>
-      </div>
+<!-- Bootstrap table  -->
+<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js"></script>
+
+
+<h1 class="display-4" style="text-align: center; padding-bottom: 25px; padding-top: 30px;font-style: ">Discount Code
+    Management </h1>
+
+
+
+
+
+
+    
+
     </div>
-  </form>
-
-        </td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-        </div>
     </div>
-</div>
+    </div>
+
+
+
+<br>
+<br>
+
+
+<hr>
+
+<div id="toolbar">
+    <a class="btn btn-primary" href="/staff/codes/create" role="button">Create code</a>
+    <!-- <button id="button" class="btn btn-danger">remove</button> -->
+  </div>
+<table
+
+id="table"
+data-show-refresh="true"
+data-auto-refresh="true"
+data-total-fields = "total"
+data-data-fields = "rows"
+data-server-sort ="true"
+data-toolbar="#toolbar"
+data-search="true"
+data-show-refresh="true"
+data-show-toggle="true"
+data-show-fullscreen="true"
+data-detail-view="true"
+data-detail-formatter="detailFormatter"
+data-minimum-count-columns="2"
+data-show-pagination-switch="true"
+data-side-pagination="server"
+data-pagination="true"
+data-id-field="id"
+data-page-list="[10, 25, 50, 100, all]"
+data-show-footer="true"
+  data-toggle="table"
+  data-url="/staff/codes/data">
+  <thead>
+    <tr>
+        <th data-field="state" data-checkbox="true"></th>
+        <th data-field="code" data-sortable="true">code </th>
+        <th data-field="type" data-sortable="true">type</th>
+        <th data-field="amount" data-sortable="true">%/¢</th>
+        <th data-field="action" data-formatter="actionFormatter">Action</th>
+
+
+
+
+    </tr>
+  </thead>
+</table>
+
+
+
+
+
+<script>
+
+var $table = $('#table')
+  var $button = $('#button')
+
+  $(function() {
+    $button.click(function () {
+      var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+        return row.code
+      })
+      $table.bootstrapTable('remove', {
+        field: 'code',
+        values: ids
+      })
+    })
+
+
+  })
+
+
+  function detailFormatter(index, row) {
+    var html = []
+    $.each(row, function (key, value) {
+      html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+    })
+    return html.join('')
+  }
+
+
+  function actionFormatter(index, row ){
+      var html = []
+      $.each(row, function(key, value) {
+          if (key == 'code') {
+              html.push('<a class="edit" href="http://localhost:3000/staff/codes/update?code=' + value + '" title="edit"><i class="fa fa-edit"></i></a>')
+              html.push('<a class="edit" href="http://localhost:3000/staff/codes/delete?code=' + value + '" title="edit"><i class="fa fa-trash"></i></a>')
+
+          }
+          
+          
+      })
+      return html.join("")
+  }
+
+
+  fetch("/staff/codes/data")
+    .then(function(resp) {
+        return resp.json();
+    }) 
+
+  </script>
 {% endblock %}
