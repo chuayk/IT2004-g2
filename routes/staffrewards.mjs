@@ -1,24 +1,24 @@
-import {ModelCode} from '../data/code.mjs';
+import {ModelReward} from '../data/rewards.mjs';
 import { Router } from 'express';
 const router = Router();
 export default router;
 // retrieve codes page for staff
-router.get("/update",updatecodeform)
-router.post("/update",updatecode)
-router.get("/codes", rendercodes);
-router.get("/create", createcodeform);
-router.post("/create", createcode);
-router.post("/delete", deletecode)
+// router.get("/update",updaterewardform)
+// router.post("/update",updatrewards)
+router.get("/rewards", renderrewards);
+router.get("/create", createrewardform);
+router.post("/create", createreward);
+// router.post("/delete", deletereward)
 /**
- * render codes table
+ * render rewards table
  * @param req {import('express').Request}
  * @param res {import('express').Response}
  * @returns 
  */
-async function rendercodes(req, res) {
-    ModelCode.findAll().then((code) => {
-        return res.render('staff/staffcodes.html', {
-            codes_list: code
+async function renderrewards(req, res) {
+    ModelReward.findAll().then((reward) => {
+        return res.render('staff/rewards/staffrewardss.html', {
+            codes_list: reward
         });
     })
 }
@@ -31,8 +31,8 @@ async function rendercodes(req, res) {
  * @param res {import('express').Response}
  * @returns 
  */
-async function createcodeform(req, res) {
-    return res.render('staff/createcode.html')
+async function createrewardform(req, res) {
+    return res.render('staff/rewards/createreward.html')
 };
 
 /**
@@ -41,29 +41,26 @@ async function createcodeform(req, res) {
  * @param res {import('express').Response}
  * @returns 
  */
-async function createcode(req, res) {
+async function createreward(req, res) {
     //validation
     try {
-        var codes = ModelCode.findAll()
         if (req.body.code.length != 10) {
             throw "code has to be 10 digits long";
         }
-        else if (req.body.code in codes) {
-            throw "code exists"
-        };
         //code created
         console.log(req.body)
-        const code = await ModelCode.create({
-            code: req.body.code,
+        const code = await ModelReward.create({
+            name: req.body.name,
+            description: req.body.description,
             type: req.body.type,
             amount: req.body.amount,
-            expireon: req.body.end
+            duration: req.body.duration
         });
-        return res.redirect("/staff/codes/codes")
+        return res.redirect("/staff/rewards/rewards")
     }
     catch (error) {
         console.error(error)
-        return res.redirect("/staff/codes/create")
+        return res.redirect("/staff/rewards/rewards")
     }
 
 };

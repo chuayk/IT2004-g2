@@ -1,0 +1,149 @@
+{% extends 'layouts/base.html' %}
+{% block PageContent %}
+
+
+<style>
+
+
+h1 {
+text-align: center;
+margin-bottom: 5px;
+}
+body{
+    background-color: #f5f5f5
+}
+
+.registration-form{
+	padding: 50px 0;
+}
+
+.registration-form form{
+    background-color: #fff;
+    max-width: 600px;
+    margin: auto;
+    padding: 50px 70px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .form-icon{
+	text-align: center;
+    background-color: #5891ff;
+    border-radius: 50%;
+    font-size: 40px;
+    color: white;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 50px;
+    line-height: 100px;
+}
+
+.registration-form .item{
+	border-radius: 20px;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+}
+
+.registration-form .create-account{
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.registration-form .social-media{
+    max-width: 600px;
+    background-color: #fff;
+    margin: auto;
+    padding: 35px 0;
+    text-align: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #9fadca;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .social-icons{
+    margin-top: 30px;
+    margin-bottom: 16px;
+}
+
+.registration-form .social-icons a{
+    font-size: 23px;
+    margin: 0 3px;
+    color: #5691ff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    line-height: 45px;
+}
+
+.registration-form .social-icons a:hover{
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+@media (max-width: 576px) {
+    .registration-form form{
+        padding: 50px 20px;
+    }
+
+    .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+    }
+}
+
+</style>
+
+<h1 class="display-4">Create Reward</h1>
+  <div class="registration-form">
+
+
+      <form method="POST" action="">
+        <div class="form-group">
+          <label for="name">name</label>
+          <input type="text" class="form-control" name="name" id="name" placeholder="" required >
+        </div>
+        <div class="form-group">
+            <label for="">type:</label>
+            <br>
+          <input type="radio" id="%" name="type" value="%"req>
+          <label for="%">%</label><br>
+          <input type="radio" id="$" name="type" value="$"required>
+          <label for="$">$</label><br>
+        </div>
+        <div class="form-group">
+          <label for="amount">amount(%/¢)</label>
+          <input type="number" id="amount" name="amount" placeholder=""  required>
+        </div>
+        <div class="form-group">
+          <label for="duration">duration</label>
+          <input type="number" id="duration" name="duration" placeholder=""  required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" name="description" rows="3"></textarea>
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary float-right"/>
+      </form>
+    <div class="social-media">
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
