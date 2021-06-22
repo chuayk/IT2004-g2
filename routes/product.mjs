@@ -2,8 +2,9 @@
 import { Router } from 'express';
 import { ModelProduct } from '../data/createProduct.mjs';
 import Sequelize from 'sequelize';
+import fs from 'fs';
 import { UploadTo, DeleteFile, DeleteFilePath, UploadFile, UploadProductImage } from '../utils/multer.mjs';
-
+import { flash_message } from '../helpers/flash-messenger.mjs';
 const router = Router();
 export default router;
 
@@ -39,14 +40,16 @@ async function createProductPost(req, res) {
                     category: req.body.category,
                     price: (req.body.price) *= 100, //in cents
                     stockCount: req.body.stockCount,
-                    description: req.body.description
+                    description: req.body.description,
+                    picUrl: req.file.path
                     
                 });
                 console.log(product.pname + " success db")
                 console.log(`File uploaded without problems`);
                
                 return res.render("staff/product/createProduct.html", {
-                    path: req.file.path
+                    path: req.file.path,
+                    savedDB: true,
                 });
             }
             catch (error) {
@@ -59,23 +62,6 @@ async function createProductPost(req, res) {
     });
 }
 
-// try {
-//     console.log(req.body)
-//     const product = await ModelProduct.create({
-//         pname: req.body.productName,
-//         category: req.body.category,
-//         price: (req.body.price) *= 100, //in cents
-//         stockCount: req.body.stockCount,
-//         description: req.body.description
-//     });
-//     console.log(product.pname + "success db")
-//     res.redirect('/staff/displayProduct');
-// }
-// catch (error) {
-//     console.error(error);
-//     return res.status(500).end();
-// };
-// };
 
 async function displayProduct(req, res) {
     ModelProduct.findAll().then((products) => {
@@ -121,8 +107,9 @@ async function displayProductData(req, res) {
 
 async function updateProduct(req, res) {
     //const productsss = await ModelProduct.findAll({where:{uuid:req.query.id}})
+    // const getproduct = await ModelProduct.findAll
     return res.render('staff/product/updateProduct.html', {
-        uuid: req.query.id,
+        product_uuid: req.query.id,
 
     });
 }
@@ -139,9 +126,10 @@ async function updateProductPost(req, res) {
             description: req.body.description
         }, {
             where: {
-                uuid: req.query.id
+                product_uuid: req.query.id
             }
         })
+        // flash_message(res,warn,)
         return res.redirect("/staff/displayProduct")
     }
     catch (error) {
@@ -153,9 +141,9 @@ async function updateProductPost(req, res) {
 
 async function deleteProduct(req, res) {
     ModelProduct.destroy({
-        where: { "uuid": req.query.id }
+        where: { "product_uuid": req.query.id }
     })
         .catch(err => console.log(err));
-    console.log("Produt deleted")
+    console.log("Product deleted")
     return res.redirect('/staff/displayProduct')
 }

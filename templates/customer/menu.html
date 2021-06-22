@@ -1,69 +1,90 @@
 {% extends "layouts/base.html" %}
 {% block PageContent %}
-{% block title %}Product Menu{% endblock %}
 {% block css %}
 <link rel="stylesheet" href="public/css/menustyle.css" />
 {% endblock %}
+<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+<script
+    src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/custom-view/bootstrap-table-custom-view.js"></script>
 
 
-<main role="main">
-    <!-- product page -->
-    <section class=" text-center">
-      <div class="container">
-        <h1>Products we sell </h1>
-        <p class="lead text-muted">We mainly sell bread,buns and cakes</p>
-      </div>
-    </section>
-
+<!-- product page -->
+<section class=" text-center">
     <div class="container">
-        <ul class="list-group list-group-horizontal align-items-stretch flex-wrap">
-            {%for product in product_list%}
-            <li class="list-group-item border-0">
-
-                <div class="card my-3">
-                        <div class="card-body">
-
-                            <img class="mx-auto d-block" width="80%"  src={{image}} >
-                            <p class="card-text">Name: {{product.id}} </p>
-                            <p class="card-text">Price: ${{product.price}}</p>
-                            <p class="card-text" >Available: {{product.stock_count}}</p>
-                            <p class="card-text" >Discription: <br> {{product.description}}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                    <div class="card-footer">
-                                        <form method="POST" action="" >
-                                            <div class="form-group">
-                                                <label for="quantity">Qty:</label>
-                                                <input type="number" id="quantity" name="quantity" min="1" max="5">
-                                            </div>
-
-
-                                            {% if product.stock_count <= 0  %}
-                                                <div class="btn-group">
-                                                    <input type="submit" value="Add to cart" class="btn btn-primary" disabled="disabled"/>
-                                                </div>
-
-                                            {% else %}
-                                                <div class="btn-group">
-                                                        <input type="submit" value="Add to cart" class="btn btn-primary btn-sm" />
-                                                </div>
-                                            {% endif %}
-                                        </form>
-                                    </div>
-                            </div>
-                        </div>
-
+        <h1>Products we sell </h1>
+        <p class="lead text-muted">We sell bread, buns and cakes</p>
+    </div>
+</section>
+<table id="table" data-search="true" data-pagination="true" data-page-size="6" data-show-custom-view="true"
+    data-custom-view="customViewFormatter" data-show-custom-view-button="false" >
+    <thead>
+        <tr>
+            <th data-field="pname">Name</th>
+            <th data-field="category">category</th>
+            <th data-field="price">Price</th>
+            <th data-field="stockCount">Stock Count</th>
+            <th data-field="description">Description</th>
+            <th data-field="picUrl" data-formatter="imageFormatter">Picture</th>
+        </tr>
+    </thead>
+</table>
+<template id="profileTemplate">
+    <div class="col-4 mt-3">
+        <div class="cardcontainer">
+            
+                    <div class="photo"><img src="%IMAGE%" alt="" class="card-img-top" ></div>
+                <div class="content">
+                    <h5 class="txt4 text-center">%NAME%</h5>
+                    <p class="txt4 text-center">$%PRICE%</p>
+                    <p class="txt2">Category: %CATEGORY%</p>
+                    <p  class="txt2">Available: %STOCKCOUNT%</p>
+                    <p class="txt2" >%DESCRIPTION%</p>
                 </div>
-                {% endfor %}
-        </ul>
+                <div class="footer">
+                    <p><a id="heart"><span class="like"><i class="fas fa-cart-plus"></i></span></a></p>
+                    <p class="txt3"><i class="far fa-clock"></i>10 Minutes Ago </p>
+                </div>
+         
         </div>
+    </div>
+</template>
 
+<script>
+    $(document).ready(function(){
+document.getElementById("heart").onclick = function(){
+document.querySelector(".fa-gratipay").style.color = "#E74C3C";
+};
+});
 
-  </div>
+    $(function () {
+        fetch("/staff/displayProduct-data")
+            .then(function (resp) {
+                return resp.json();
+            })
+            .then(function (data) {
+                var myData = data.rows
+                console.log(myData)
+                $('#table').bootstrapTable({
+                    data: myData
+                })
+            })
 
-
-
-</main>
-
-
-
-  {% endblock %}
+    })
+    
+    function customViewFormatter(data) {
+        var template = $('#profileTemplate').html()
+        var view = ''
+        $.each(data, function (i, row) {
+            view += template.replace('%NAME%', row.pname)
+                .replace('%IMAGE%', row.picUrl)
+                .replace('%PRICE%', (row.price/100).toFixed(2))
+                .replace('%CATEGORY%', row.category)
+                .replace('%DESCRIPTION%', row.description)
+                .replace('%STOCKCOUNT%', row.stockCount);
+        })
+        return `<div class="row mx-0">${view}</div>`
+    }
+</script>
+{% endblock %}

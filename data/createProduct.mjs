@@ -11,12 +11,13 @@ export class ModelProduct extends Model{
 	**/
 	static initialize(database) {
 		ModelProduct.init({
-			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
+			"product_uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
 			"pname"      :{ type: DataTypes.STRING(128), allowNull: false },
 			"category"       : { type: DataTypes.STRING(64),  allowNull: false },
 			"price"      : { type: DataTypes.INTEGER(), allowNull: false },
 			"stockCount"      : { type: DataTypes.INTEGER(128), allowNull: false },
 			"description"       : { type: DataTypes.STRING(256),  allowNull: false },
+			"picUrl"			: { type: DataTypes.STRING(256),  allowNull: false},
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 
 			// "password"   : { type: DataTypes.STRING(64),  allowNull: false },

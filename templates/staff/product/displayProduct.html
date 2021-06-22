@@ -229,7 +229,11 @@ table.table .avatar {
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
-
+{% if deleteProd == true %}
+<div class="alert alert-danger" role="alert">
+  Saved to DB successfully!
+</div>
+{% endif %}
 <h1 class="display-4" style="text-align: center; padding-bottom: 25px; padding-top: 30px; ">Inventory Management </h1>
 
 <div id="toolbar">
@@ -237,7 +241,6 @@ table.table .avatar {
 </div>
 
 <table
-
 id="table"
 data-total-fields = "total"
 data-data-fields = "rows"
@@ -260,8 +263,8 @@ data-show-footer="true"
   data-url="/staff/displayProduct-data">
   <thead>
     <tr>
-        <th data-field="state" data-checkbox="true"></th>
-        <th data-field="Picture" data-sortable="true">Picture </th>
+        <th data-field="state" data-checkbox="true"></th>     
+        <th data-field="picUrl"  data-sortable="false" data-formatter="imageFormatter">Picture</th>
         <th data-field="pname" data-sortable="true">Item Name </th>
         <th data-field="price" data-sortable="true">Price</th>
         <th data-field="category" data-sortable="true">Category</th>
@@ -279,14 +282,17 @@ var $table = $('#table')
   $(function() {
     $button.click(function () {
       var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-        return row.uuid
-      })
-      $table.bootstrapTable('remove', {
-        field: 'uuid',
-        values: ids
-      })
+        return row.product_uuid
     })
-  })
+    $table.bootstrapTable('remove', {
+        field: 'product_uuid',
+        values: ids
+    })
+})
+})
+function imageFormatter(value, row) {
+  return `<img src="..\\${value}" />`;
+}
   
   function detailFormatter(index, row) {
     var html = []
@@ -299,7 +305,7 @@ var $table = $('#table')
   function actionFormatter(index, row ){
       var html = []
       $.each(row, function(key, value) {
-          if (key == 'uuid') {
+          if (key == 'product_uuid') {
               html.push('<a class="edit" href="http://localhost:3000/staff/updateProduct?id=' + value + '" title="edit"><i class="fa fa-edit"></i></a>')
               html.push('<a class="edit" href="http://localhost:3000/staff/deleteProduct?id=' + value + '" title="edit"><i class="fa fa-trash"></i></a>')
 
@@ -314,9 +320,8 @@ var $table = $('#table')
     .then(function(resp) {
         return resp.json();
     })
-    .then({
-      
-    })
+
+
 
 
 
