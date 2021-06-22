@@ -159,7 +159,7 @@ async function review_data(req, res) {
 async function review (req, res) {
 
 	if (!res.locals.user){
-		return res.redirect('/error403')
+		return res.redirect('/auth/login')
 	}
 
 	if (res.locals.user.verified == 0)

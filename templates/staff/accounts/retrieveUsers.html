@@ -244,8 +244,14 @@
     integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
 
-<script
-    src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF/jspdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+
+
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
 
 
 <h1 class="display-4" style="text-align: center; padding-bottom: 25px; padding-top: 30px;font-style: ">User Account
@@ -318,7 +324,8 @@
     <a class="btn btn-primary" href="/staff/accounts/createUsers" role="button">Add new user</a>
     <!-- <button id="button" class="btn btn-danger">remove</button> -->
 </div>
-<table id="table" data-show-refresh="true" data-auto-refresh="true" data-total-fields="total" data-data-fields="rows"
+<table id="table" data-show-refresh="true"
+data-show-export="true" data-auto-refresh="true" data-total-fields="total" data-data-fields="rows"
     data-server-sort="true" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="true"
     data-show-fullscreen="true" data-detail-view="true" data-detail-formatter="detailFormatter"
     data-minimum-count-columns="2" data-show-pagination-switch="true" data-side-pagination="server"
