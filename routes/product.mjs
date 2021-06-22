@@ -107,9 +107,10 @@ async function displayProductData(req, res) {
 
 async function updateProduct(req, res) {
     //const productsss = await ModelProduct.findAll({where:{uuid:req.query.id}})
-    // const getproduct = await ModelProduct.findAll
+    //const getproduct = await ModelProduct.findOne({where:{pname:pname}})
     return res.render('staff/product/updateProduct.html', {
         product_uuid: req.query.id,
+        //pname:getproduct
 
     });
 }
