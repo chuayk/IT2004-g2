@@ -17,8 +17,13 @@
         <p class="lead text-muted">We sell bread, buns and cakes</p>
     </div>
 </section>
+<div id="toolbar" class="btn-group" role="group" aria-label="Basic example">
+    <button id="buttonCake" class="btn btn-secondary">Cake</button>
+    <button id="buttonBun" class="btn btn-secondary">Bun</button>
+    <button id="buttonBread" class="btn btn-secondary">Bread</button>
+</div>
 <table id="table" data-search="true" data-pagination="true" data-page-size="6" data-show-custom-view="true"
-    data-custom-view="customViewFormatter" data-show-custom-view-button="false" >
+    data-custom-view="customViewFormatter" data-show-custom-view-button="false" data-search-align ="right">
     <thead>
         <tr>
             <th data-field="pname">Name</th>
@@ -33,30 +38,30 @@
 <template id="profileTemplate">
     <div class="col-4 mt-3">
         <div class="cardcontainer">
-            
-                    <div class="photo"><img src="%IMAGE%" alt="" class="card-img-top" ></div>
-                <div class="content">
-                    <h5 class="txt4 text-center">%NAME%</h5>
-                    <p class="txt4 text-center">$%PRICE%</p>
-                    <p class="txt2">Category: %CATEGORY%</p>
-                    <p  class="txt2">Available: %STOCKCOUNT%</p>
-                    <p class="txt2" >%DESCRIPTION%</p>
-                </div>
-                <div class="footer">
-                    <p><a id="heart"><span class="like"><i class="fas fa-cart-plus"></i></span></a></p>
-                    <p class="txt3"><i class="far fa-clock"></i>10 Minutes Ago </p>
-                </div>
-         
+
+            <div class="photo"><img src="%IMAGE%" alt="" class="card-img-top"></div>
+            <div class="content">
+                <h5 class="txt4 text-center">%NAME%</h5>
+                <p class="txt4 text-center">$%PRICE%</p>
+                <p class="txt2">Category: %CATEGORY%</p>
+                <p class="txt2">Available: %STOCKCOUNT%</p>
+                <p class="txt2">%DESCRIPTION%</p>
+            </div>
+            <div class="footer">
+                <p><a id="heart"><span class="like"><i class="fas fa-cart-plus"></i></span></a></p>
+                <p class="txt3"><i class="far fa-clock"></i>10 Minutes Ago </p>
+            </div>
+
         </div>
     </div>
 </template>
 
 <script>
-    $(document).ready(function(){
-document.getElementById("heart").onclick = function(){
-document.querySelector(".fa-gratipay").style.color = "#E74C3C";
-};
-});
+    $(document).ready(function () {
+        document.getElementById("heart").onclick = function () {
+            document.querySelector(".fa-gratipay").style.color = "#E74C3C";
+        };
+    });
 
     $(function () {
         fetch("/staff/displayProduct-data")
@@ -72,19 +77,45 @@ document.querySelector(".fa-gratipay").style.color = "#E74C3C";
             })
 
     })
-    
+
     function customViewFormatter(data) {
         var template = $('#profileTemplate').html()
         var view = ''
         $.each(data, function (i, row) {
             view += template.replace('%NAME%', row.pname)
                 .replace('%IMAGE%', row.picUrl)
-                .replace('%PRICE%', (row.price/100).toFixed(2))
+                .replace('%PRICE%', (row.price / 100).toFixed(2))
                 .replace('%CATEGORY%', row.category)
                 .replace('%DESCRIPTION%', row.description)
                 .replace('%STOCKCOUNT%', row.stockCount);
         })
         return `<div class="row mx-0">${view}</div>`
     }
+    var $table = $('#table')
+    var $button = $('#buttonCake')
+    $(function () {
+        $button.click(function () {
+            $table.bootstrapTable('filterBy', {
+                category: ['cake']
+            })
+        })
+    })
+
+    $(function () {
+        $('#buttonBun').click(function () {
+            $table.bootstrapTable('filterBy', {
+                category: ['bun']
+            })
+        })
+    })
+
+    $(function () {
+        $('#buttonBread').click(function () {
+            $table.bootstrapTable('filterBy', {
+                category: ['bread']
+            })
+        })
+    })
+
 </script>
 {% endblock %}
