@@ -20,18 +20,19 @@ import { ModelUser } from '../data/user.mjs';
 import Sequelize from 'sequelize';
 import multer from 'multer';
 var upload = multer({ dest: 'public/userPic' })
+import fs from 'fs';
 
 // rout to product.mjs -yh
 // import RouterWalkInUser from '../routes/WalkInUser.mjs'
 // router.use("/walkInUser", RouterWalkInUser)
 
-router.get("/accounts/list",                                    viewUser_page);
-router.get("/accounts/list/data",                               viewUser_data);
-router.get("/accounts/createUsers",                             createUser_page);
-router.post("/accounts/createUsers", upload.single('avatar'),   createUser_process);
-router.get("/accounts/deleteUser",                              deleteUser_process);
-router.get("/accounts/updateUsers",                             updateUser_page);
-router.post("/accounts/updateUsers",                            updateUser_process);
+router.get("/accounts/list", viewUser_page);
+router.get("/accounts/list/data", viewUser_data);
+router.get("/accounts/createUsers", createUser_page);
+router.post("/accounts/createUsers", upload.single('avatar'), createUser_process);
+router.get("/accounts/deleteUser", deleteUser_process);
+router.get("/accounts/updateUsers", updateUser_page);
+router.post("/accounts/updateUsers", upload.single('avatar'), updateUser_process);
 
 
 
@@ -39,13 +40,13 @@ router.post("/accounts/updateUsers",                            updateUser_proce
 
 async function createUser_page(req, res) {
 
-    
+
     // Enable this to prevent guests from accessing the page.
     // if (!res.locals.user || res.locals.user.role == "Guest"){
-	// 	return res.redirect('/error403')
-	// }
+    // 	return res.redirect('/error403')
+    // }
 
-    
+
     return res.render('staff/accounts/createUsers.html', {
     });
 }
@@ -81,8 +82,8 @@ async function createUser_process(req, res) {
                         }
 
                         else {
-                            ModelUser.create({ username: req.body.username, role: req.body.role, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: Hash.sha256().update(req.body.email).digest("hex"),phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2,4), urlPic: req.file.path})
-                            .then(user => {
+                            ModelUser.create({ username: req.body.username, role: req.body.role, email: req.body.email, password: Hash.sha256().update(req.body.password).digest("hex"), verification_hash: Hash.sha256().update(req.body.email).digest("hex"), phoneNumber: req.body.number, address: req.body.address, phoneNumber_pin: Math.random().toString().substr(2, 4), urlPic: req.file.path })
+                                .then(user => {
                                     // alertMessage(res, 'success', user.name + ' added. Please login', 'fas fa-sign-in-alt', true);
                                     return res.redirect('/staff/accounts/list')
                                 })
@@ -102,14 +103,14 @@ async function createUser_process(req, res) {
  * @param res {import('express').Response}
  * @returns 
  */
- async function deleteUser_process(req, res) {
+async function deleteUser_process(req, res) {
     // Retrieve ID from URL
-ModelUser.destroy({
-    where: { "username": req.query.id }
-})
-    .catch(err => console.log(err));
-console.log("User deleted")
-return res.redirect('/staff/accounts/list')
+    ModelUser.destroy({
+        where: { "username": req.query.id }
+    })
+        .catch(err => console.log(err));
+    console.log("User deleted")
+    return res.redirect('/staff/accounts/list')
 }
 
 /**
@@ -120,23 +121,29 @@ return res.redirect('/staff/accounts/list')
  */
 async function updateUser_page(req, res) {
 
-    
+
     // Enable this to prevent guests from accessing the page.
     // if (!res.locals.user || res.locals.user.role == "Guest"){
-	// 	return res.redirect('/error403')
-	// }
+    // 	return res.redirect('/error403')
+    // }
 
     return res.render('staff/accounts/updateUsers.html', {
-        username: req.query.id
+        username: req.query.id,
+
     });
 }
 
 
 async function updateUser_process(req, res) {
 
-    
-    // Retrieve ID from URL
-    console.log(req.body.role);
+// if req.body.username // email == user.username // email, let him pass .
+    let user = await ModelUser.findOne({ where: {username: req.query.id}})
+    console.log(user.uuid)
+
+    if ( req.body.email == user.email || req.body.password == user.password) {
+
+    // Delete user previous image
+    fs.unlinkSync(user.urlPic)
 
     ModelUser.update({
         username: req.body.username,
@@ -145,14 +152,71 @@ async function updateUser_process(req, res) {
         phoneNumber: req.body.number,
         address: req.body.address,
         role: req.body.role,
-        accountStatus: req.body.status
+        accountStatus: req.body.status,
+        urlPic: req.file.path
     }, {
-        where: {
-            username: req.query.id
-        }
+        where: {username: req.query.id}
     })
-        .catch(err => console.log(err));
+    
+        .catch(err => console.log(err)
+        );
+
     return res.redirect('/staff/accounts/list')
+    } 
+    else
+    {
+
+
+	ModelUser.findOne({ where: { email: req.body.email } })
+		.then(user => {
+			if (user) {
+				console.log("email already registered.")
+				return res.render('staff/accounts/updateUsers.html', {
+					registeredEmail: true,
+				});
+			}
+    
+	ModelUser.findOne({ where: { username: req.body.username } })
+    .then(user => {
+        if (user) {
+            console.log("username already registered.")
+            return res.render('staff/accounts/updateUsers.html', {
+                registeredUsername: true,
+            });
+        }
+        
+
+        else{
+
+    // Retrieve ID from URL
+
+    fs.unlinkSync(user.urlPic)
+
+    
+    ModelUser.update({
+        username: req.body.username,
+        email: req.body.email,
+        password: Hash.sha256().update(req.body.password).digest("hex"),
+        phoneNumber: req.body.number,
+        address: req.body.address,
+        role: req.body.role,
+        accountStatus: req.body.status,
+        urlPic: req.file.path
+    }, {
+        where: {username: req.query.id}
+    })
+    
+        .catch(err => console.log(err)
+        );
+
+    return res.redirect('/staff/accounts/list')
+
+
+        }
+    }
+    );
+});
+    }
 }
 
 
@@ -160,8 +224,8 @@ async function viewUser_page(req, res) {
 
     // Enable this to prevent guests from accessing the page.
     // if (!res.locals.user || res.locals.user.role == "Guest"){
-	// 	return res.redirect('/error403')
-	// }
+    // 	return res.redirect('/error403')
+    // }
 
     ModelUser.findAll().then((user) => {
         return res.render('staff/accounts/retrieveUsers.html', {
@@ -181,7 +245,7 @@ const Op = Sequelize.Op
  * @returns 
  */
 
- async function viewUser_data(req, res) {
+async function viewUser_data(req, res) {
 
     // const users = await ModelUser.findAll({raw: true});
     /**
@@ -189,8 +253,8 @@ const Op = Sequelize.Op
      */
     const condition = (req.query.search) ? {
         [Op.or]: {
-            "username": { [Op.substring] : req.query.search },
-            "email": { [Op.substring]: req.query.search},
+            "username": { [Op.substring]: req.query.search },
+            "email": { [Op.substring]: req.query.search },
         }
     } : undefined;
 
@@ -212,7 +276,7 @@ const Op = Sequelize.Op
         // "total": users.length
         "total": total
     }
-)
+    )
 
 
 }

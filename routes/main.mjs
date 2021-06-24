@@ -1,11 +1,16 @@
 import { Router } from 		'express';
 import twilio from 			'twilio';
 
+
 const router = Router();
 export default router;
 
 import { ModelUser } from 	'../data/user.mjs';
 import Sequelize from 		'sequelize';
+import multer from 'multer';
+var upload = multer({ dest: 'public/userPic' })
+import fs from 'fs';
+import Hash from 'hash.js';
 
 // Imports OP from sequelize
 
@@ -38,15 +43,21 @@ router.use("/staff", RouterStaff)
 
 //	TODO:	Common URL paths here
 
-router.get("/review",             review);
-router.get("/review-data",        review_data);
+router.get("/review",             					review);
+router.get("/review-data",        					review_data);
+router.get("/profile",             					profile);
+router.post("/profile", upload.single('avatar'), 	profile_data);
+
+
 
 // Confirm email page before accessing services
 
 
 
 router.get("/confirmEmail", async function(req, res) {
-	if (res.locals.user){
+
+	if (res.locals.user.emailVerified != 1) {
+		// Check whether email hash from url parameter is euql to user's verification hash.
 		if (res.locals.user.verification_hash == req.query.id)
 		{
 			ModelUser.update({
@@ -60,14 +71,16 @@ router.get("/confirmEmail", async function(req, res) {
 			return res.redirect('/')
 			
 		}
-
-
+	}
+	else {
+		return res.redirect('/')
 	}
 	return res.render('confirmEmail.html', {
 	});
 
 	
 });
+
 
 
 
@@ -156,6 +169,110 @@ async function review_data(req, res) {
 
 }
 
+async function profile (req, res) {
+
+	return res.render('customerProfile.html', {
+		user: res.locals.user
+	});
+}
+
+
+// res.locals.user
+
+async function profile_data (req, res) {
+console.log( res.locals.user.username)
+
+// if req.body.username // email == user.username // email, let him pass .
+
+let user = await ModelUser.findOne({ where: {username: res.locals.user.username}})
+
+
+console.log(req.body.email)
+console.log(user.email)
+if ( req.body.email == user.email || req.body.password == user.password) {
+
+console.log("yourmom")
+// Delete user previous image
+fs.unlinkSync(user.urlPic)
+
+ModelUser.update({
+	username: req.body.username,
+	email: req.body.email,
+	password: Hash.sha256().update(req.body.password).digest("hex"),
+	phoneNumber: req.body.number,
+	address: req.body.address,
+	urlPic: req.file.path
+}, {
+	where: {username: res.locals.user.username}
+})
+
+	.catch(err => console.log(err)
+	);
+
+return res.redirect('/profile')
+} 
+else
+{
+
+
+ModelUser.findOne({ where: { email: res.locals.user.email} })
+	.then(user => {
+		if (user) {
+			console.log("email already registered.")
+			return res.render('customerProfile.html', {
+				registeredEmail: true,
+			});
+		}
+
+ModelUser.findOne({ where: { username: req.body.username } })
+.then(user => {
+	if (user) {
+		console.log("username already registered.")
+		return res.render('customerProfile.html', {
+			registeredUsername: true,
+		});
+	}
+	
+
+	else{
+
+// Retrieve ID from URL
+
+fs.unlinkSync(user.urlPic)
+
+
+ModelUser.update({
+	username: req.body.username,
+	email: req.body.email,
+	password: Hash.sha256().update(req.body.password).digest("hex"),
+	phoneNumber: req.body.number,
+	address: req.body.address,
+	urlPic: req.file.path
+}, {
+	where: {username: req.query.id}
+})
+
+	.catch(err => console.log(err)
+	);
+
+return res.redirect('/profile')
+
+
+	}
+}
+);
+});
+}
+
+
+
+
+
+
+
+
+}
+
 async function review (req, res) {
 
 	if (!res.locals.user){
@@ -170,6 +287,7 @@ async function review (req, res) {
     ModelUser.findAll().then((user) => {
 		return res.render('customerReview.html', {
 		   users_list: user,
+		   user: res.locals.user
 	   });
 	   }).catch(err => console.log(err));
 }

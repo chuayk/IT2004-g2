@@ -124,29 +124,35 @@ body{
 
 
 <div class="registration-form">
-    <form method="POST" action="">
+    <form method="POST" action="" enctype="multipart/form-data">
         <div>
-            <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" class="avatar"
+            <img src="https://i.ibb.co/hXPJVWw/edit.png" class="avatar"
                  alt="Avatar">
         </div>
         <div>
         </div>
         <div class="form-group">
-            <p style="text-align: center;">{{ username }}</p>
+            <p style="text-align: center;"><strong>{{ username }}</strong></p>
         </div>
         <!--        <div>-->
         <!--            <label>Password</label><br>-->
         <!--            <input readonly value="{{ password }}" style="width: 100%; background-color: #e9ecef; border-width: 0.2px">-->
         <!--        </div>-->
         <!-- Phone number & billing address; set at where? -->
+        
+    <div class="form-group">
+        <label id="avatar" name="avatar">Profile Image</label>
+          <input class="form-control" type="file" accept="" id="avatar" name="avatar" required/>
+    </div>  
+  
         <div class="form-group">
 			<label for="name">Username</label>
-			<input type="text" class="form-control" name="username" value="{{username}}" required>       
+			<input type="text" class="form-control" name="username" value="{{user.username}}" required>       
         </div>
 
         <div class="form-group">
 			<label for="email">Email</label>
-			<input type="email" name="email" class="form-control" value="{{email}}" required>     
+			<input type="email" name="email" class="form-control" value="{{user.email}}" required>     
          </div>
 
         <div class="form-group">
@@ -155,11 +161,11 @@ body{
         </div>
         <div class="form-group">
             <label for="number">Contact Number</label>
-            <input type="text" name="number" class="form-control" value="{{number}}"minlength="8"  required>   
+            <input type="text" name="number" class="form-control" value="{{user.number}}"minlength="8"  required>   
               </div>
           <div class="form-group">
             <label for="address">Mailing Address</label>
-            <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3" title="5 characters minimum"maxlength="30" minlength="5" value= "{{address}}"></textarea>
+            <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3" title="5 characters minimum"maxlength="30" minlength="5" value= "{{user.address}}"></textarea>
               </div>
         <div class="form-group">
             <label for="role">Role</label>
@@ -188,12 +194,69 @@ body{
     </div>
 </div>
 
+<!-- Modal for registered email -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: red;">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Warning!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: red;">This email has already been registered. Please use another one.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+
+<!-- Modal for registered username -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: red">
+        <h5 class="modal-title" id="exampleModalLabel2" style="color: white;">Warning!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: red;">This username has already been registered. Please use another one.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% if registeredEmail == true %}
+<script>
+  $('#exampleModal').modal('show');
+</script>
+{% endif %}
+
+{% if registeredUsername == true %}
+<script>
+  $('#exampleModal2').modal('show');
+</script>
+{% endif %}
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script src="assets/js/script.js"></script>
+
+
 
 
 {% endblock %}
