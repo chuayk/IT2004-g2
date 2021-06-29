@@ -11,8 +11,11 @@ export default router;
 import RouterProduct from '../routes/product.mjs'
 router.use("/", RouterProduct)
 
-import RouterReward from '../routes/staffcodes.mjs'
-router.use("/codes", RouterReward)
+import Routercode from '../routes/staffcodes.mjs'
+router.use("/codes", Routercode)
+
+import RouterReward from '../routes/staffrewards.mjs'
+router.use("/rewards", RouterReward)
 
 // Imports model user for database
 import { ModelUser } from '../data/user.mjs';

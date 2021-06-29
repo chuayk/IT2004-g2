@@ -64,7 +64,12 @@ const Op = Sequelize.Op
         order: (req.query.sort) ? [[req.query.sort, req.query.order.toUpperCase()]] : undefined,
         raw: true
     })
-
+    //convert from cents to dollars
+    codes.forEach(code => {
+      if(code.type == "$"){
+          code.amount = code.amount/100
+      }
+    });
 
     return res.json({
         "rows": codes,

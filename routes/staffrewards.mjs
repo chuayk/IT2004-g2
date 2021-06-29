@@ -44,10 +44,6 @@ async function createrewardform(req, res) {
 async function createreward(req, res) {
     //validation
     try {
-        if (req.body.code.length != 10) {
-            throw "code has to be 10 digits long";
-        }
-        //code created
         console.log(req.body)
         const code = await ModelReward.create({
             name: req.body.name,
