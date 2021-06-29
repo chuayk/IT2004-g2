@@ -30,11 +30,11 @@ function FilterFile(type, req, file, result) {
 /** Where the files are going to be located */
 // export const Path = `dynamic`;
 /** Multer handler for uploading arbitrary files */
-export const UploadFile         = Multer({ dest:   `${Path}/file` });
+export const UploadFile         = Multer({ dest:   `${process.cwd()}/dynamic/file` });
 /** Multer handler for uploading profile images */
-export const UploadProfileImage = Multer({ dest:   `${Path}/profile`, fileFilter: FilterFile.bind(this, "image") });
+export const UploadProfileImage = Multer({ dest:   `${process.cwd()}/dynamic/profile`, fileFilter: FilterFile.bind(this, "image") });
 /** Multer handler for uploading product images */
-export const UploadProductImage = Multer({ dest:   `${Path}/product`, fileFilter: FilterFile.bind(this, "image") });
+export const UploadProductImage = Multer({ dest:   `${process.cwd()}/dynamic/product`, fileFilter: FilterFile.bind(this, "image") });
 const storage = Multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/productpic')
